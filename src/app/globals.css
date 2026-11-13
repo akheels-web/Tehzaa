@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-antique-gold: #90643d;
+  --color-burgundy: #6b292d;
+  --color-warm-ivory: #f4ede2;
+  --color-cream: #faf7f2;
+  --color-deep-emerald: #263b32;
+  --color-dark-charcoal: #282522;
+  --color-muted-taupe: #806b56;
+}
+
+html {
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background-color: #f4ede2;
+  color: #282522;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid #90643d;
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: #90643d;
+  color: #faf7f2;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f4ede2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 107, 86, 0.55);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #90643d;
+}
+
+/* Editorial Typography & Architectural Hairline Utilities */
+@layer utilities {
+  .editorial-kicker {
+    @apply text-xs font-sans font-medium tracking-[0.02em] text-gold-dark;
+  }
+
+  .editorial-heading {
+    @apply font-serif font-medium tracking-[-0.02em] text-charcoal;
+  }
+
+  .hairline-gold {
+    border-color: rgba(144, 100, 61, 0.25);
+  }
+
+  .hairline-divider {
+    height: 1px;
+    background-color: rgba(144, 100, 61, 0.3);
+  }
+
+  .transition-editorial {
+    transition-property: color, background-color, border-color, opacity, transform;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+.border-gold-subtle {
+  border-color: rgba(144, 100, 61, 0.25);
+}
