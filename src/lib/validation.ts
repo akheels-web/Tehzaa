@@ -11,7 +11,15 @@ export const EVENT_TYPE_OPTIONS = [
   },
   {
     value: "Hyderabadi Nikkah & Walima",
-    label: "Hyderabadi Nikkah & Walima",
+    label: "Hyderabadi Nikkah, Sanchaq & Walima",
+  },
+  {
+    value: "Anand Karaj / Sikh Wedding",
+    label: "Anand Karaj / Sikh Ceremony & Reception",
+  },
+  {
+    value: "Christian Wedding & Reception",
+    label: "Christian Cathedral / Garden Wedding & Reception",
   },
   {
     value: "Engagement",
@@ -19,15 +27,15 @@ export const EVENT_TYPE_OPTIONS = [
   },
   {
     value: "Sangeet & Haldi",
-    label: "Sangeet, Mehendi & Haldi",
+    label: "Sangeet, Mehendi, Haldi & Dholki",
   },
   {
     value: "Reception",
-    label: "Grand Reception",
+    label: "Grand Reception / Walima",
   },
   {
     value: "Floral Decoration",
-    label: "Floral & Mandap Decoration",
+    label: "Floral & Mandap / Mehrab Decoration",
   },
   {
     value: "Catering",
@@ -35,11 +43,15 @@ export const EVENT_TYPE_OPTIONS = [
   },
   {
     value: "Baraat",
-    label: "Baraat & Grand Entries",
+    label: "Baraat, Marfa & Grand Entries",
   },
   {
     value: "Seemantham / Baby Shower",
     label: "Seemantham / Godh Bharai / Baby Shower",
+  },
+  {
+    value: "Aqiqah / Bismillah / Family Milestone",
+    label: "Aqiqah, Bismillah & Family Milestone",
   },
   {
     value: "Naming Ceremony",
@@ -67,6 +79,8 @@ export const EVENT_TYPES = [
   "Telugu & South Indian Weddings",
   "North Indian / Punjabi / Marwari Ceremonies",
   "Hyderabadi Nikkah & Walima",
+  "Anand Karaj / Sikh Wedding",
+  "Christian Wedding & Reception",
   "Wedding",
   "Reception",
   "Floral Decoration",
@@ -76,6 +90,7 @@ export const EVENT_TYPES = [
   "Corporate Event",
   "Birthday",
   "Seemantham / Baby Shower",
+  "Aqiqah / Bismillah / Family Milestone",
   "Baby Shower",
   "Naming Ceremony",
   "Housewarming",

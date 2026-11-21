@@ -2,217 +2,206 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
+import {
+  CharminarSkylineCrest,
+  DeccaniArchFrame,
+  HeritageGreetingBanner,
+  TehzeebDivider,
+} from "@/components/deccani/DeccaniMotifs";
+import { DeccaniCraftInteractive } from "@/components/about/DeccaniCraftInteractive";
 
 export const metadata = {
-  title: "About Us | Tehzaa Celebrations — The Philosophy of Tehzeeb in Hyderabad",
+  title: "About Us | Tehzaa Celebrations — Born & Based in Hyderabad",
   description:
-    "Discover Tehzaa Celebrations in Hyderabad. Rooted in the ethos of Tehzeeb, we craft luxury Telugu, North Indian, Hyderabadi, and multi-cultural weddings, culinary feasts, and corporate gatherings.",
+    "Meet Tehzaa Celebrations in Jubilee Hills, Hyderabad. Honest planning, fresh flowers, isolated Veg/Non-Veg kitchens, and warm Ganga-Jamuni hospitality across all faiths.",
 };
 
 export default function AboutPage() {
-  const ethosPillars = [
+  const values = [
     {
       num: "01",
-      title: "Tehzeeb — Refinement & Warmth",
+      title: "Warmth Before Showoff",
       description:
-        "More than etiquette, Tehzeeb is the unspoken grace with which a host welcomes every generation—ensuring elders are honored, guests feel cherished, and every ritual unfolds calmly.",
+        "Grand architecture means nothing if elders wait for water or cold plates. Respect and ease come first.",
     },
     {
       num: "02",
-      title: "Rewayat — Living Cultural Fluency",
+      title: "Fluency Across All Homes",
       description:
-        "Hyderabad is a mosaic of heritage. Our team works fluently across Telugu Muhurtham customs, Marwari & Punjabi traditions, Deccani Nikkah & Walima rituals, Christian vows, and Anand Karaj ceremonies.",
+        "We know why Sanchaq thaals matter, when Telugu Jeelakarra-Bellam strikes, and how quiet an Anand Karaj morning should stay.",
     },
     {
       num: "03",
-      title: "Nafees — Architectural Restraint",
+      title: "Zero Plastic Shortcuts",
       description:
-        "True luxury breathes. We favor natural botanicals, hand-woven jasmine, raw brass, textured linens, and sculpted light over repetitive commercial templates.",
+        "Real mango leaves, fragrant morning jasmine, copper vessels, and breathable linen instead of recycled foam cutouts.",
     },
     {
       num: "04",
-      title: "Itminaan — Complete Peace of Mind",
+      title: "Relaxed Host Families",
       description:
-        "From vendor logistics and venue clearances to segregated Pure Vegetarian kitchens and protocol timing, we carry the operational weight so your family stays present in the moment.",
+        "When parents actually sit down and eat hot food alongside guests without checking watches, we know we nailed it.",
     },
   ];
 
-  const craftDisciplines = [
+  const teams = [
     {
-      label: "Spatial & Floral Design",
-      title: "Hand-Built Mandaps & Botanical Courtyards",
+      num: "01",
+      label: "Decor & Floral Crew",
+      title: "Telugu Mandapams, Nikkah Arches & Sunset Lawns",
       description:
-        "Our spatial architects study sightlines, natural daylight, and venue acoustics before sketching each Kalyana Mandapam, Nikkah canopy, or Haldi lounge—using fresh blooms sourced daily.",
-      image: "/images/floral-mandap-indian.webp",
-      alt: "Hand-crafted Indian floral mandap installation in Hyderabad",
+        "Architects, flower weavers, and lighting riggers working together across Chowmahalla, Falaknuma, Taramati Baradari, and home terraces.",
+      image: "/images/real-taramati-baradari.webp",
+      alt: "Original photograph of Taramati Baradari twelve-arched pavilion overlooking Golconda corridor",
     },
     {
-      label: "Culinary & Kitchen Craft",
-      title: "Authentic Regional Feasts Under One Roof",
+      num: "02",
+      label: "Culinary Masters",
+      title: "Deccani Khansamas + Separate Pure Veg Brigade",
       description:
-        "Traditional Hyderabadi copper-deg dum cooking sits beside dedicated Telugu banana-leaf Vindhu kitchens, royal North Indian spreads, and strictly segregated Pure Vegetarian & Jain preparation zones.",
-      image: "/images/catering-indian-thali.webp",
-      alt: "Traditional Indian ceremonial banana-leaf Vindhu Bhojanam and thali",
+        "Old-city coal-dum masters running hand in hand with Andhra-Telangana Arati Aku cooks and isolated Pure Veg / Jain kitchen leads.",
+      image: "/images/hyd-muslim-dawat-spread.webp",
+      alt: "Hyderabadi Dum Biryani, Sufiyani Biryani, Lukhmi, Pathar ka Gosht, and Qubani ka Meetha",
     },
     {
-      label: "Processions & Production",
-      title: "Poise, Timing & Technical Precision",
+      num: "03",
+      label: "Ground Directors",
+      title: "Baraats, Marfa Bands & Clockwork Timing",
       description:
-        "Whether directing a jubilant Dhol-led Baraat, a serene Phoolon ki Chadar walkway, or an enterprise keynote in HITEC City, our production leads run every cue on disciplined timelines.",
+        "Calm onsite captains running sound limits, priest timing, Baraat queues, and HITEC City corporate audio cues seamlessly.",
       image: "/images/bridal-entry-indian.webp",
-      alt: "Bridal arrival beneath a traditional floral chadar",
+      alt: "Bridal entry beneath a cascading floral Phoolon ki Chadar",
     },
   ];
 
   return (
-    <div className="bg-ivory text-charcoal pt-24">
-      {/* 1. Editorial Page Header */}
-      <section className="py-16 sm:py-24 border-b border-gold/25 bg-cream">
+    <div className="bg-alabaster text-ink">
+      {/* 1. Alabaster Architectural Header */}
+      <section className="pt-28 lg:pt-32 pb-16 sm:pb-20 border-b border-stone-line bg-alabaster">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-8 space-y-5">
-              <p className="editorial-kicker">Our heritage &amp; philosophy</p>
-              <h1 className="font-serif font-medium tracking-[-0.02em] text-4xl sm:text-6xl lg:text-[64px] leading-[1.06] text-charcoal">
-                Where Grace Meets{" "}
-                <span className="text-burgundy">Celebration</span>
+            <div className="lg:col-span-8 space-y-4">
+              <HeritageGreetingBanner theme="light" />
+              <span className="editorial-kicker block pt-1">
+                Dil se Hyderabadi
+              </span>
+              <h1 className="display-hero text-ink">
+                Real People Behind{" "}
+                <span className="editorial-italic">
+                  Hyderabad&apos;s Celebrations
+                </span>
               </h1>
             </div>
-            <div className="lg:col-span-4">
-              <p className="text-sm sm:text-base text-charcoal/75 leading-relaxed">
-                An editorial wedding and event atelier in Hyderabad, shaped by cultural
-                reverence, architectural beauty, and regional gastronomy.
+            <div className="lg:col-span-4 lg:pb-2">
+              <p className="editorial-body">
+                A wedding, food, and event studio out of Road No. 36, Jubilee Hills — making multi-faith Hyderabadi celebrations joyful, easy, and deeply personal.
               </p>
             </div>
           </div>
 
-          <div className="mt-12 relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-gold/25">
-            <Image
-              src="/images/hero-indian-wedding.webp"
-              alt="Candlelit heritage courtyard styled by Tehzaa Celebrations in Hyderabad"
-              fill
-              priority
-              className="object-cover"
-            />
+          <div className="mt-12 gallery-frame shadow-gallery">
+            <div className="relative aspect-[21/9] w-full overflow-hidden bg-limestone">
+              <Image
+                src="/images/real-chowmahalla-palace.webp"
+                alt="Original photograph of Khilwat Mubarak at Chowmahalla Palace in Hyderabad showing butter-cream scalloped arches and lawns"
+                fill
+                priority
+                sizes="(max-width: 1280px) 100vw, 1280px"
+                className="object-cover"
+              />
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-2 px-2 pt-3 pb-1 text-xs text-ink-subtle">
+              <span className="font-medium text-ink">
+                Chowmahalla Palace • Khilwat Mubarak, Old City
+              </span>
+              <span>Sailko / Wikimedia Commons (CC BY 3.0)</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Brand Story & Hyderabad Roots */}
-      <section className="py-24 lg:py-32 bg-ivory">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 2. Silk Asymmetric Editorial Narrative */}
+      <section className="py-20 lg:py-28 bg-silk">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <p className="editorial-kicker">The meaning of Tehzaa</p>
-              <h2 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-5xl text-charcoal leading-[1.1]">
-                An Ode to Hyderabad’s{" "}
-                <span className="text-burgundy">Living Culture</span>
+            <div className="lg:col-span-7 space-y-5">
+              <p className="editorial-kicker">How we work</p>
+              <h2 className="display-section text-ink">
+                One Crew That Speaks{" "}
+                <span className="editorial-italic">
+                  Every Tradition Fluently
+                </span>
               </h2>
-              <div className="hairline-divider w-24" />
+              <TehzeebDivider theme="light" className="justify-start max-w-xs" />
 
-              <div className="space-y-4 text-sm sm:text-base text-charcoal/80 leading-relaxed max-w-2xl">
+              <div className="space-y-4 editorial-body max-w-2xl">
                 <p>
-                  Inspired by the Urdu word{" "}
-                  <strong className="font-medium text-charcoal">Tehzeeb</strong>—meaning
-                  refinement, dignity, and wholehearted hospitality—Tehzaa Celebrations
-                  was conceived in Hyderabad to bring quiet artistry back to modern
-                  gatherings.
+                  Inspired by{" "}
+                  <strong className="font-semibold text-ink">Tehzeeb</strong>—plain old warmth, respect, and good manners—Tehzaa was born because planning a Hyderabad wedding shouldn&apos;t feel like herding ten stressed vendors.
                 </p>
                 <p>
-                  Hyderabad itself is a city of extraordinary cultural harmony. Across
-                  Jubilee Hills, Banjara Hills, Secunderabad, and Gachibowli, families
-                  gather for dawn Telugu Muhurthams, marigold-draped Haldi mornings,
-                  candlelit Nikkah evenings, Anand Karaj blessings, and milestone
-                  enterprise summits.
+                  One weekend our trucks deliver real green banana trunks &amp; 5 AM mallige flowers for a Telugu Muhurtham in Jubilee Hills; the next evening we&apos;re hanging Chowmahalla-style mogra garlands and opening copper Dum Biryani handis for a Banjara Hills Walima.
                 </p>
                 <p>
-                  From our design and tasting studio on Road No. 36, Jubilee Hills, our
-                  architects, floral artisans, culinary directors, and event stewards work
-                  as one cohesive house—translating each family’s heritage into spaces and
-                  feasts that linger in memory long after the lights dim.
+                  Drop by our Road No. 36 lounge anytime — you&apos;ll find floral swatches on one table, Filter Kaapi and Irani Chai pouring on another, and zero stiff corporate sales pitches!
                 </p>
               </div>
             </div>
 
             <div className="lg:col-span-5">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-gold/25">
-                <Image
-                  src="/images/nikkah-walima-arch.webp"
-                  alt="Architectural floral celebration arch curated in Hyderabad"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <p className="mt-3 text-xs text-taupe-dark">
-                Jubilee Hills Design Studio • Financial District Operations
+              <DeccaniArchFrame variant="dome" theme="alabaster">
+                <div className="relative aspect-[3/4] w-full overflow-hidden bg-limestone">
+                  <Image
+                    src="/images/real-charminar.webp"
+                    alt="Original photograph of Charminar in Hyderabad showing all four minarets and Char Kaman beyond"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 38vw"
+                    className="object-cover"
+                  />
+                </div>
+              </DeccaniArchFrame>
+              <p className="mt-3 text-xs text-ink-subtle text-center">
+                Jubilee Hills Studio • Serving Every Corner of the Twin Cities
               </p>
             </div>
+          </div>
+
+          <div className="pt-10 border-t border-stone-line text-center space-y-3">
+            <CharminarSkylineCrest theme="light" />
+            <p className="text-xs font-medium tracking-[0.12em] uppercase text-ink-subtle">
+              Taramati Baradari • Kakatiya Gopuram • Charminar • Falaknuma • Sanctuaries
+            </p>
           </div>
         </div>
       </section>
 
-      {/* 3. Mission & Vision on Deep Emerald Band */}
-      <section className="py-24 bg-emerald-deep text-ivory">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-            <div className="space-y-4 border-t border-ivory/25 pt-8">
-              <p className="text-xs text-gold-light font-medium">
-                Our mission
-              </p>
-              <h3 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-4xl text-ivory">
-                To Honor Tradition with{" "}
-                <span className="text-ivory-dark">Thoughtful Precision</span>
-              </h3>
-              <p className="text-sm sm:text-base text-ivory/80 leading-relaxed">
-                To elevate weddings, family milestones, and corporate gatherings into
-                calm, deeply personal experiences—combining bespoke architectural
-                design, authentic regional kitchens, and behind-the-scenes stewardship
-                so hosts can celebrate without worry.
-              </p>
-            </div>
+      {/* 3. Deep Obsidian Interactive Heritage Selector */}
+      <DeccaniCraftInteractive />
 
-            <div className="space-y-4 border-t border-ivory/25 pt-8">
-              <p className="text-xs text-gold-light font-medium">
-                Our vision
-              </p>
-              <h3 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-4xl text-ivory">
-                Hyderabad’s Standard of{" "}
-                <span className="text-ivory-dark">Quiet Luxury</span>
-              </h3>
-              <p className="text-sm sm:text-base text-ivory/80 leading-relaxed">
-                To set the benchmark in South India for culturally fluent celebration
-                design—celebrated equally for our respect toward sacred customs, our
-                culinary authenticity across every Indian palate, and our architectural
-                restraint.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Guiding Principles */}
-      <section className="py-24 lg:py-32 bg-cream border-b border-gold/25">
+      {/* 4. Hairline Values Grid on Warm Alabaster */}
+      <section className="py-20 lg:py-24 bg-alabaster border-b border-stone-line">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-14">
-            <p className="editorial-kicker mb-3">Guiding values</p>
-            <h2 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-5xl text-charcoal leading-[1.1]">
-              The Principles That{" "}
-              <span className="text-burgundy">Shape Our Work</span>
+          <div className="max-w-2xl mb-14 space-y-3">
+            <span className="editorial-kicker block">No drama, only love</span>
+            <h2 className="display-section text-ink">
+              What Shapes{" "}
+              <span className="editorial-italic">Every Celebration</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {ethosPillars.map((item) => (
+            {values.map((item) => (
               <div
                 key={item.num}
-                className="pt-6 border-t border-gold/25 space-y-3"
+                className="pt-6 border-t border-brass/50 space-y-3"
               >
-                <span className="font-serif text-lg text-gold-dark tabular-nums block">
+                <span className="font-display text-2xl text-brass-dark tabular-nums block">
                   {item.num}
                 </span>
-                <h3 className="font-serif text-2xl font-medium text-charcoal">
+                <h3 className="font-display text-2xl font-medium text-ink leading-snug">
                   {item.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-charcoal/75 leading-relaxed">
+                <p className="text-sm text-ink-muted leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -221,36 +210,40 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. Approach to Event Perfection */}
-      <section className="py-24 lg:py-32 bg-ivory">
+      {/* 5. Teams Exhibition Plates on Limestone */}
+      <section className="py-20 lg:py-24 bg-limestone border-b border-stone-line">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-14">
-            <p className="editorial-kicker mb-3">Our craft</p>
-            <h2 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-5xl text-charcoal leading-[1.1]">
-              Three Pillars of{" "}
-              <span className="text-burgundy">Execution</span>
+          <div className="max-w-2xl mb-14 space-y-3">
+            <p className="editorial-kicker">Three wings, one number</p>
+            <h2 className="display-section text-ink">
+              How Everything Comes{" "}
+              <span className="editorial-italic">Together Smoothly</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            {craftDisciplines.map((item) => (
-              <article key={item.label} className="space-y-5">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-gold/25">
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    fill
-                    className="object-cover"
-                  />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {teams.map((item) => (
+              <article key={item.label} className="space-y-4">
+                <div className="gallery-frame shadow-gallery">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-alabaster">
+                    <Image
+                      src={item.image}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-xs text-gold-dark font-medium">
-                    {item.label}
-                  </p>
-                  <h3 className="font-serif text-2xl font-medium text-charcoal">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-charcoal/75 leading-relaxed">
+                <div className="space-y-2 pt-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="editorial-kicker">{item.label}</p>
+                    <span className="text-xs font-medium text-ink-subtle tabular-nums">
+                      {item.num}
+                    </span>
+                  </div>
+                  <h3 className="display-card text-ink">{item.title}</h3>
+                  <p className="text-sm text-ink-muted leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -260,31 +253,29 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. Consultation CTA */}
-      <section className="py-20 sm:py-24 bg-cream border-t border-gold/25">
+      {/* 6. Jubilee Hills Studio Band */}
+      <section className="py-20 lg:py-24 bg-silk">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <p className="editorial-kicker">Visit our studio</p>
-          <h2 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-5xl text-charcoal leading-[1.1]">
-            Let Us Host Your Family’s{" "}
-            <span className="text-burgundy">Next Milestone</span>
+          <span className="editorial-kicker block">
+            Jubilee Hills Studio Invitation
+          </span>
+          <h2 className="display-section text-ink">
+            Come Visit Our{" "}
+            <span className="editorial-italic">Jubilee Hills Studio</span>
           </h2>
-          <p className="text-sm sm:text-base text-charcoal/75 max-w-xl mx-auto leading-relaxed">
-            Meet our designers and culinary directors at our Jubilee Hills studio to review
-            material swatches, spatial layouts, and curated tasting menus.
+          <p className="editorial-body max-w-xl mx-auto">
+            Bring your parents, fiancé, or event committee over Irani Chai &amp; Filter Kaapi to test our food and pick flowers in person.
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-burgundy hover:bg-burgundy-dark active:scale-[0.98] text-ivory text-sm font-medium transition-[background-color,transform] duration-200"
-            >
-              <span>Schedule a Consultation</span>
+            <Link href="/contact" className="btn-editorial-dark w-full sm:w-auto">
+              <span>Schedule a Visit</span>
               <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
             </Link>
             <a
               href="tel:+919876543210"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-gold/40 hover:bg-ivory text-charcoal text-sm font-medium tabular-nums transition-colors duration-200"
+              className="btn-editorial-outline w-full sm:w-auto tabular-nums"
             >
-              <Phone aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-dark" />
+              <Phone aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-dark" />
               <span>+91 98765 43210</span>
             </a>
           </div>

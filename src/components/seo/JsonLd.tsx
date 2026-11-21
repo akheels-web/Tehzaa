@@ -10,9 +10,13 @@ export function JsonLd() {
     "name": "Tehzaa Celebrations",
     "alternateName": "Tehzaa Celebrations Hyderabad",
     "description":
-      "Bespoke wedding planning, floral mandaps, all-community Indian & Hyderabadi catering, baraat processions, corporate galas, and family celebrations across Hyderabad — crafted with Tehzeeb (elegance, cultural reverence, and warm hospitality).",
+      "Wedding planning, Telugu Pelli Pandiri mandapams, Hyderabadi Nikkah & Walima styling, Mutton Dum & Sufiyani Biryani catering, Arati Aku Vindhu Bhojanam, Baraat & Marfa processions, and corporate galas across Hyderabad.",
     "url": baseUrl,
-    "image": [`${baseUrl}/images/hero-indian-wedding.webp`],
+    "image": [
+      `${baseUrl}/images/real-chowmahalla-palace.webp`,
+      `${baseUrl}/images/real-falaknuma-palace.webp`,
+      `${baseUrl}/images/hero-indian-wedding.webp`,
+    ],
     "telephone": "+919876543210",
     "email": "celebrations@tehzaa.com",
     "priceRange": "₹₹₹₹",

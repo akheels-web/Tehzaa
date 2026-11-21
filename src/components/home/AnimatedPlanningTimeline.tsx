@@ -2,110 +2,121 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
   {
     step: "01",
-    title: "Consultation & Vision",
-    subtitle: "Listening & cultural alignment",
+    title: "Chai Pe Charcha",
+    subtitle: "Grab Irani Chai or Filter Kaapi & talk dreams",
     description:
-      "A private conversation at our Jubilee Hills studio or your chosen venue to understand family rituals, guest hospitality flow, and celebratory tone.",
-    deliverable: "Cultural ritual map, guest hospitality flow & preliminary venue brief",
-    image: "/images/hero-indian-wedding.webp",
-    alt: "Candlelit wedding courtyard consultation aesthetic in Hyderabad",
+      "Swing by Road No. 36 in Jubilee Hills (or hop on a quick WhatsApp call). Tell us your dates, traditions, guest count, and what matters most to Amma, Nanna, or Dadi.",
+    deliverable: "Clear venue shortlist, rough ritual map & honest budget guide",
+    image: "/images/irani-chai-mithai-parlor.webp",
+    alt: "Warm Irani Chai and Filter Kaapi hospitality session at Tehzaa Hyderabad",
   },
   {
     step: "02",
-    title: "Design & Tasting",
-    subtitle: "Material palette & culinary preview",
+    title: "Decor Swatches & Tasting",
+    subtitle: "Touch the flowers, taste the Biryani & Bobbatlu",
     description:
-      "Architectural spatial layouts, floral and textile swatches, and a curated family tasting with our regional chefs and master khansamas.",
-    deliverable: "Scaled floor elevations, botanical & linen swatches & private menu tasting",
-    image: "/images/catering-indian-thali.webp",
-    alt: "Curated Indian feast and menu tasting spread",
+      "Review real 3D layouts for your Mandapam or Nikkah stage, match marigold and mogra swatches, and bring family elders to taste every dish fresh from our kitchen.",
+    deliverable: "Custom stage sketches + finalized food tasting notes",
+    image: "/images/hyd-muslim-dawat-spread.webp",
+    alt: "Curated Hyderabadi Shaadi food tasting table spread",
   },
   {
     step: "03",
-    title: "Production & Protocol",
-    subtitle: "Craftsmanship & rehearsal",
+    title: "Zero-Tension Prep",
+    subtitle: "We fight the traffic & vendors, not you",
     description:
-      "Custom structural fabrication, dawn botanical sourcing, acoustic calibration, and synchronized venue run-sheets.",
-    deliverable: "Segregated kitchen prep, cold-chain florals & minute-by-minute run sheet",
-    image: "/images/floral-mandap-indian.webp",
-    alt: "Fresh jasmine and marigold mandap architectural craftsmanship",
+      "Dawn jasmine flower trucks, isolated Veg/Jain cookware delivery, Baraat band coordination, and hotel clearances — all run on quiet checklists by our crew.",
+    deliverable: "Locked minute-by-minute run sheet + kitchen setup audit",
+    image: "/images/real-taramati-baradari.webp",
+    alt: "Original photograph of Taramati Baradari open stone pavilion in Hyderabad framed for sunset wedding ceremonies",
   },
   {
     step: "04",
-    title: "The Celebration",
-    subtitle: "Unhurried presence",
+    title: "Full Dhamaka Day",
+    subtitle: "You just get dressed up and enjoy!",
     description:
-      "Your family arrives solely as gracious hosts while our stewards orchestrate every welcome, ceremony, and dining course calmly.",
-    deliverable: "Dedicated floor directors, elders’ concierge & seamless ceremony cues",
-    image: "/images/bridal-entry-indian.webp",
-    alt: "Gracious bridal arrival beneath a floral canopy",
+      "Zero frantic phone calls while getting mehndi or greeting cousins. Our floor captains cue the Nadaswaram, Marfa, Phera timing, and dinner service seamlessly.",
+    deliverable: "Happy parents, smiling guests & clean late-night wrap-up",
+    image: "/images/baraat-grand-entry.webp",
+    alt: "Jubilant Baraat arrival and wedding celebration in Hyderabad",
   },
 ];
 
 /**
- * Four-step planning timeline with interactive phase selection.
+ * Architectural planning journey timeline with shared layoutId spring marker.
  */
 export function AnimatedPlanningTimeline() {
   const [focusedStep, setFocusedStep] = useState(0);
   const currentStep = STEPS[focusedStep] || STEPS[0];
 
   return (
-    <div className="pt-16 border-t border-gold/25">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-        <div className="max-w-2xl">
-          <p className="editorial-kicker mb-3">Our process</p>
-          <h2 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-5xl text-charcoal leading-[1.08]">
-            From First Sketch to{" "}
-            <span className="text-burgundy">Final Toast</span>
+    <div className="pt-16 border-t border-stone-line">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div className="max-w-2xl space-y-2.5">
+          <span className="editorial-kicker block">No stress, step by step</span>
+          <h2 className="display-section text-ink">
+            From First{" "}
+            <span className="editorial-italic">Chai to Final Baraat</span>
           </h2>
         </div>
-        <p className="text-xs text-taupe-dark max-w-xs">
-          Select any phase to inspect how Tehzaa orchestrates your celebration.
+        <p className="text-xs text-ink-muted max-w-xs">
+          Tap any step along the track to see how we take the load off your family.
         </p>
       </div>
 
-      {/* Connected Progress Track (Desktop) */}
-      <div className="hidden lg:grid grid-cols-4 gap-6 mb-4" aria-hidden="true">
+      {/* Animated Horizontal Track (Desktop) */}
+      <div className="hidden lg:grid grid-cols-4 gap-5 mb-5 items-center" aria-hidden="true">
         {STEPS.map((item, idx) => {
-          const isCompletedOrActive = idx <= focusedStep;
+          const isActive = idx === focusedStep;
+          const isCompleted = idx <= focusedStep;
           return (
-            <div key={item.step} className="flex items-center">
+            <div key={item.step} className="relative flex items-center h-6">
               <div
                 className={cn(
                   "h-px w-full transition-colors duration-300",
-                  isCompletedOrActive ? "bg-burgundy/60" : "bg-gold/25"
+                  isCompleted ? "bg-brass-dark" : "bg-stone-line"
                 )}
               />
+              {isActive && (
+                <motion.span
+                  layoutId="active-timeline-marker"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  className="absolute left-4 w-3 h-3 rotate-45 bg-obsidian border border-brass-light shadow"
+                />
+              )}
             </div>
           );
         })}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {STEPS.map((item, idx) => {
           const isFocused = focusedStep === idx;
           return (
-            <button
+            <motion.button
               key={item.step}
               type="button"
               aria-pressed={isFocused}
+              whileHover={{ y: -3 }}
+              transition={{ type: "spring", stiffness: 320, damping: 24 }}
               onMouseEnter={() => setFocusedStep(idx)}
               onFocus={() => setFocusedStep(idx)}
               onClick={() => setFocusedStep(idx)}
               className={cn(
-                "text-left p-6 rounded-xl border transition-[background-color,border-color,box-shadow] duration-200 flex flex-col justify-between cursor-pointer",
+                "text-left p-4 rounded-[2px] border transition-colors duration-200 flex flex-col justify-between cursor-pointer",
                 isFocused
-                  ? "bg-ivory border-burgundy/40 shadow-royale"
-                  : "bg-ivory/60 border-gold/25 hover:border-gold/50"
+                  ? "bg-alabaster border-obsidian shadow-gallery"
+                  : "bg-silk border-stone-line hover:border-obsidian/40"
               )}
             >
               <div className="w-full">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-gold/20 bg-cream mb-5">
+                <div className="relative aspect-[16/10] w-full overflow-hidden border border-stone-line bg-limestone mb-4">
                   <Image
                     src={item.image}
                     alt={item.alt}
@@ -115,11 +126,11 @@ export function AnimatedPlanningTimeline() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-3">
                   <span
                     className={cn(
-                      "font-serif text-3xl font-medium tabular-nums transition-colors",
-                      isFocused ? "text-burgundy" : "text-gold-dark/70"
+                      "font-display text-3xl font-medium tabular-nums transition-colors",
+                      isFocused ? "text-ink" : "text-ink-subtle"
                     )}
                   >
                     {item.step}
@@ -128,44 +139,45 @@ export function AnimatedPlanningTimeline() {
                     aria-hidden="true"
                     className={cn(
                       "w-2 h-2 rotate-45 transition-colors",
-                      isFocused ? "bg-burgundy" : "bg-gold/30"
+                      isFocused ? "bg-brass-dark" : "bg-stone-line"
                     )}
                   />
                 </div>
 
-                <h3 className="font-serif text-2xl font-medium text-charcoal">
+                <h3 className="font-display text-2xl font-medium text-ink">
                   {item.title}
                 </h3>
-                <p className="text-xs text-gold-dark font-medium mt-2">
+                <p className="text-xs text-brass-dark font-semibold mt-1.5">
                   {item.subtitle}
                 </p>
-                <p className="text-xs sm:text-sm text-charcoal/75 mt-3 leading-relaxed">
+                <p className="text-xs sm:text-sm text-ink-muted mt-3 leading-relaxed">
                   {item.description}
                 </p>
               </div>
-            </button>
+            </motion.button>
           );
         })}
       </div>
 
-      {/* Selected Phase Deliverable Readout */}
+      {/* Live Step Outcome Readout */}
       <div
         aria-live="polite"
-        className="mt-6 px-5 py-4 rounded-xl bg-ivory border border-gold/25 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+        className="mt-6 px-5 py-4 rounded-[2px] bg-alabaster border border-stone-line flex flex-col sm:flex-row sm:items-center justify-between gap-2"
       >
         <div className="flex items-center gap-3 text-xs">
-          <span className="font-serif text-base font-medium text-burgundy tabular-nums">
-            Phase {currentStep.step}
+          <span className="font-display text-lg font-medium text-ink tabular-nums">
+            Step {currentStep.step}
           </span>
-          <span aria-hidden="true" className="text-gold/50">•</span>
-          <span className="font-medium text-charcoal">{currentStep.title}</span>
+          <span aria-hidden="true" className="text-brass-dark">
+            /
+          </span>
+          <span className="font-semibold text-ink">{currentStep.title}</span>
         </div>
-        <p className="text-xs text-taupe-dark">
-          <span className="font-medium text-gold-dark">Key outcome:</span>{" "}
+        <p className="text-xs sm:text-sm text-ink-muted">
+          <span className="font-semibold text-brass-dark">What you get:</span>{" "}
           {currentStep.deliverable}
         </p>
       </div>
     </div>
   );
 }
-

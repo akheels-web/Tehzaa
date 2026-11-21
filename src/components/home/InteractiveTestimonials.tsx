@@ -12,7 +12,7 @@ interface InteractiveTestimonialsProps {
 }
 
 /**
- * Interactive editorial client reflection deck with community chips and animated transitions.
+ * Limestone editorial pull-quotes guestbook with crisp Cormorant Garamond typography.
  */
 export function InteractiveTestimonials({
   testimonials,
@@ -31,18 +31,15 @@ export function InteractiveTestimonials({
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="py-24 lg:py-32 bg-ivory"
+      className="py-20 lg:py-28 bg-limestone text-ink border-b border-stone-line"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-gold/25 mb-12">
-          <div className="max-w-2xl">
-            <p className="editorial-kicker mb-3">Client reflections</p>
-            <h2
-              id="testimonials-heading"
-              className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-5xl text-charcoal leading-[1.08]"
-            >
-              Voices Across{" "}
-              <span className="text-burgundy">Hyderabad</span>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-stone-line mb-12">
+          <div className="max-w-2xl space-y-2.5">
+            <span className="editorial-kicker block">Love notes from families</span>
+            <h2 id="testimonials-heading" className="display-section text-ink">
+              What Hyderabad Families{" "}
+              <span className="editorial-italic">Actually Said</span>
             </h2>
           </div>
 
@@ -50,32 +47,33 @@ export function InteractiveTestimonials({
             <button
               type="button"
               onClick={handlePrev}
-              aria-label="Previous reflection"
-              className="w-10 h-10 rounded-full border border-gold/35 hover:border-burgundy hover:bg-burgundy hover:text-ivory flex items-center justify-center text-charcoal transition-colors cursor-pointer"
+              aria-label="Previous note"
+              className="w-10 h-10 rounded-[2px] border border-obsidian/30 bg-silk hover:border-obsidian hover:bg-obsidian hover:text-alabaster flex items-center justify-center text-ink transition-colors cursor-pointer"
             >
               <ArrowLeft aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
             </button>
             <span
               aria-live="polite"
-              className="text-xs font-medium text-taupe-dark px-2 tabular-nums"
+              className="text-xs font-sans font-semibold text-ink-muted px-2 tabular-nums"
             >
-              {String(index + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
+              {String(index + 1).padStart(2, "0")} /{" "}
+              {String(testimonials.length).padStart(2, "0")}
             </span>
             <button
               type="button"
               onClick={handleNext}
-              aria-label="Next reflection"
-              className="w-10 h-10 rounded-full border border-gold/35 hover:border-burgundy hover:bg-burgundy hover:text-ivory flex items-center justify-center text-charcoal transition-colors cursor-pointer"
+              aria-label="Next note"
+              className="w-10 h-10 rounded-[2px] border border-obsidian/30 bg-silk hover:border-obsidian hover:bg-obsidian hover:text-alabaster flex items-center justify-center text-ink transition-colors cursor-pointer"
             >
               <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
             </button>
           </div>
         </div>
 
-        {/* Mobile Compact Community Selector (keeps quote immediately visible on small screens) */}
+        {/* Mobile Compact Selector */}
         <div
           role="group"
-          aria-label="Select family reflection"
+          aria-label="Select family note"
           className="lg:hidden flex flex-wrap gap-2 mb-6"
         >
           {testimonials.map((item, idx) => {
@@ -87,10 +85,10 @@ export function InteractiveTestimonials({
                 aria-pressed={isSelected}
                 onClick={() => setIndex(idx)}
                 className={cn(
-                  "px-3.5 py-2 rounded-lg border text-xs font-medium transition-colors cursor-pointer",
+                  "px-3.5 py-2 rounded-[2px] border text-[11px] font-sans font-semibold uppercase tracking-[0.12em] transition-colors cursor-pointer",
                   isSelected
-                    ? "bg-burgundy text-ivory border-burgundy"
-                    : "bg-cream border-gold/25 text-charcoal/80 hover:border-gold/50"
+                    ? "bg-obsidian text-alabaster border-obsidian"
+                    : "bg-silk border-stone-line text-ink-muted hover:border-obsidian"
                 )}
               >
                 {item.communityTag || item.event}
@@ -99,13 +97,13 @@ export function InteractiveTestimonials({
           })}
         </div>
 
-        {/* Interactive Quote Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          {/* Desktop Vertical Community Selector */}
+        {/* Interactive Guestbook Stage */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Desktop Vertical Community Index */}
           <div
             role="group"
-            aria-label="Select family reflection"
-            className="hidden lg:block lg:col-span-4 space-y-2"
+            aria-label="Select family note"
+            className="hidden lg:block lg:col-span-4 border border-stone-line bg-silk divide-y divide-stone-line rounded-[2px]"
           >
             {testimonials.map((item, idx) => {
               const isSelected = idx === index;
@@ -116,14 +114,14 @@ export function InteractiveTestimonials({
                   aria-pressed={isSelected}
                   onClick={() => setIndex(idx)}
                   className={cn(
-                    "w-full text-left px-4 py-3 rounded-xl border transition-colors duration-200 flex items-center justify-between gap-3 cursor-pointer",
+                    "w-full text-left px-4 py-3.5 transition-colors duration-200 flex items-center justify-between gap-3 cursor-pointer",
                     isSelected
-                      ? "bg-cream border-burgundy/40 text-charcoal"
-                      : "bg-transparent border-gold/20 text-charcoal/70 hover:border-gold/45 hover:text-charcoal"
+                      ? "bg-obsidian text-alabaster"
+                      : "bg-silk text-ink hover:bg-alabaster"
                   )}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="relative w-11 h-11 rounded-lg overflow-hidden border border-gold/25 shrink-0 bg-ivory">
+                    <div className="relative w-11 h-11 rounded-[2px] overflow-hidden border border-stone-line/50 shrink-0 bg-limestone">
                       <Image
                         src={item.celebrationImage}
                         alt={item.celebrationAlt}
@@ -133,10 +131,15 @@ export function InteractiveTestimonials({
                       />
                     </div>
                     <div className="min-w-0">
-                      <span className="text-xs text-gold-dark block truncate">
+                      <span
+                        className={cn(
+                          "text-[11px] font-sans font-semibold uppercase tracking-[0.12em] block truncate",
+                          isSelected ? "text-brass-light" : "text-brass-dark"
+                        )}
+                      >
                         {item.communityTag || item.event}
                       </span>
-                      <span className="font-serif text-base font-medium block mt-0.5 truncate">
+                      <span className="font-display text-lg font-medium block truncate">
                         {item.name}
                       </span>
                     </div>
@@ -144,8 +147,8 @@ export function InteractiveTestimonials({
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "w-2 h-2 rotate-45 shrink-0 transition-colors",
-                      isSelected ? "bg-burgundy" : "bg-gold/30"
+                      "w-1.5 h-1.5 rotate-45 shrink-0 transition-colors",
+                      isSelected ? "bg-brass-light" : "bg-stone-line"
                     )}
                   />
                 </button>
@@ -153,10 +156,10 @@ export function InteractiveTestimonials({
             })}
           </div>
 
-          {/* Right Animated Quote Feature */}
+          {/* Right Silk Exhibition Pull-Quote Card */}
           <div
             aria-live="polite"
-            className="lg:col-span-8 bg-cream rounded-2xl border border-gold/25 p-6 sm:p-10 min-h-[360px] flex flex-col justify-between"
+            className="lg:col-span-8 bg-silk rounded-[2px] border border-stone-line p-6 sm:p-10 shadow-gallery min-h-[380px] flex flex-col justify-between"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.blockquote
@@ -168,48 +171,50 @@ export function InteractiveTestimonials({
                 className="grid grid-cols-1 md:grid-cols-12 gap-7 items-center"
               >
                 <div className="md:col-span-5">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-gold/25 bg-ivory">
-                    <Image
-                      src={current.celebrationImage}
-                      alt={current.celebrationAlt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 28vw"
-                      className="object-cover"
-                    />
+                  <div className="gallery-frame bg-alabaster">
+                    <div className="relative aspect-[4/4.3] w-full overflow-hidden bg-limestone">
+                      <Image
+                        src={current.celebrationImage}
+                        alt={current.celebrationAlt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 28vw"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="md:col-span-7 space-y-5">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gold/20 pb-3">
-                    <span className="text-xs text-gold-dark font-medium">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-stone-line pb-3">
+                    <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.14em] text-brass-dark">
                       {current.communityTag || current.event}
                     </span>
-                    <span className="text-xs text-taupe-dark">
-                      {current.location} • {current.date}
+                    <span className="text-xs text-ink-subtle">
+                      {current.location} · {current.date}
                     </span>
                   </div>
 
-                  <p className="font-serif text-2xl sm:text-3xl text-burgundy leading-snug">
+                  <p className="font-display italic text-2xl sm:text-[32px] font-normal text-ink leading-[1.2]">
                     “{current.highlight}”
                   </p>
 
-                  <p className="text-sm sm:text-base text-charcoal/85 leading-relaxed">
+                  <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed">
                     {current.quote}
                   </p>
 
-                  <footer className="pt-5 border-t border-gold/20 flex items-center gap-4">
+                  <footer className="pt-4 border-t border-stone-line flex items-center gap-4">
                     <div
                       aria-hidden="true"
-                      className="w-10 h-10 rounded-full border border-gold/40 bg-ivory flex items-center justify-center font-serif text-base font-medium text-burgundy shrink-0"
+                      className="w-10 h-10 rounded-[2px] border border-obsidian bg-alabaster flex items-center justify-center font-display text-lg font-medium text-ink shrink-0"
                     >
                       {current.name.charAt(0)}
                     </div>
                     <div>
-                      <cite className="not-italic text-sm font-semibold text-charcoal block">
+                      <cite className="not-italic text-sm font-semibold text-ink block">
                         {current.name}
                       </cite>
-                      <span className="text-xs text-taupe-dark block">
-                        {current.roleOrRelation} • {current.event}
+                      <span className="text-xs text-ink-muted block">
+                        {current.roleOrRelation} · {current.event}
                       </span>
                     </div>
                   </footer>
@@ -222,4 +227,3 @@ export function InteractiveTestimonials({
     </section>
   );
 }
-

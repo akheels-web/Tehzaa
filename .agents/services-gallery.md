@@ -1,20 +1,24 @@
-# Services and Gallery Implementation Record (Warm Ivory Editorial Redesign)
+# Services and Gallery Implementation Record (Deccani Luxury Editorial System)
 
-- **Owner**: `services-gallery`
-- **Aesthetic & Brand Alignment**:
-  - Luminous Warm Ivory (`#F4EDE2`, `bg-ivory`) and Cream (`#FAF7F2`, `bg-cream`) editorial layouts with `1px` Antique Gold (`border-gold/25`) hairlines, light/regular `Cormorant Garamond` / `Playfair Display` headings, `Plus Jakarta Sans` body copy, and Deep Emerald (`#263B32`) / Burgundy (`#6B292D`) accents.
-  - Rounded radius discipline (`rounded-2xl` feature spreads/modals, `rounded-xl` cards/media frames, `rounded-lg` buttons/tabs/badges), `text-xs` minimum sentence-case labels with `tabular-nums`, `text-gold-dark`/`text-taupe-dark` light-surface contrast, and clean unzoomed local `/images/*.webp` photography.
-  - Zero dark muddy hero blocks, zero `Sparkles` icons, zero fabricated stats/years (`500+`, `2018`, `8+ Years`), and 100% local `/images/*.webp` photography.
-- **Completed Components**:
-  1. `src/components/services/CulinaryMenuExplorer.tsx`:
-     - Interactive tabbed and "View All" Culinary Collection explorer rendered on `/services/catering` when `service.menuCollections` is defined.
-     - Showcases all 5 culinary traditions (*Hyderabadi & Deccani Royal Classics*, *Telugu & South Indian Traditional Feast (Vindhu Bhojanam)*, *North Indian & Royal Rajasthani / Mughlai Spread*, *Pure Vegetarian & Jain-Friendly Kitchens*, *Live Interactive Stations & Global Haute Cuisine*) with dietary badges (`Deep Emerald`), `/images/catering-hyderabadi-feast.webp`, and `/images/catering-indian-thali.webp`.
-  2. `src/app/services/page.tsx`:
-     - Editorial header and alternating 12-column spreads for all 5 canonical PRD routes: `/services/floral-decor`, `/services/catering`, `/services/baraat`, `/services/corporate-events`, `/services/family-celebrations`.
-     - Highlights inclusive rituals across Telugu/South Indian, North Indian/Marwari/Punjabi, Hyderabadi/Deccani, Christian/Sikh, and Corporate events, plus numbered architectural pillars (`01`–`04`) and Hyderabad venue logistics.
-  3. `src/app/services/[slug]/page.tsx`:
-     - Resolves canonical PRD slugs and legacy aliases via `generateStaticParams` and `generateMetadata`.
-     - Split editorial hero, narrative, `<CulinaryMenuExplorer />` integration for catering, offerings breakdown, visual archive trio, related celebrations from `src/data/gallery.ts`, 4-step process, all-community FAQs, and Deep Emerald consultation concierge sidebar linking to `/contact` and WhatsApp.
-  4. `src/app/gallery/page.tsx`:
-     - Warm Ivory editorial gallery with transparent PRD Section 5 showcase note distinguishing curated studies from confidential private commissions.
-     - Discipline category tabs (`All`, `Weddings`, `Floral`, `Catering`, `Corporate`, `Family`), Hyderabad venue filters, editorial CSS masonry grid, and keyboard-accessible full-screen lightbox (`Esc`, `ArrowLeft`, `ArrowRight`).
+- **Owners**: `catering-decor-architect` (`services/*`, `components/services/*`), `inner-pages-architect` (`gallery/*`), grounded in `design-director` (`#6`) & `photo-curator` (`#9`).
+- **Aesthetic & Typography System**:
+  - **2-Font Editorial Pairing (`next/font/google`, zero cursive)**: `Cormorant_Garamond` (`--font-display`, `.display-hero`, `.display-section`, `.display-card`, `.editorial-italic`) paired with `Manrope` (`--font-sans`, `.editorial-kicker`, `.editorial-kicker-light`, `.editorial-body`, `tabular-nums`). All `Great_Vibes` / `font-script` / `wedding-script` usages removed.
+  - **Deccani Editorial Luxury Palette**: Warm Alabaster (`#F9F6F1`, `bg-alabaster`), Silk White (`#FFFFFF`, `bg-silk`), Limestone (`#EFE9DF`, `bg-limestone`), Deep Obsidian (`#12100E`, `bg-obsidian` & `#1A1715`, `bg-obsidian-elevated`), Burnished Deccani Brass (`#A27B43`, `brass-light: #C7A36B`, `brass-dark: #7A5929`), Royal Garnet (`#5C1F24`), Stone Hairline (`#E2DAD0`, `border-stone-line`), and Ink (`#161412` / `#4A453F` / `#6E675F`).
+  - **Architectural Framing & Surface Cadence**: Sharp `rounded-[2px]` / `.gallery-frame` / `.gallery-frame-dark` / `DeccaniArchFrame` plates and `1px` hairline dividers alternating across Alabaster, Silk, Obsidian, and Limestone bands.
+  - **Authentic Monument Photography**: Uses verified Wikimedia Commons WebPs from `public/images/` (`/images/real-charminar.webp`, `/images/real-chowmahalla-palace.webp`, `/images/real-falaknuma-palace.webp`, `/images/real-golconda-fort.webp`, `/images/real-taramati-baradari.webp`, `/images/real-qutb-shahi-tombs.webp`) alongside verified culinary/floral/ritual WebPs (`hyd-muslim-dawat-spread.webp`, `hyd-telugu-vindhu-leaf.webp`, `hyderabadi-dum-biryani-deg.webp`, `irani-chai-mithai-parlor.webp`, etc.); zero old AI palace paths remain.
+- **Completed Modules & Routes**:
+  1. `/services/catering` (`src/components/services/CateringPageExperience.tsx` & `CulinaryMenuExplorer.tsx`):
+     - Spacious Alabaster hero (`pt-28 lg:pt-32`) with `.editorial-italic` *Dil se Dawat*, monumental Cormorant Garamond headline, inline `tabular-nums` metadata, and side-by-side `.gallery-frame` plates of `hyd-muslim-dawat-spread.webp` and `hyd-telugu-vindhu-leaf.webp`.
+     - Silk White Michelin-style open restaurant menu (`CulinaryMenuExplorer.tsx`) with sticky `.gallery-frame` plate photography, sharp underlined cuisine tabs (`ArrowLeft`/`ArrowRight`/`Home`/`End` keyboard nav, `<AnimatePresence mode="wait" initial={false}>`), `1px` `stone-line` hairline course rows, FSSAI-style emerald Pure Veg marker, compact Tasting Shortlist panel linking to `/contact?eventType=Catering&brief=...`, and expandable Full Dish Index.
+     - Deep Obsidian Culinary Craft chapter (*Separate Kitchens. Real Fire. Honest Taste.*) with `JaaliPattern` lattice and `.gallery-frame-dark` plates (`hyderabadi-dum-biryani-deg.webp`, `irani-chai-mithai-parlor.webp`).
+     - Limestone `<details>` hairline FAQ accordion and Alabaster Jubilee Hills Kitchen Studio tasting invitation (`/contact?eventType=Catering`) + discipline cross-links.
+  2. `/services/floral-decor` (`src/components/services/DecorTraditionStudio.tsx`):
+     - Preserves `<Suspense fallback={null}>` around `useSearchParams()` and WAI-ARIA `tablist`/`tab`/`tabpanel` keyboard navigation (`ArrowLeft`/`ArrowRight`/`Home`/`End`, `initial={false}`).
+     - Interactive 4-tradition decor studio (*Hindu • Telugu Pelli*, *Muslim • Nikkah & Sanchaq*, *Hindu • Marwari & Haldi*, *Sikh, Christian & Fusion*) paired with a **dynamic 4-landmark Hyderabad Palace Backdrop Matcher** (`Chowmahalla Palace`, `Taj Falaknuma`, `Taramati Baradari`, `Golconda Fort`) switching live `real-*.webp` photography, precinct metadata, and tailored venue compatibility notes, linking to `/contact?eventType=Floral%20Decoration&brief=...`.
+  3. `/services/baraat`, `/services/corporate-events`, `/services/family-celebrations` (`src/components/services/DisciplineInteractiveShowcase.tsx` & `src/app/services/[slug]/page.tsx`):
+     - Resolves canonical PRD slugs and legacy aliases via `generateStaticParams()` and `generateMetadata()`.
+     - Alternating surface cadence: Alabaster split hero (`DeccaniArchFrame`), Silk studio overview + interactive showcase + numbered breakdown with a sticky Deep Obsidian concierge sidebar, Deep Obsidian Related Setups gallery (`bg-obsidian`), and Limestone `<details>` hairline FAQs.
+  4. `/services` (`src/app/services/page.tsx` & `src/components/services/ServicesTraditionIndex.tsx`):
+     - Updated OG image to `/images/real-chowmahalla-palace.webp`, Alabaster header (`HeritageGreetingBanner`), Limestone tradition filter spreads (`All Celebrations`, `Hindu Pelli & Rituals`, `Muslim Shaadi & Walima`, `Sikh & Christian`, `Corporate & Ghar Functions`), Deep Obsidian numbered pillars (`TehzeebDivider theme="dark"`), and Alabaster/Limestone venue consultation spread.
+  5. `/gallery` (`src/app/gallery/page.tsx` & `src/app/gallery/layout.tsx`):
+     - Alabaster lookbook header showcasing `/images/real-charminar.webp` (`DeccaniArchFrame`) & `/images/real-chowmahalla-palace.webp` (also OG image in `gallery/layout.tsx`), Limestone discipline/tradition/venue filters (`<Suspense>`-wrapped `?category=` sync), crisp `.gallery-frame` exhibition masonry plates, Deep Obsidian lightbox (`bg-obsidian/95`) with `Esc`/`ArrowLeft`/`ArrowRight`/`Tab` trap & focus restoration, and Limestone/Obsidian studio invitation featuring `/images/real-qutb-shahi-tombs.webp`.

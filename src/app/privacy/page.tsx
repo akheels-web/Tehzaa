@@ -1,184 +1,116 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { TehzeebDivider } from "@/components/deccani/DeccaniMotifs";
 
 export const metadata = {
   title: "Privacy Policy | Tehzaa Celebrations Hyderabad",
   description:
-    "Privacy Policy for Tehzaa Celebrations. Transparent practices regarding event inquiry details, Telegram concierge notifications, data retention, and client deletion rights.",
+    "Simple, honest Privacy Policy for Tehzaa Celebrations covering event inquiry details, Telegram alerts, data retention, and deletion requests.",
 };
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="pt-28 pb-24 bg-ivory text-charcoal min-h-screen">
+    <div className="pt-28 lg:pt-32 pb-24 bg-alabaster text-ink min-h-screen">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Breadcrumb */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-medium text-gold-dark hover:text-burgundy transition-colors mb-10"
+          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-brass-dark hover:text-ink transition-colors mb-10 rounded-[2px]"
         >
           <ArrowLeft aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
           <span>Back to Home</span>
         </Link>
 
-        {/* Editorial Header */}
-        <header className="border-b border-gold/25 pb-10 mb-12 space-y-4">
-          <p className="editorial-kicker">Client confidentiality &amp; trust</p>
-          <h1 className="font-serif font-normal text-4xl sm:text-5xl text-charcoal leading-[1.12]">
-            Privacy <span className="text-burgundy">Policy</span>
+        {/* Architectural Header */}
+        <header className="border-b border-stone-line pb-10 mb-12 space-y-3">
+          <span className="editorial-kicker block">Your trust matters</span>
+          <h1 className="display-hero text-ink">
+            Privacy <span className="editorial-italic">Policy</span>
           </h1>
-          <p className="text-xs text-taupe-dark">
+          <p className="text-xs text-ink-subtle tabular-nums pt-1">
             Tehzaa Celebrations Pvt. Ltd. • Road No. 36, Jubilee Hills, Hyderabad 500033
           </p>
+          <TehzeebDivider theme="light" className="justify-start max-w-xs pt-2" />
         </header>
 
         {/* Legal Sections */}
-        <div className="space-y-10 text-sm text-charcoal/85 leading-relaxed">
-          <section className="space-y-3 border-b border-gold/20 pb-8">
-            <h2 className="font-serif text-2xl font-normal text-burgundy">
-              1. Introduction &amp; Scope
+        <div className="space-y-10 text-[15px] text-ink-muted leading-[1.72]">
+          <section className="space-y-3 border-b border-stone-line pb-8">
+            <h2 className="display-card text-ink">
+              1. Who We Are &amp; Promise
             </h2>
             <p>
-              At <strong>Tehzaa Celebrations Pvt. Ltd.</strong> (“Tehzaa”, “we”, “our”), we
-              treat every family celebration and corporate brief with discretion. This
-              Privacy Policy describes how personal information shared through our website,
-              event inquiry forms, WhatsApp concierge channel, and studio appointments is
-              collected, used, and safeguarded.
+              At <strong className="font-semibold text-ink">Tehzaa Celebrations Pvt. Ltd.</strong> (&ldquo;Tehzaa&rdquo;, &ldquo;we&rdquo;), your family event notes, phone numbers, and wedding plans stay strictly private. This page explains calmly how information from our Contact form and WhatsApp studio chats gets handled.
             </p>
           </section>
 
-          <section className="space-y-3 border-b border-gold/20 pb-8">
-            <h2 className="font-serif text-2xl font-normal text-burgundy">
-              2. Information We Collect
+          <section className="space-y-3 border-b border-stone-line pb-8">
+            <h2 className="display-card text-ink">
+              2. What You Share With Us
             </h2>
-            <p>
-              When you submit an inquiry via our Contact page or reach out to our
-              concierge, we collect only the details necessary to prepare your event
-              proposal:
-            </p>
-            <ul className="list-disc pl-5 space-y-2 text-charcoal/80">
+            <ul className="list-disc pl-5 space-y-2.5 text-ink-muted">
               <li>
-                <strong>Contact Details:</strong> Full Name, Indian Mobile / WhatsApp
-                Number, and optional Email Address.
+                <strong className="font-semibold text-ink">Contact Info:</strong> Name, Indian WhatsApp / mobile number, and email (if provided).
               </li>
               <li>
-                <strong>Event Specifications:</strong> Celebration Category (such as
-                Telugu &amp; South Indian Wedding, North Indian &amp; Marwari Ceremony,
-                Nikkah &amp; Walima, Floral Decor, Catering, Baraat, Seemantham,
-                Namakaranam, Gruhapravesham, Corporate Gala, or Milestone Birthday),
-                preferred date, Hyderabad venue or neighborhood, estimated guest count,
-                and indicative budget range.
+                <strong className="font-semibold text-ink">Event Brief:</strong> Celebration type (Telugu Pelli, Muslim Nikkah &amp; Walima, Baraat, Corporate Gala, House Function, Catering), dates, rough guest count, and Hyderabad venue.
               </li>
               <li>
-                <strong>Dietary &amp; Styling Notes:</strong> Any regional menu
-                requirements (including Pure Vegetarian or Sattvic Jain kitchen requests)
-                and aesthetic notes shared voluntarily.
+                <strong className="font-semibold text-ink">Food &amp; Decor Preferences:</strong> Separate Pure Veg/Jain requirements, tasting selections, or style inspirations.
               </li>
               <li>
-                <strong>Security Metadata:</strong> IP-based rate limiting counters and
-                anti-spam honeypot checks used strictly to prevent automated abuse.
+                <strong className="font-semibold text-ink">Basic Abuse Checks:</strong> Temporary IP rate limits and invisible honeypot checks solely to block automated spam bots.
               </li>
             </ul>
           </section>
 
-          <section className="space-y-3 border-b border-gold/20 pb-8">
-            <h2 className="font-serif text-2xl font-normal text-burgundy">
-              3. Purpose of Processing
+          <section className="space-y-3 border-b border-stone-line pb-8">
+            <h2 className="display-card text-ink">
+              3. How We Use It
             </h2>
-            <p>Your inquiry information is used solely to:</p>
-            <ul className="list-disc pl-5 space-y-2 text-charcoal/80">
-              <li>
-                Prepare tailored floral, spatial, and catering proposals aligned with your
-                family’s traditions.
-              </li>
-              <li>
-                Contact you via telephone, WhatsApp, or email to arrange venue
-                walkthroughs and studio menu tastings.
-              </li>
-              <li>
-                Coordinate logistics with vetted venue and production partners once you
-                confirm a booking.
-              </li>
-            </ul>
             <p>
-              We never sell, rent, or disclose your personal contact details to third-party
-              marketing brokers or unsolicited callers.
+              We only use your details to build your event quote, invite you for tastings at Jubilee Hills, and coordinate on-ground teams once booked. We never sell or rent numbers to external brokers or cold-callers.
             </p>
           </section>
 
-          <section className="space-y-3 border-b border-gold/20 pb-8">
-            <h2 className="font-serif text-2xl font-normal text-burgundy">
-              4. Real-Time Concierge Notifications (Telegram Bot API)
+          <section className="space-y-3 border-b border-stone-line pb-8">
+            <h2 className="display-card text-ink">
+              4. Studio Inquiry Alerts (Telegram Bot API)
             </h2>
             <p>
-              To provide timely responses from our Hyderabad planning desk, validated
-              inquiry payloads from our contact form are dispatched instantaneously over
-              encrypted HTTPS to an internal, access-restricted concierge channel via the{" "}
-              <strong>Telegram Bot API</strong>.
-            </p>
-            <p>
-              All submitted text is sanitized server-side prior to transmission, and only
-              authorized Tehzaa senior planners have access to incoming inquiry alerts.
+              Form enquiries are sanitized and dispatched instantaneously over encrypted HTTPS to an access-restricted internal planner channel via the <strong className="font-semibold text-ink">Telegram Bot API</strong> so our Hyderabad desk sees your brief right away.
             </p>
           </section>
 
-          <section className="space-y-3 border-b border-gold/20 pb-8">
-            <h2 className="font-serif text-2xl font-normal text-burgundy">
-              5. Data Retention &amp; Safeguards
-            </h2>
-            <ul className="list-disc pl-5 space-y-2 text-charcoal/80">
-              <li>
-                <strong>Unconfirmed Inquiries:</strong> Retained only for up to 180 days
-                to support follow-up consultations, after which records are removed or
-                anonymized.
-              </li>
-              <li>
-                <strong>Confirmed Commissions:</strong> Event agreements and billing
-                records are retained as required under applicable Indian statutory
-                regulations.
-              </li>
-              <li>
-                <strong>Transport Security:</strong> All form submissions and API
-                communications operate over TLS-encrypted HTTPS connections.
-              </li>
-            </ul>
-          </section>
-
-          <section className="space-y-3 border-b border-gold/20 pb-8">
-            <h2 className="font-serif text-2xl font-normal text-burgundy">
-              6. Your Rights &amp; Deletion Requests
+          <section className="space-y-3 border-b border-stone-line pb-8">
+            <h2 className="display-card text-ink">
+              5. Retention &amp; Deletion
             </h2>
             <p>
-              You may request at any time to review, update, or permanently delete the
-              inquiry details we hold for you. We honor deletion requests promptly without
-              unnecessary friction.
+              Unconfirmed enquiries are deleted or anonymized within 180 days. Want your inquiry deleted earlier? Just email or message our studio anytime and we&apos;ll wipe it cleanly.
             </p>
           </section>
 
-          <section className="p-7 rounded-2xl bg-cream border border-gold/25 space-y-3">
-            <h2 className="font-serif text-xl font-normal text-charcoal">
-              7. Contact Our Privacy Desk
+          <section className="p-7 sm:p-8 rounded-[2px] bg-silk border border-stone-line shadow-gallery space-y-3">
+            <span className="editorial-kicker block">Direct Studio Contact</span>
+            <h2 className="display-card text-ink">
+              6. Reach Out Anytime
             </h2>
-            <p className="text-xs sm:text-sm text-charcoal/75">
-              For data access, correction, or deletion inquiries, please reach our
-              Hyderabad studio directly:
-            </p>
-            <div className="text-xs sm:text-sm space-y-1 pt-1 text-charcoal">
+            <div className="text-sm space-y-1.5 pt-2 text-ink-muted tabular-nums">
               <p>
-                <strong>Email:</strong>{" "}
+                <strong className="font-semibold text-ink">Email:</strong>{" "}
                 <a
                   href="mailto:celebrations@tehzaa.com"
-                  className="text-burgundy hover:underline"
+                  className="text-ink underline decoration-brass underline-offset-4 hover:text-brass-dark transition-colors"
                 >
                   celebrations@tehzaa.com
                 </a>
               </p>
               <p>
-                <strong>Telephone:</strong> +91 98765 43210 / +91 40 2345 6789
+                <strong className="font-semibold text-ink">Phone:</strong> +91 98765 43210 / +91 40 2345 6789
               </p>
               <p>
-                <strong>Studio:</strong> Road No. 36, Jubilee Hills, Hyderabad, Telangana
-                500033
+                <strong className="font-semibold text-ink">Studio:</strong> Road No. 36, Jubilee Hills, Hyderabad 500033
               </p>
             </div>
           </section>

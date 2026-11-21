@@ -10,7 +10,7 @@ import { TehzaaLogo } from "@/components/brand/TehzaaLogo";
 interface NavItem {
   name: string;
   href: string;
-  children?: { name: string; href: string; description?: string }[];
+  children?: { num: string; name: string; href: string; description?: string }[];
 }
 
 const NAV_ITEMS: NavItem[] = [
@@ -21,29 +21,34 @@ const NAV_ITEMS: NavItem[] = [
     href: "/services",
     children: [
       {
-        name: "Floral & Event Decorations",
+        num: "01",
+        name: "Floral & Event Decor",
         href: "/services/floral-decor",
-        description: "Kalyana Mandapams, Nikkah arches & botanical courtyards",
+        description: "Mandaps, Nikkah arches, Sanchaq & Haldi vibes",
       },
       {
-        name: "Catering & Food Services",
+        num: "02",
+        name: "Catering & Dawat",
         href: "/services/catering",
-        description: "Hyderabadi Dastarkhwan, Telugu Vindhu & Pure Veg kitchens",
+        description: "Proper Dum Biryani, Sufiyani, Vindhu & Pure Veg",
       },
       {
+        num: "03",
         name: "Baraat & Grand Entries",
         href: "/services/baraat",
-        description: "Heritage processions, Phoolon ki Chadar & brass ensembles",
+        description: "Hyderabadi Marfa, Punjabi Dhol & filmy entries",
       },
       {
+        num: "04",
         name: "Corporate Events",
         href: "/services/corporate-events",
-        description: "HITEC City summits, AV staging & executive galas",
+        description: "HITEC City summits & palace dinners minus the bore",
       },
       {
-        name: "Social & Family Celebrations",
+        num: "05",
+        name: "Family & Ghar Functions",
         href: "/services/family-celebrations",
-        description: "Seemantham, Namakaranam, anniversaries & farmhouses",
+        description: "Seemantham, Aqiqah, Manjha & villa parties",
       },
     ],
   },
@@ -62,8 +67,9 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 16);
+      setIsScrolled(window.scrollY > 20);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -107,10 +113,10 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,padding] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] border-b",
+        "fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,padding,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
         isScrolled
-          ? "bg-ivory/95 backdrop-blur-md border-gold/25 shadow-sm py-3"
-          : "bg-ivory/90 backdrop-blur-md border-gold/15 py-4"
+          ? "bg-alabaster/95 backdrop-blur-xl border-stone-line shadow-gallery py-3"
+          : "bg-alabaster/65 backdrop-blur-md border-transparent py-4"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,13 +125,16 @@ export function Header() {
           <Link
             href="/"
             aria-label="Tehzaa Celebrations Home"
-            className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-ivory group"
+            className="rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-alabaster"
           >
-            <TehzaaLogo theme="dark" size="md" />
+            <TehzaaLogo theme="light" size="md" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav aria-label="Primary Navigation" className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <nav
+            aria-label="Primary Navigation"
+            className="hidden md:flex items-center space-x-1 lg:space-x-2"
+          >
             {NAV_ITEMS.map((item) => {
               const isActive =
                 item.href === "/"
@@ -150,10 +159,10 @@ export function Header() {
                       href={item.href}
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
-                        "pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200 rounded-l-lg",
+                        "pl-4 pr-1 py-2 text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 rounded-l-[2px]",
                         isActive
-                          ? "text-burgundy"
-                          : "text-charcoal/85 hover:text-burgundy"
+                          ? "text-ink"
+                          : "text-ink-muted hover:text-ink"
                       )}
                     >
                       <span>{item.name}</span>
@@ -167,32 +176,32 @@ export function Header() {
                       aria-expanded={servicesDropdownOpen}
                       aria-haspopup="true"
                       aria-controls="desktop-services-menu"
-                      className="pr-3 pl-1 py-2 rounded-r-lg text-gold-dark hover:text-burgundy transition-colors cursor-pointer"
+                      className="pr-3 pl-1 py-2 rounded-r-[2px] text-brass-dark hover:text-ink transition-colors cursor-pointer"
                     >
                       <ChevronDown
                         aria-hidden="true"
                         className={cn(
-                          "w-4 h-4 transition-transform duration-200 stroke-[1.5]",
+                          "w-3.5 h-3.5 transition-transform duration-200 stroke-[1.5]",
                           servicesDropdownOpen ? "rotate-180" : ""
                         )}
                       />
                     </button>
 
-                    {/* Editorial Dropdown */}
+                    {/* Architectural Silk Dropdown */}
                     <div
                       id="desktop-services-menu"
                       className={cn(
-                        "absolute top-full left-0 w-80 pt-3 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        "absolute top-full left-0 w-[340px] pt-3 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]",
                         servicesDropdownOpen
                           ? "opacity-100 visible translate-y-0"
                           : "opacity-0 invisible -translate-y-1 pointer-events-none"
                       )}
                     >
-                      <div className="bg-ivory-light border border-gold/25 rounded-xl shadow-luxury p-2 overflow-hidden">
-                        <div className="text-xs font-medium text-gold-dark px-3 py-2 border-b border-gold/20">
-                          Curated disciplines
+                      <div className="bg-silk border border-stone-line rounded-[2px] shadow-gallery p-2.5 overflow-hidden">
+                        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brass-dark px-3 py-2 border-b border-stone-line">
+                          What we handle for you
                         </div>
-                        <div className="mt-1 space-y-1">
+                        <div className="mt-1.5 divide-y divide-stone-line/60">
                           {item.children.map((sub) => {
                             const isSubActive = pathname === sub.href;
                             return (
@@ -202,19 +211,24 @@ export function Header() {
                                 aria-current={isSubActive ? "page" : undefined}
                                 onClick={() => setServicesDropdownOpen(false)}
                                 className={cn(
-                                  "block px-3 py-2 rounded-lg hover:bg-ivory-dark/60 transition-colors group/sub",
-                                  isSubActive ? "bg-ivory-dark/50" : ""
+                                  "block px-3 py-2.5 rounded-[2px] hover:bg-alabaster transition-colors group/sub",
+                                  isSubActive ? "bg-alabaster" : ""
                                 )}
                               >
-                                <div className="text-xs font-semibold text-charcoal group-hover/sub:text-burgundy transition-colors flex items-center justify-between">
-                                  <span>{sub.name}</span>
+                                <div className="text-xs font-semibold text-ink flex items-center justify-between gap-2">
+                                  <span className="flex items-center gap-2.5">
+                                    <span className="text-[11px] font-medium text-brass-dark tabular-nums">
+                                      {sub.num}
+                                    </span>
+                                    <span>{sub.name}</span>
+                                  </span>
                                   <ArrowUpRight
                                     aria-hidden="true"
-                                    className="w-4 h-4 text-gold-dark stroke-[1.5] opacity-0 group-hover/sub:opacity-100 group-focus-visible/sub:opacity-100 transition-opacity"
+                                    className="w-3.5 h-3.5 text-brass stroke-[1.5] opacity-0 group-hover/sub:opacity-100 group-focus-visible/sub:opacity-100 transition-opacity shrink-0"
                                   />
                                 </div>
                                 {sub.description && (
-                                  <div className="text-xs text-taupe-dark line-clamp-1 mt-1">
+                                  <div className="text-xs text-ink-subtle line-clamp-1 mt-0.5 pl-6">
                                     {sub.description}
                                   </div>
                                 )}
@@ -234,17 +248,17 @@ export function Header() {
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium transition-colors duration-200 relative group rounded-lg",
+                    "px-4 py-2 text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 relative group rounded-[2px]",
                     isActive
-                      ? "text-burgundy"
-                      : "text-charcoal/85 hover:text-burgundy"
+                      ? "text-ink"
+                      : "text-ink-muted hover:text-ink"
                   )}
                 >
                   <span>{item.name}</span>
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "absolute bottom-1 left-4 right-4 h-px bg-gold transition-transform origin-left duration-200",
+                      "absolute bottom-1 left-4 right-4 h-px bg-brass transition-transform origin-left duration-200",
                       isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     )}
                   />
@@ -257,17 +271,17 @@ export function Header() {
           <div className="hidden lg:flex items-center space-x-5">
             <a
               href="tel:+919876543210"
-              className="flex items-center gap-2 text-xs font-medium text-charcoal/85 hover:text-burgundy transition-colors tabular-nums rounded-lg px-2 py-1.5"
+              className="flex items-center gap-2 text-xs font-medium text-ink-muted hover:text-ink transition-colors tabular-nums rounded-[2px] px-2 py-1.5"
             >
-              <Phone aria-hidden="true" className="w-4 h-4 text-gold-dark stroke-[1.5]" />
+              <Phone aria-hidden="true" className="w-3.5 h-3.5 text-brass-dark stroke-[1.5]" />
               <span>+91 98765 43210</span>
             </a>
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-medium bg-burgundy hover:bg-burgundy-dark active:scale-[0.98] text-ivory border border-gold/30 transition-[background-color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              className="inline-flex items-center justify-center px-5 py-2.5 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.15em] bg-obsidian hover:bg-brass-dark active:scale-[0.98] text-alabaster transition-[background-color,transform] duration-200"
             >
-              <span>Plan Your Event</span>
+              Let&apos;s Plan
             </Link>
           </div>
 
@@ -275,15 +289,15 @@ export function Header() {
           <div className="flex md:hidden items-center gap-2">
             <Link
               href="/contact"
-              className="px-4 py-2.5 rounded-lg text-xs font-medium bg-burgundy text-ivory"
+              className="px-4 py-2 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.14em] bg-obsidian text-alabaster"
             >
-              Plan Event
+              Let&apos;s Plan
             </Link>
             <button
               ref={mobileToggleRef}
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-lg text-charcoal hover:text-burgundy hover:bg-ivory-dark/50 transition-colors cursor-pointer"
+              className="p-2.5 rounded-[2px] text-ink hover:bg-limestone/60 transition-colors cursor-pointer"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation-drawer"
@@ -302,7 +316,7 @@ export function Header() {
       {mobileMenuOpen && (
         <div
           id="mobile-navigation-drawer"
-          className="md:hidden bg-ivory-light border-t border-gold/25 px-5 pt-4 pb-8 shadow-luxury max-h-[calc(100vh-4.5rem)] overflow-y-auto"
+          className="md:hidden bg-alabaster border-t border-stone-line px-5 pt-4 pb-8 shadow-gallery max-h-[calc(100vh-4.5rem)] overflow-y-auto"
         >
           <nav aria-label="Mobile Navigation" className="flex flex-col space-y-2">
             {NAV_ITEMS.map((item) => {
@@ -312,20 +326,22 @@ export function Header() {
                   : pathname.startsWith(item.href);
 
               return (
-                <div key={item.name} className="border-b border-gold/20 pb-3">
+                <div key={item.name} className="border-b border-stone-line pb-3">
                   <Link
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
-                      "block text-base font-serif font-medium hover:text-burgundy py-1.5",
-                      isActive ? "text-burgundy" : "text-charcoal"
+                      "block text-xl font-display font-medium py-1.5",
+                      isActive
+                        ? "text-ink underline decoration-brass underline-offset-4"
+                        : "text-ink-muted"
                     )}
                   >
                     {item.name}
                   </Link>
                   {item.children && (
-                    <div className="pl-3 mt-1 space-y-1 border-l border-gold/30">
+                    <div className="pl-3 mt-1.5 space-y-1 border-l border-stone-line">
                       {item.children.map((sub) => (
                         <Link
                           key={sub.name}
@@ -333,11 +349,16 @@ export function Header() {
                           aria-current={pathname === sub.href ? "page" : undefined}
                           onClick={() => setMobileMenuOpen(false)}
                           className={cn(
-                            "block text-xs hover:text-burgundy py-1.5",
-                            pathname === sub.href ? "text-burgundy font-medium" : "text-charcoal/80"
+                            "flex items-center gap-2 text-xs hover:text-ink py-1.5",
+                            pathname === sub.href
+                              ? "text-ink font-semibold"
+                              : "text-ink-muted"
                           )}
                         >
-                          {sub.name}
+                          <span className="text-[11px] text-brass-dark tabular-nums">
+                            {sub.num}
+                          </span>
+                          <span>{sub.name}</span>
                         </Link>
                       ))}
                     </div>
@@ -349,18 +370,18 @@ export function Header() {
             <div className="pt-4 flex flex-col gap-3">
               <a
                 href="tel:+919876543210"
-                className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-gold/30 text-xs font-medium text-charcoal hover:bg-ivory-dark/40 transition-colors tabular-nums"
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-[2px] border border-stone-line bg-silk text-xs font-medium text-ink hover:border-obsidian transition-colors tabular-nums"
               >
-                <Phone aria-hidden="true" className="w-4 h-4 text-gold-dark stroke-[1.5]" />
+                <Phone aria-hidden="true" className="w-4 h-4 text-brass-dark stroke-[1.5]" />
                 <span>Call +91 98765 43210</span>
               </a>
 
               <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center py-3 px-4 rounded-lg text-xs font-medium bg-burgundy text-ivory"
+                className="flex items-center justify-center py-3.5 px-4 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.15em] bg-obsidian text-alabaster"
               >
-                Plan Your Event
+                Chai Pe Charcha — Let&apos;s Plan
               </Link>
             </div>
           </nav>

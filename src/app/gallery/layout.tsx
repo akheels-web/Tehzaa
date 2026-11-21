@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     url: "https://tehzaa.com/gallery",
     images: [
       {
-        url: "/images/hero-indian-wedding.webp",
-        width: 1200,
-        height: 630,
-        alt: "Tehzaa Celebrations Portfolio",
+        url: "/images/real-chowmahalla-palace.webp",
+        width: 1600,
+        height: 816,
+        alt: "Tehzaa Celebrations Portfolio at Chowmahalla Palace Hyderabad",
       },
     ],
   },

@@ -16,22 +16,28 @@ import {
 } from "lucide-react";
 import {
   GALLERY_CATEGORIES,
+  GALLERY_TRADITIONS,
   GALLERY_ITEMS,
   GalleryCategory,
+  GalleryTradition,
   GalleryItem,
 } from "@/data/gallery";
+import {
+  DeccaniArchFrame,
+  HeritageGreetingBanner,
+} from "@/components/deccani/DeccaniMotifs";
 import { cn } from "@/lib/utils";
 
 const VENUE_FILTERS = [
   "All Venues",
-  "Taj Krishna",
-  "ITC Kohenur",
-  "Park Hyatt",
-  "HICC Novotel",
+  "Chowmahalla Palace",
+  "Taj Falaknuma Palace",
+  "Taramati Baradari",
+  "Taj Krishna & Banjara Hills",
   "JRC & Jubilee Hills",
+  "HICC & Gachibowli",
+  "Gandipet & Moinabad",
   "Secunderabad & Begumpet",
-  "Gandipet & Moinabad Farmhouses",
-  "Financial District & Shamshabad",
 ];
 
 function matchesVenueFilter(item: GalleryItem, filter: string): boolean {
@@ -40,32 +46,33 @@ function matchesVenueFilter(item: GalleryItem, filter: string): boolean {
   const location = item.location.toLowerCase();
 
   switch (filter) {
-    case "Taj Krishna":
-      return venue.includes("taj krishna");
-    case "ITC Kohenur":
-      return venue.includes("itc kohenur");
-    case "Park Hyatt":
-      return venue.includes("park hyatt");
-    case "HICC Novotel":
-      return venue.includes("hicc") || venue.includes("convention centre");
+    case "Chowmahalla Palace":
+      return venue.includes("chowmahalla");
+    case "Taj Falaknuma Palace":
+      return venue.includes("falaknuma");
+    case "Taramati Baradari":
+      return venue.includes("taramati");
+    case "Taj Krishna & Banjara Hills":
+      return venue.includes("taj krishna") || location.includes("banjara hills");
     case "JRC & Jubilee Hills":
       return venue.includes("jrc") || location.includes("jubilee hills");
-    case "Secunderabad & Begumpet":
+    case "HICC & Gachibowli":
       return (
-        location.includes("secunderabad") || location.includes("begumpet")
+        venue.includes("hicc") ||
+        venue.includes("convention centre") ||
+        location.includes("gachibowli") ||
+        location.includes("hitec") ||
+        location.includes("financial district")
       );
-    case "Gandipet & Moinabad Farmhouses":
+    case "Gandipet & Moinabad":
       return (
         location.includes("gandipet") ||
         location.includes("moinabad") ||
         venue.includes("farmhouse") ||
         venue.includes("villa")
       );
-    case "Financial District & Shamshabad":
-      return (
-        location.includes("financial district") ||
-        location.includes("shamshabad")
-      );
+    case "Secunderabad & Begumpet":
+      return location.includes("secunderabad") || location.includes("begumpet");
     default:
       return true;
   }
@@ -80,17 +87,31 @@ const MASONRY_ASPECTS = [
   "aspect-[16/11]",
 ];
 
-function GalleryContent() {
+function GallerySearchParamSync({
+  onSelectCategory,
+}: {
+  onSelectCategory: (cat: GalleryCategory) => void;
+}) {
   const searchParams = useSearchParams();
-  const initialCategoryParam = searchParams.get("category");
-  const initialCategory: GalleryCategory =
-    initialCategoryParam &&
-    (GALLERY_CATEGORIES as readonly string[]).includes(initialCategoryParam)
-      ? (initialCategoryParam as GalleryCategory)
-      : "All";
+  const categoryParam = searchParams.get("category");
 
+  useEffect(() => {
+    if (
+      categoryParam &&
+      (GALLERY_CATEGORIES as readonly string[]).includes(categoryParam)
+    ) {
+      onSelectCategory(categoryParam as GalleryCategory);
+    }
+  }, [categoryParam, onSelectCategory]);
+
+  return null;
+}
+
+export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] =
-    useState<GalleryCategory>(initialCategory);
+    useState<GalleryCategory>("All");
+  const [selectedTradition, setSelectedTradition] =
+    useState<GalleryTradition>("All Traditions");
   const [selectedVenue, setSelectedVenue] = useState<string>("All Venues");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -98,23 +119,17 @@ function GalleryContent() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
-  useEffect(() => {
-    if (
-      initialCategoryParam &&
-      (GALLERY_CATEGORIES as readonly string[]).includes(initialCategoryParam)
-    ) {
-      setSelectedCategory(initialCategoryParam as GalleryCategory);
-    }
-  }, [initialCategoryParam]);
-
   const filteredItems = useMemo(() => {
     return GALLERY_ITEMS.filter((item) => {
       const matchesCategory =
         selectedCategory === "All" || item.category === selectedCategory;
+      const matchesTradition =
+        selectedTradition === "All Traditions" ||
+        item.tradition === selectedTradition;
       const matchesVenue = matchesVenueFilter(item, selectedVenue);
-      return matchesCategory && matchesVenue;
+      return matchesCategory && matchesTradition && matchesVenue;
     });
-  }, [selectedCategory, selectedVenue]);
+  }, [selectedCategory, selectedTradition, selectedVenue]);
 
   const handleOpenLightbox = (
     index: number,
@@ -145,13 +160,15 @@ function GalleryContent() {
     );
   }, [lightboxIndex, filteredItems.length]);
 
+  const isLightboxOpen = lightboxIndex !== null;
+
   useEffect(() => {
-    if (lightboxIndex !== null) {
+    if (isLightboxOpen) {
       requestAnimationFrame(() => {
         closeButtonRef.current?.focus();
       });
     }
-  }, [lightboxIndex !== null]);
+  }, [isLightboxOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -209,69 +226,103 @@ function GalleryContent() {
       : null;
 
   return (
-    <div className="pt-28 pb-24 bg-ivory text-charcoal min-h-screen">
-      {/* Editorial Header */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 border-b border-gold/25">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-          <div className="lg:col-span-8 space-y-5">
-            <div className="flex items-center gap-3">
-              <span className="editorial-kicker">
-                Portfolio &amp; Visual Archive
+    <div className="bg-alabaster text-ink min-h-screen">
+      <Suspense fallback={null}>
+        <GallerySearchParamSync onSelectCategory={setSelectedCategory} />
+      </Suspense>
+
+      {/* 1. Alabaster Architectural Lookbook Header */}
+      <section className="pt-28 lg:pt-32 pb-14 bg-alabaster border-b border-stone-line">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+            <div className="lg:col-span-7 space-y-5">
+              <HeritageGreetingBanner theme="light" />
+
+              <span className="editorial-kicker block pt-1">
+                Real venues, real dawat
               </span>
-              <span className="h-px w-12 bg-gold/40" aria-hidden="true" />
+
+              <h1 className="display-hero text-ink">
+                Hyderabad&apos;s Best{" "}
+                <span className="editorial-italic">Moments</span>
+              </h1>
+
+              <p className="editorial-body max-w-2xl">
+                Browse Telugu Pelli Pandiris, Chowmahalla Nikkah courts, Taj Falaknuma marble receptions, Taramati Baradari sunsets, proper Shaadi &amp; Vindhu food spreads, and family ghar functions.
+              </p>
+
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <Link href="/contact" className="btn-editorial-dark">
+                  <span>Plan Something Like This</span>
+                  <ArrowUpRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
+                </Link>
+              </div>
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-charcoal tracking-tight leading-[1.08]">
-              Celebrations Across{" "}
-              <span className="text-burgundy">Hyderabad</span>
-            </h1>
+            {/* Real Hyderabad Monument Double Plate */}
+            <div className="lg:col-span-5 grid grid-cols-12 gap-3 sm:gap-4 items-end">
+              <div className="col-span-5">
+                <DeccaniArchFrame variant="mehrab" theme="alabaster">
+                  <div className="relative aspect-[3/4] w-full bg-limestone">
+                    <Image
+                      src="/images/real-charminar.webp"
+                      alt="Original photograph of Charminar and Char Kaman in Old City Hyderabad"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 40vw, 18vw"
+                      className="object-cover"
+                    />
+                  </div>
+                </DeccaniArchFrame>
+              </div>
+              <div className="col-span-7 space-y-2">
+                <div className="gallery-frame shadow-gallery">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-limestone">
+                    <Image
+                      src="/images/real-chowmahalla-palace.webp"
+                      alt="Original photograph of Khilwat Mubarak courtyard at Chowmahalla Palace Hyderabad"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 60vw, 24vw"
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+                <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink-subtle tabular-nums">
+                  Charminar • Chowmahalla Palace
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <p className="text-base sm:text-lg text-charcoal/80 max-w-2xl leading-relaxed font-sans">
-              A curated retrospective of sacred Kalyana Mandapams, scalloped Nikkah &amp; Walima pavilions, copper-deg Hyderabadi Dastarkhwans, Telugu Vindhu Bhojanam dining, HITEC City conferences, and intimate family blessings.
+          {/* Friendly Showcase Note */}
+          <div className="mt-10 p-4 sm:p-5 rounded-[2px] bg-limestone/70 border border-stone-line border-l-2 border-l-brass flex items-start gap-3 text-xs sm:text-sm text-ink-muted leading-relaxed">
+            <Info aria-hidden="true" className="w-4 h-4 text-brass-dark shrink-0 mt-0.5 stroke-[1.5]" />
+            <p>
+              <span className="font-semibold text-ink">Heads up:</span> What you see below are showcase studies &amp; aesthetic previews across Hyderabad palaces. Full private family wedding albums stay confidential — drop by Road No. 36 in Jubilee Hills over chai to flip through those!
             </p>
           </div>
-
-          <div className="lg:col-span-4 lg:text-right">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-burgundy hover:bg-burgundy-dark text-cream text-xs font-semibold transition-colors"
-            >
-              <span>Discuss Your Vision</span>
-              <ArrowUpRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
-            </Link>
-          </div>
-        </div>
-
-        {/* PRD Section 5 Editorial Transparency Note */}
-        <div className="mt-10 p-4 sm:p-5 rounded-xl bg-cream border border-gold/25 flex items-start gap-3 text-xs sm:text-sm text-charcoal/75 leading-relaxed">
-          <Info aria-hidden="true" className="w-4 h-4 text-gold-dark shrink-0 mt-0.5" />
-          <p>
-            <span className="font-semibold text-charcoal">
-              Curated Showcase Note:
-            </span>{" "}
-            The gallery below presents illustrative celebration studies and signature architectural aesthetics produced across Hyderabad’s premier venues. Full private client wedding albums and unreleased family commissions are shared confidentially during in-person consultations at our Jubilee Hills studio.
-          </p>
         </div>
       </section>
 
-      {/* Filter Controls */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="rounded-2xl bg-cream border border-gold/25 p-6 sm:p-8 space-y-6">
-          {/* Category Tabs */}
+      {/* 2. Architectural Filter Controls on Limestone */}
+      <section className="bg-limestone border-b border-stone-line py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* Category Filters */}
           <div className="space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="editorial-kicker">Filter by Discipline</span>
+              <span className="editorial-kicker">Filter by category</span>
               <span
                 aria-live="polite"
-                className="text-xs text-taupe-dark font-medium tabular-nums"
+                className="text-xs text-ink-muted font-medium tabular-nums"
               >
-                Showing {filteredItems.length} of {GALLERY_ITEMS.length} showcases
+                Showing {filteredItems.length} of {GALLERY_ITEMS.length}
               </span>
             </div>
 
             <div
               role="group"
-              aria-label="Filter showcases by discipline"
+              aria-label="Filter showcases by category"
               className="flex flex-wrap gap-2"
             >
               {GALLERY_CATEGORIES.map((cat) => {
@@ -291,19 +342,19 @@ function GalleryContent() {
                       setSelectedVenue("All Venues");
                     }}
                     className={cn(
-                      "px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors border flex items-center gap-2 cursor-pointer",
+                      "px-4 py-2 rounded-[2px] text-xs sm:text-sm font-medium transition-colors border flex items-center gap-2 cursor-pointer",
                       isActive
-                        ? "bg-burgundy text-cream border-burgundy"
-                        : "bg-ivory text-charcoal/80 border-gold/25 hover:border-gold/60 hover:text-charcoal"
+                        ? "bg-obsidian text-alabaster border-obsidian"
+                        : "bg-silk text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
                     )}
                   >
                     <span>{cat}</span>
                     <span
                       className={cn(
-                        "text-xs px-2 py-0.5 rounded tabular-nums",
+                        "text-[11px] px-1.5 py-0.5 rounded-[2px] tabular-nums",
                         isActive
-                          ? "bg-cream/20 text-cream"
-                          : "bg-charcoal/10 text-charcoal/70"
+                          ? "bg-brass/25 text-brass-light"
+                          : "bg-alabaster text-ink-subtle"
                       )}
                     >
                       {count}
@@ -314,10 +365,42 @@ function GalleryContent() {
             </div>
           </div>
 
-          {/* Hyderabad Venue Filter Chips */}
-          <div className="pt-5 border-t border-gold/20 space-y-3">
-            <span className="text-xs font-medium text-taupe-dark block">
-              Hyderabad Venue &amp; Neighbourhood
+          {/* Community Filter */}
+          <div className="pt-5 border-t border-stone-line space-y-3">
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-subtle block">
+              Pick by community or food vibe
+            </span>
+            <div
+              role="group"
+              aria-label="Filter showcases by tradition"
+              className="flex flex-wrap gap-2"
+            >
+              {GALLERY_TRADITIONS.map((trad) => {
+                const isActive = selectedTradition === trad;
+                return (
+                  <button
+                    key={trad}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => setSelectedTradition(trad)}
+                    className={cn(
+                      "px-3.5 py-1.5 rounded-[2px] text-xs font-medium border transition-colors cursor-pointer",
+                      isActive
+                        ? "bg-obsidian text-alabaster border-obsidian"
+                        : "bg-silk text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
+                    )}
+                  >
+                    {trad}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Palace & Venue Filters */}
+          <div className="pt-5 border-t border-stone-line space-y-3">
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-subtle block">
+              Hyderabad Palace or Area
             </span>
             <div
               role="group"
@@ -333,10 +416,10 @@ function GalleryContent() {
                     aria-pressed={isActive}
                     onClick={() => setSelectedVenue(venue)}
                     className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer",
+                      "px-3.5 py-1.5 rounded-[2px] text-xs font-medium border transition-colors cursor-pointer",
                       isActive
-                        ? "bg-emerald-deep text-ivory border-emerald-deep"
-                        : "bg-ivory text-charcoal/75 border-gold/20 hover:border-gold/50 hover:text-charcoal"
+                        ? "bg-obsidian text-alabaster border-obsidian"
+                        : "bg-silk text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
                     )}
                   >
                     {venue}
@@ -348,97 +431,102 @@ function GalleryContent() {
         </div>
       </section>
 
-      {/* Editorial Masonry Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+      {/* 3. Exhibition Plates Masonry */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
         {filteredItems.length === 0 ? (
-          <div className="p-16 rounded-2xl bg-cream border border-gold/25 text-center space-y-4">
-            <h2 className="font-serif text-3xl font-normal text-charcoal">
-              No showcases match this combination
+          <div className="p-14 sm:p-16 rounded-[2px] bg-silk border border-stone-line shadow-gallery text-center space-y-4">
+            <h2 className="display-section text-ink">
+              No matches for that combo yet!
             </h2>
-            <p className="text-sm text-charcoal/75 max-w-md mx-auto">
-              Reset the discipline or venue filter to view all curated Hyderabad celebration studies.
+            <p className="text-sm text-ink-muted max-w-md mx-auto">
+              Clear the filters to see all our Hyderabad weddings, palaces, and catering spreads.
             </p>
             <button
               type="button"
               onClick={() => {
                 setSelectedCategory("All");
+                setSelectedTradition("All Traditions");
                 setSelectedVenue("All Venues");
               }}
-              className="px-6 py-3 rounded-lg bg-burgundy text-cream text-xs font-semibold hover:bg-burgundy-dark transition-colors cursor-pointer"
+              className="btn-editorial-dark cursor-pointer"
             >
-              Show All Showcases
+              Reset All Filters
             </button>
           </div>
         ) : (
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-7 space-y-7">
             {filteredItems.map((item, index) => {
               const aspectClass =
                 MASONRY_ASPECTS[index % MASONRY_ASPECTS.length];
+              const plateNumber = String(index + 1).padStart(2, "0");
 
               return (
                 <article
                   key={item.id}
-                  className="break-inside-avoid rounded-xl border border-gold/25 bg-cream overflow-hidden group transition-colors hover:border-gold/60"
+                  className="break-inside-avoid rounded-[2px] border border-stone-line bg-silk overflow-hidden group transition-colors hover:border-brass shadow-gallery"
                 >
                   <button
                     type="button"
                     onClick={(e) => handleOpenLightbox(index, e.currentTarget)}
-                    className="w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-burgundy"
-                    aria-label={`Open full view of ${item.title}`}
+                    className="w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brass"
+                    aria-label={`Open full photo of ${item.title}`}
                   >
-                    {/* Image Viewport */}
-                    <div
-                      className={cn(
-                        "relative w-full overflow-hidden bg-ivory",
-                        aspectClass
-                      )}
-                    >
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/65 via-transparent to-transparent opacity-40 group-hover:opacity-65 transition-opacity" />
-
-                      <span className="absolute top-3 left-3 rounded-lg bg-ivory/95 border border-gold/30 text-charcoal text-xs font-medium px-3 py-1">
-                        {item.category}
-                      </span>
-
-                      <span
-                        aria-hidden="true"
-                        className="absolute bottom-3 right-3 p-2 rounded-lg bg-ivory/95 border border-gold/30 text-charcoal opacity-90 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100 transition-opacity"
+                    <div className="p-3 pb-0">
+                      <div
+                        className={cn(
+                          "relative w-full overflow-hidden bg-limestone",
+                          aspectClass
+                        )}
                       >
-                        <Maximize2 className="w-4 h-4 stroke-[1.5]" />
-                      </span>
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover"
+                        />
+
+                        <span className="absolute top-3 left-3 rounded-[2px] bg-alabaster/95 border border-stone-line text-ink text-[11px] font-semibold uppercase tracking-[0.12em] px-2.5 py-1">
+                          {item.category}
+                        </span>
+
+                        <span className="absolute top-3 right-3 rounded-[2px] bg-obsidian/85 text-alabaster text-[11px] font-medium px-2 py-0.5 tabular-nums">
+                          {plateNumber}
+                        </span>
+
+                        <span
+                          aria-hidden="true"
+                          className="absolute bottom-3 right-3 p-2 rounded-[2px] bg-alabaster/95 border border-stone-line text-ink opacity-90 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100 transition-opacity"
+                        >
+                          <Maximize2 className="w-4 h-4 stroke-[1.5]" />
+                        </span>
+                      </div>
                     </div>
 
-                    {/* Editorial Caption */}
-                    <div className="p-6 space-y-3">
-                      <div className="flex items-center justify-between gap-2 text-xs text-gold-dark font-medium">
+                    <div className="p-5 sm:p-6 space-y-3">
+                      <div className="flex items-center justify-between gap-2 text-xs text-brass-dark font-medium">
                         <span className="inline-flex items-center gap-1.5 truncate">
-                          <MapPin aria-hidden="true" className="w-4 h-4 stroke-[1.5] shrink-0" />
+                          <MapPin aria-hidden="true" className="w-3.5 h-3.5 stroke-[1.5] shrink-0" />
                           {item.venue}
                         </span>
-                        <span className="shrink-0 text-taupe-dark tabular-nums">
+                        <span className="shrink-0 text-ink-subtle tabular-nums">
                           {item.date}
                         </span>
                       </div>
 
-                      <h2 className="font-serif text-2xl font-normal text-charcoal group-hover:text-burgundy transition-colors leading-snug">
+                      <h2 className="display-card text-ink group-hover:text-brass-dark transition-colors">
                         {item.title}
                       </h2>
 
-                      <p className="text-xs sm:text-sm text-charcoal/75 leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-ink-muted leading-relaxed line-clamp-3">
                         {item.description}
                       </p>
 
-                      <div className="pt-3 border-t border-gold/15 flex flex-wrap gap-2">
+                      <div className="pt-3 border-t border-stone-line flex flex-wrap gap-1.5">
                         {item.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs text-taupe-dark px-2.5 py-0.5 rounded bg-ivory border border-gold/20"
+                            className="text-[11px] text-ink-subtle px-2.5 py-0.5 rounded-[2px] bg-alabaster border border-stone-line"
                           >
                             {tag}
                           </span>
@@ -453,41 +541,41 @@ function GalleryContent() {
         )}
       </section>
 
-      {/* Keyboard-Accessible Full-Screen Lightbox Modal */}
+      {/* Dramatic Deep Obsidian Full-Screen Lightbox */}
       {currentItem && (
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="lightbox-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-charcoal/90 p-4 sm:p-8"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/95 backdrop-blur-md p-4 sm:p-8"
           onClick={handleCloseLightbox}
         >
           <div
             ref={modalRef}
-            className="relative w-full max-w-5xl rounded-2xl bg-cream border border-gold/40 overflow-hidden shadow-2xl flex flex-col max-h-[92vh]"
+            className="relative w-full max-w-5xl rounded-[2px] bg-obsidian-elevated border border-obsidian-line overflow-hidden shadow-obsidian flex flex-col max-h-[92vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gold/25 bg-ivory text-charcoal">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-obsidian-line bg-obsidian text-ink-light">
               <div className="flex items-center gap-3 text-xs">
-                <span className="text-burgundy font-semibold">
-                  {currentItem.category}
+                <span className="text-brass-light font-semibold uppercase tracking-[0.16em]">
+                  {currentItem.tradition}
                 </span>
-                <span aria-hidden="true" className="text-gold/50">•</span>
-                <span aria-live="polite" className="text-taupe-dark tabular-nums">
+                <span aria-hidden="true" className="text-obsidian-line">•</span>
+                <span aria-live="polite" className="text-ink-lightMuted tabular-nums">
                   {(lightboxIndex ?? 0) + 1} of {filteredItems.length}
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="hidden sm:inline text-xs text-taupe-dark">
+              <div className="flex items-center gap-4">
+                <span className="hidden sm:inline text-xs text-ink-lightMuted">
                   Arrow keys to browse • Esc to close
                 </span>
                 <button
                   ref={closeButtonRef}
                   type="button"
                   onClick={handleCloseLightbox}
-                  className="p-2 rounded-lg border border-gold/30 bg-cream text-charcoal hover:bg-burgundy hover:text-cream hover:border-burgundy transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burgundy cursor-pointer"
+                  className="p-2 rounded-[2px] border border-obsidian-line bg-obsidian-elevated text-ink-light hover:bg-brass hover:text-obsidian hover:border-brass transition-colors cursor-pointer"
                   aria-label="Close lightbox"
                 >
                   <X aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
@@ -495,15 +583,15 @@ function GalleryContent() {
               </div>
             </div>
 
-            {/* Modal Content */}
+            {/* Body */}
             <div className="overflow-y-auto flex-1 flex flex-col">
-              {/* Image Stage */}
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[55vh] bg-charcoal flex items-center justify-center">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[54vh] bg-obsidian flex items-center justify-center">
                 <Image
                   src={currentItem.image}
                   alt={currentItem.title}
                   fill
                   priority
+                  sizes="(max-width: 1024px) 95vw, 1024px"
                   className="object-contain"
                 />
 
@@ -515,8 +603,8 @@ function GalleryContent() {
                         e.stopPropagation();
                         handlePrevImage();
                       }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-lg bg-ivory/90 border border-gold/40 text-charcoal hover:bg-burgundy hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
-                      aria-label="Previous showcase"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-[2px] bg-obsidian/90 border border-brass/40 text-ink-light hover:bg-brass hover:text-obsidian transition-colors cursor-pointer"
+                      aria-label="Previous photo"
                     >
                       <ChevronLeft aria-hidden="true" className="w-5 h-5 stroke-[1.5]" />
                     </button>
@@ -526,8 +614,8 @@ function GalleryContent() {
                         e.stopPropagation();
                         handleNextImage();
                       }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-lg bg-ivory/90 border border-gold/40 text-charcoal hover:bg-burgundy hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
-                      aria-label="Next showcase"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-[2px] bg-obsidian/90 border border-brass/40 text-ink-light hover:bg-brass hover:text-obsidian transition-colors cursor-pointer"
+                      aria-label="Next photo"
                     >
                       <ChevronRight aria-hidden="true" className="w-5 h-5 stroke-[1.5]" />
                     </button>
@@ -535,57 +623,63 @@ function GalleryContent() {
                 )}
               </div>
 
-              {/* Narrative Footer */}
-              <div className="p-6 sm:p-8 bg-cream border-t border-gold/25 space-y-4">
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+              <div className="p-6 sm:p-8 bg-obsidian-elevated border-t border-obsidian-line text-ink-light space-y-5">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-5">
                   <div className="space-y-1.5">
                     <h2
                       id="lightbox-title"
-                      className="font-serif text-2xl sm:text-3xl font-normal text-charcoal"
+                      className="font-display text-2xl sm:text-3xl font-medium text-ink-light leading-tight"
                     >
                       {currentItem.title}
                     </h2>
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-gold-dark font-medium">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-brass-light font-medium">
                       <span className="inline-flex items-center gap-1.5">
-                        <MapPin aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
+                        <MapPin aria-hidden="true" className="w-3.5 h-3.5 stroke-[1.5]" />
                         {currentItem.venue}, {currentItem.location}
                       </span>
-                      <span aria-hidden="true" className="text-gold/40">•</span>
+                      <span aria-hidden="true" className="text-obsidian-line">•</span>
                       <span className="tabular-nums">{currentItem.date}</span>
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-3 shrink-0">
                     <Link
-                      href="/contact"
+                      href={`/contact?brief=${encodeURIComponent(
+                        `Loved the gallery card "${currentItem.title}" at ${currentItem.venue}.`
+                      )}`}
                       onClick={() => setLightboxIndex(null)}
-                      className="px-5 py-2.5 rounded-lg bg-burgundy hover:bg-burgundy-dark text-cream text-xs font-semibold transition-colors"
+                      className="btn-editorial-light"
                     >
-                      Inquire for Similar Event
+                      Want Something Like This!
                     </Link>
                     <a
                       href={`https://wa.me/919876543210?text=${encodeURIComponent(
-                        `Hello Tehzaa Celebrations, I loved the "${currentItem.title}" showcase at ${currentItem.venue}. I'd like to plan something similar.`
+                        `Hi Tehzaa! Loved "${currentItem.title}" at ${currentItem.venue}. Can we chat?`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2.5 rounded-lg border border-gold/35 text-charcoal hover:bg-ivory text-xs font-medium inline-flex items-center gap-1.5 transition-colors"
+                      className="btn-editorial-outline-dark"
                     >
-                      <PhoneCall aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-dark" />
+                      <PhoneCall aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light" />
                       <span>WhatsApp</span>
                     </a>
                   </div>
                 </div>
 
-                <p className="text-sm text-charcoal/80 leading-relaxed">
+                <p className="text-sm sm:text-base text-ink-lightMuted leading-relaxed">
                   {currentItem.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="p-4 rounded-[2px] bg-obsidian border border-obsidian-line text-xs text-ink-lightMuted leading-relaxed">
+                  <span className="font-semibold text-brass-light">Behind the Setup:</span>{" "}
+                  {currentItem.craftNotes}
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-1">
                   {currentItem.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-1 rounded bg-ivory border border-gold/25 text-xs text-taupe-dark"
+                      className="px-3 py-1 rounded-[2px] bg-obsidian border border-obsidian-line text-xs text-ink-lightMuted"
                     >
                       {tag}
                     </span>
@@ -597,51 +691,47 @@ function GalleryContent() {
         </div>
       )}
 
-      {/* Editorial Footer CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-        <div className="rounded-2xl border border-gold/25 bg-emerald-deep text-ivory p-8 sm:p-14 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-          <div className="max-w-2xl space-y-3">
-            <span className="text-xs font-medium text-ivory-dark block">
-              Jubilee Hills Atelier
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-normal text-cream leading-tight">
-              View Private Commissions &amp; Material Swatches in Person
-            </h2>
-            <p className="text-sm text-ivory/80 leading-relaxed">
-              Visit our studio in Hyderabad to explore confidential family celebration albums, botanical pairings, and tailored culinary tastings.
-            </p>
-          </div>
+      {/* 4. Luxury Studio Invitation Band on Limestone */}
+      <section className="bg-limestone border-t border-stone-line py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-[2px] border border-obsidian-line bg-obsidian text-ink-light p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center shadow-obsidian">
+            <div className="lg:col-span-7 space-y-4">
+              <span className="editorial-kicker-light block">
+                Chai pe milenge
+              </span>
+              <h2 className="display-section text-ink-light">
+                Want to Flip Through Private Wedding Albums In Person?
+              </h2>
+              <p className="text-sm sm:text-base text-ink-lightMuted leading-relaxed max-w-2xl">
+                Swing by Road No. 36 in Jubilee Hills — we&apos;ll show you real full-day albums, floral mockups, and let you taste freshly cooked Biryani and Vindhu samples.
+              </p>
 
-          <div className="flex flex-wrap gap-3 shrink-0">
-            <Link
-              href="/contact"
-              className="px-6 py-3 rounded-lg bg-ivory hover:bg-cream text-charcoal text-xs font-semibold transition-colors"
-            >
-              Book Private Consultation
-            </Link>
-            <Link
-              href="/services"
-              className="px-6 py-3 rounded-lg border border-ivory/30 text-ivory hover:bg-ivory/10 text-xs font-medium transition-colors"
-            >
-              Explore Our Services
-            </Link>
+              <div className="pt-2 flex flex-wrap gap-4">
+                <Link href="/contact" className="btn-editorial-light">
+                  Book a Visit
+                </Link>
+                <Link href="/services" className="btn-editorial-outline-dark">
+                  Explore Services
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="gallery-frame-dark">
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-obsidian">
+                  <Image
+                    src="/images/real-qutb-shahi-tombs.webp"
+                    alt="Original photograph of Qutb Shahi Tombs surrounded by serene Ibrahim Bagh gardens in Hyderabad"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 38vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </div>
-  );
-}
-
-export default function GalleryPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="pt-28 pb-24 bg-ivory text-charcoal min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="h-12 w-64 rounded-lg bg-cream border border-gold/20 animate-pulse" />
-        </div>
-      }
-    >
-      <GalleryContent />
-    </Suspense>
   );
 }

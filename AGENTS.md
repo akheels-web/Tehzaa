@@ -1,66 +1,42 @@
 # Tehzaa Celebrations Architecture & Agent Memory
 
-## Brand & Design System
-- **Brand Identity**: Luminous, editorial Indian celebration house inspired by *Tehzeeb* (elegance, cultural reverence, warm hospitality), serving all communities of Hyderabad.
-- **Logo Component**: `src/components/brand/TehzaaLogo.tsx` — fine-line scalloped arch & lotus-petal SVG monogram (`1.5px` stroke) paired with uppercase `Cormorant Garamond` wordmark (`TEHZAA`) and tracked `Manrope` descriptor (`CELEBRATIONS`), supporting `theme="light" | "dark"`.
-- **Color Palette Tokens**:
-  - Antique Gold: `#90643D` (`gold`, `gold-light: #A77B52`, `gold-dark: #754F2E`)
-  - Burgundy: `#6B292D` (`burgundy`, `burgundy-light: #82363B`, `burgundy-dark: #521F22`)
-  - Warm Ivory: `#F4EDE2` (`ivory`, `ivory-light: #FAF7F2`, `ivory-dark: #EADCCB`)
-  - Cream: `#FAF7F2` (`cream`)
-  - Deep Emerald: `#263B32` (`emerald`, `emerald-deep`)
-  - Dark Charcoal: `#282522` (`charcoal`, `charcoal-light: #3A3632`)
-  - Muted Taupe: `#806B56` (`taupe`)
-- **Typography**:
-  - Headings: `Playfair Display` (Google Font serif, via `next/font/google`, `--font-playfair`)
-  - Body: `Plus Jakarta Sans` (Google Font sans, via `next/font/google`, `--font-jakarta`)
-- **Local Visual Assets (`public/images/`, WebP format)**:
-  - `/images/hero-indian-wedding.webp`
-  - `/images/floral-mandap-indian.webp`
-  - `/images/catering-hyderabadi-feast.webp`
-  - `/images/catering-indian-thali.webp`
-  - `/images/baraat-grand-entry.webp`
-  - `/images/bridal-entry-indian.webp`
-  - `/images/haldi-mehendi-courtyard.webp`
-  - `/images/nikkah-walima-arch.webp`
-  - `/images/corporate-gala-hyderabad.webp`
-  - `/images/family-celebration-indian.webp`
+## Brand & Design System (Deccani Editorial Luxury Aesthetic)
+- **Brand Identity**: Warm, conversational Hyderabad wedding, catering & event studio rooted in *Tehzeeb* and joyful hospitality across Hindu, Muslim, Sikh, Christian, and corporate communities.
+- **Color Palette Tokens (`tailwind.config.ts` & `src/app/globals.css`)**:
+  - **Warm Alabaster (`alabaster`)**: `#F9F6F1` / `#F5F1EA` (`warm`) — primary editorial page ground.
+  - **Silk White (`silk`)**: `#FFFFFF` — architectural gallery mats, menus, sticky tasting cards, and dropdown surfaces.
+  - **Limestone (`limestone`)**: `#EFE9DF` / `#E2DAD0` (`dark` / `stone-line`) — warm tonal section bands and 1px structural hairlines.
+  - **Deep Obsidian (`obsidian`)**: `#12100E` (`DEFAULT`), `#1A1715` (`elevated`), `#26211D` (`muted`), `#2E2823` (`obsidian-line`) — dramatic dark cinematic chapters, Hero showcase, Culinary Theatre, Monument Atlas, and monumental Footer.
+  - **Burnished Deccani Brass (`brass`)**: `#A27B43` (`DEFAULT` borders/icons/rules), `#C7A36B` (`light` high-contrast gold text/italics on Deep Obsidian), `#7A5929` (`dark` AA gold text/italics/kickers on Alabaster & Silk), `#E8DCCB` (`pale`).
+  - **Royal Garnet (`garnet`)**: `#5C1F24` (`light: #7A2D34`, `dark: #421519`) — restrained ceremonial jewel accent.
+  - **Editorial Ink Hierarchy (`ink`)**: `#161412` (`DEFAULT`), `#4A453F` (`muted`), `#6E675F` (`subtle`) on light surfaces; `#F5F1EA` (`light`), `#BEB6AA` (`lightMuted`) on Deep Obsidian.
+  - Standard Tailwind `emerald-*` scale is preserved untouched for vegetarian dietary indicators.
+- **2-Font Editorial Typography (`next/font/google` in `src/app/layout.tsx`, zero `Great_Vibes`)**:
+  - **Display Serif**: `Cormorant_Garamond` (`400`, `500`, `600`, `700`; `normal` & `italic`; `--font-display`, `font-display` / `font-serif`) powering fluid `clamp()` utilities `.display-hero`, `.display-section`, `.display-card`, and `.editorial-italic`.
+  - **Body & UI Sans**: `Manrope` (`400`, `500`, `600`, `700`; `--font-sans`, `font-sans`) powering legible `15px–17px` `.editorial-body`, tracked `11px–12px` `.editorial-kicker` / `.editorial-kicker-light`, sharp architectural CTAs, and `tabular-nums` numerals.
+- **Architectural Framing & UI Grammar (`src/app/globals.css`)**:
+  - Sharp `rounded-none` / `rounded-[2px]` gallery frames (`.gallery-frame`, `.gallery-frame-dark`) and `1px` rules (`.hairline-rule`, `.hairline-rule-dark`), replacing generic rounded SaaS boxes.
+  - Sharp architectural buttons: `.btn-editorial-dark`, `.btn-editorial-light`, `.btn-editorial-outline`, `.btn-editorial-outline-dark`.
+  - Alternating surface cadence: **Deep Obsidian (`#12100E`)** ↔ **Warm Alabaster (`#F9F6F1`)** ↔ **Limestone (`#EFE9DF`)** ↔ **Silk White (`#FFFFFF`)**.
+- **Logo Component (`src/components/brand/TehzaaLogo.tsx`)**: Fine-line `1.25px` Deccani scalloped arch & lotus SVG emblem paired with `Cormorant Garamond` uppercase `TEHZAA` and tracked `Manrope` `HYDERABAD CELEBRATIONS` descriptor (`theme="light" | "dark"`, `size="sm" | "md" | "lg"`).
+- **Authentic Local Visual Assets (`public/images/`, 21 WebP files)**:
+  - **Verified Real Hyderabad Monument Photographs (`src/data/monuments.ts`, Wikimedia Commons CC-licensed)**: `/images/real-charminar.webp`, `/images/real-chowmahalla-palace.webp`, `/images/real-falaknuma-palace.webp`, `/images/real-golconda-fort.webp`, `/images/real-taramati-baradari.webp`, `/images/real-qutb-shahi-tombs.webp`.
+  - **Editorial, Culinary & Celebration Suite (15 WebP files)**: `/images/anand-karaj-cathedral-garden.webp`, `/images/baraat-grand-entry.webp`, `/images/bridal-entry-indian.webp`, `/images/catering-hyderabadi-feast.webp`, `/images/catering-indian-thali.webp`, `/images/corporate-gala-hyderabad.webp`, `/images/family-celebration-indian.webp`, `/images/floral-mandap-indian.webp`, `/images/haldi-mehendi-courtyard.webp`, `/images/hero-indian-wedding.webp`, `/images/hyderabadi-dum-biryani-deg.webp`, `/images/hyd-muslim-dawat-spread.webp`, `/images/hyd-telugu-vindhu-leaf.webp`, `/images/irani-chai-mithai-parlor.webp`, `/images/nikkah-walima-arch.webp`.
 
 ## Key Architecture & Setup
-- **Framework**: Next.js 15+ (App Router), React 19, TypeScript, Tailwind CSS.
+- **Framework**: Next.js 15+ (App Router), React 19, TypeScript, Tailwind CSS, Framer/Motion (`motion/react`).
 - **Path Aliases**: `@/*` mapped to `src/*` in `tsconfig.json` and `next.config.mjs`.
 - **Canonical Service Slugs (PRD Section 5)**:
-  - `/services/floral-decor`
-  - `/services/catering` (includes `menuCollections` for Hyderabadi, Telugu Vindhu Bhojanam, North Indian/Rajasthani, Pure Veg & Jain, and Live Global stations)
-  - `/services/baraat`
-  - `/services/corporate-events`
-  - `/services/family-celebrations`
-- **Build Note**: Next.js requires network access during `npm run build` to download `next/font/google` resources (`fonts.googleapis.com`).
+  - `/services/floral-decor` (Interactive Multi-Faith Decor Studio + Real Chowmahalla / Taj Falaknuma / Taramati Baradari / Golconda Palace Matcher)
+  - `/services/catering` (Full-width luxury `CateringPageExperience.tsx` + hairline `CulinaryMenuExplorer.tsx` covering Muslim Shaadi Dawat, Telugu Pelli Vindhu Bhojanam, Telangana Non-Veg & North Indian, isolated Pure Veg & Jain, and Irani Chai/Paan)
+  - `/services/baraat` (Marfa, Punjabi Dhol, Telugu Pallaki, Phoolon ki Chadar)
+  - `/services/corporate-events` (HICC & HITEC Summits, Palace Gala Dinners)
+  - `/services/family-celebrations` (Seemantham, Namakaranam, Sanchaq, Manjha, Aqiqah, Anniversaries & Farmhouses)
+- **Build Note**: Next.js requires network access during `npm run build` to download `next/font/google` resources (`fonts.googleapis.com`). Avoid mixing `next dev` and `next build` artifacts inside `.next`.
 
-## Directory Structure & Implemented Routes
-- `src/components/brand/TehzaaLogo.tsx`: Custom fine-line SVG monogram + wordmark.
-- `src/components/layout/`:
-  - `Header.tsx`: Translucent Warm Ivory editorial navigation with `TehzaaLogo`, keyboard-accessible canonical service dropdown, mobile drawer, and `Plan Your Event` CTA (`/contact`).
-  - `Footer.tsx`: `TehzaaLogo`, inclusive Hyderabad community philosophy, canonical service links, `/gallery`, `/about`, `/privacy`, `/contact`, and Hyderabad studios (Jubilee Hills, Financial District).
-  - `WhatsAppButton.tsx`: Refined floating concierge action button (`Deep Emerald` with `1px` gold border) with hover/focus tooltip.
-  - `MotionProvider.tsx`: Client `MotionConfig reducedMotion="user"` wrapper honoring OS reduced-motion preferences.
-- `src/data/`:
-  - `services.ts`: 5 categories with canonical slugs, local `/images/`, and `menuCollections` on `catering`.
-  - `gallery.ts`: 12 portfolio items across Hyderabad venues using local `/images/`.
-  - `testimonials.ts`: Diverse Hyderabad community family & corporate testimonials (`avatar` optional, no stock faces).
-- `src/components/home/`:
-  - `InteractiveHero.tsx`: Calm full-bleed hero with staggered headline reveal and live 4-scene mood switcher.
-  - `BrandMarquee.tsx`: Static editorial celebration tradition ribbon.
-  - `InteractiveBrandStory.tsx`: Dual-frame editorial narrative with architectural seal.
-  - `InteractiveDisciplines.tsx`: Sticky split-stage service discipline explorer.
-  - `HomeCulinaryStage.tsx`: Interactive Deep Emerald Indian & Hyderabadi gastronomy showcase.
-  - `ParallaxGalleryShowcase.tsx`: Offset editorial portfolio grid with quick discipline filters.
-  - `AnimatedPlanningTimeline.tsx`: Interactive 4-step planning chronicle with gold hairline track.
-  - `InteractiveTestimonials.tsx`: Interactive editorial quote deck with community selector.
-  - `MotionReveal.tsx`: Client `motion/react` reveal wrapper.
-- `src/app/page.tsx`: Editorial Warm Ivory & Cream Home page with full-bleed Hero (`/images/hero-indian-wedding.webp`), asymmetric Tehzeeb intro, 5 canonical services, Deep Emerald Indian & Hyderabadi Culinary band, featured gallery, architectural pillars & 4-step process, typographic client reflections, 8 Hyderabad precincts, and consultation CTA.
-- `src/app/about/page.tsx`: Editorial brand story, Tehzeeb philosophy across Hyderabad communities, Mission & Vision, 4 Guiding Principles, and 3 Craft Disciplines (no fabricated stats/years).
-- `src/app/privacy/page.tsx`: Editorial Warm Ivory Privacy Policy covering inquiry data, Telegram notifications, retention, and deletion rights.
-- `src/app/layout.tsx`, `src/app/globals.css`, `tailwind.config.ts`: Root metadata (`/images/hero-indian-wedding.webp`), typography utilities, and design tokens.
-- `src/app/api/contact/route.ts`, `src/components/contact/ContactForm.tsx`, `src/lib/validation.ts`, `src/lib/rate-limit.ts`, `src/lib/telegram.ts`.
-- `src/app/sitemap.ts`, `src/app/robots.ts`, `src/components/seo/JsonLd.tsx`.
+## Directory Structure & Implemented Modules
+- `src/components/deccani/DeccaniMotifs.tsx`: Architectural SVG & motif components (`DeccaniArchFrame` with `theme="alabaster" | "dark" | "obsidian"`, `JaaliPattern`, `TehzeebDivider`, `CharminarSkylineCrest`, `HeritageGreetingBanner`).
+- `src/components/layout/`: Transparent-to-frosted `Header.tsx` (`bg-alabaster/65` → `bg-alabaster/95`), Deep Obsidian architectural `Footer.tsx` featuring `CharminarSkylineCrest theme="dark"` and monumental `TEHZAA` wordmark, Deep Obsidian + Brass `WhatsAppButton.tsx`, and `MotionProvider.tsx` (`MotionConfig reducedMotion="user"`).
+- `src/data/`: `monuments.ts` (`HYDERABAD_MONUMENTS`), `services.ts`, `gallery.ts`, `testimonials.ts`.
+- `src/components/home/`: `InteractiveHero.tsx` (Deep Obsidian hero framed by real Charminar & Chowmahalla photography), `BrandMarquee.tsx`, `PelliVsShaadiCurtain.tsx`, `GangaJamuniShowcase.tsx`, `InteractiveBrandStory.tsx`, `InteractiveDisciplines.tsx`, `HomeCulinaryStage.tsx` (Deep Obsidian culinary theatre), `ParallaxGalleryShowcase.tsx`, `AnimatedPlanningTimeline.tsx`, `InteractiveTestimonials.tsx`, `HyderabadPrecinctAtlas.tsx` (all 6 real monuments), and `MotionReveal.tsx`.
+- `src/components/services/`, `src/components/about/`, `src/components/contact/`, `src/components/seo/`: Luxury editorial interactive builders (`CateringPageExperience.tsx`, `CulinaryMenuExplorer.tsx`, `DecorTraditionStudio.tsx`, `DisciplineInteractiveShowcase.tsx`, `ServicesTraditionIndex.tsx`, `DeccaniCraftInteractive.tsx`, `ContactForm.tsx` with `<Suspense>` `?eventType=` + `?brief=` sync, and `JsonLd.tsx`).

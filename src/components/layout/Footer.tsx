@@ -12,47 +12,54 @@ import {
 } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { TehzaaLogo } from "@/components/brand/TehzaaLogo";
+import { CharminarSkylineCrest } from "@/components/deccani/DeccaniMotifs";
 
 export function Footer() {
   return (
-    <footer className="bg-charcoal text-ivory/80 pt-16 pb-10 border-t border-gold/25">
+    <footer className="bg-obsidian text-ink-light pt-16 pb-10 border-t border-obsidian-line">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-gold/25">
-          {/* Column 1: Brand & Inclusive Hyderabad Philosophy */}
+        {/* Shared Heritage Skyline Elevation */}
+        <div className="pb-12 mb-14 border-b border-obsidian-line text-center space-y-3">
+          <CharminarSkylineCrest theme="dark" />
+          <p className="font-display italic text-2xl sm:text-3xl font-normal text-brass-light pt-1">
+            Made with love, tea &amp; Hyderabadi tehzeeb
+          </p>
+          <p className="text-[11px] sm:text-xs font-sans uppercase tracking-[0.18em] text-ink-lightMuted">
+            Shaadi • Telugu Pelli • Anand Karaj • Cathedral Vows • HITEC City Galas
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-obsidian-line">
+          {/* Column 1: Brand */}
           <div className="space-y-5">
             <Link
               href="/"
               aria-label="Tehzaa Celebrations Home"
-              className="inline-block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+              className="inline-block rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian"
             >
-              <TehzaaLogo theme="light" size="md" />
+              <TehzaaLogo theme="dark" size="md" />
             </Link>
 
-            <p className="text-xs leading-relaxed text-ivory/80">
-              Inspired by the timeless principle of{" "}
-              <span className="text-gold-light font-serif text-sm">Tehzeeb</span>—refinement,
-              reverence, and wholehearted hospitality. Based in Hyderabad, we curate
-              weddings, floral architecture, regional feasts, and landmark gatherings
-              across every tradition.
+            <p className="text-sm leading-relaxed text-ink-lightMuted">
+              Shaadi ho ya Pelli — we take care of everything from fresh Jasmine mandaps and Nikkah arches to copper-deg Dum Biryani and Pure Veg banana-leaf Vindhu, so your family actually gets to enjoy the party!
             </p>
 
-            <div className="pt-2 border-t border-gold/15">
-              <p className="text-xs text-gold-light font-medium mt-3">
-                Honoring every tradition
+            <div className="pt-3 border-t border-obsidian-line">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-brass-light font-semibold mt-1">
+                Zero stress, full dhamaka
               </p>
-              <p className="text-xs text-ivory/75 mt-1 leading-relaxed">
-                Telugu &amp; South Indian Mandapams • North Indian &amp; Marwari Ceremonies
-                • Deccani Nikkah &amp; Walima • HITEC City Corporate Galas
+              <p className="text-xs text-ink-lightMuted mt-1.5 leading-relaxed">
+                Chowmahalla • Taj Falaknuma • Taramati Baradari • Golconda • Jubilee Hills • HITEC City
               </p>
             </div>
 
-            <div className="flex items-center space-x-3 pt-1">
+            <div className="flex items-center space-x-2.5 pt-1">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Tehzaa Celebrations on Instagram"
-                className="w-9 h-9 rounded-lg border border-gold/25 flex items-center justify-center text-ivory/80 hover:text-gold-light hover:border-gold transition-colors"
+                className="w-9 h-9 rounded-[2px] border border-obsidian-line bg-obsidian-elevated flex items-center justify-center text-ink-lightMuted hover:text-brass-light hover:border-brass-light transition-colors"
               >
                 <Instagram aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
               </a>
@@ -61,7 +68,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Tehzaa Celebrations on Facebook"
-                className="w-9 h-9 rounded-lg border border-gold/25 flex items-center justify-center text-ivory/80 hover:text-gold-light hover:border-gold transition-colors"
+                className="w-9 h-9 rounded-[2px] border border-obsidian-line bg-obsidian-elevated flex items-center justify-center text-ink-lightMuted hover:text-brass-light hover:border-brass-light transition-colors"
               >
                 <Facebook aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
               </a>
@@ -70,26 +77,29 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Tehzaa Celebrations on LinkedIn"
-                className="w-9 h-9 rounded-lg border border-gold/25 flex items-center justify-center text-ivory/80 hover:text-gold-light hover:border-gold transition-colors"
+                className="w-9 h-9 rounded-[2px] border border-obsidian-line bg-obsidian-elevated flex items-center justify-center text-ink-lightMuted hover:text-brass-light hover:border-brass-light transition-colors"
               >
                 <Linkedin aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
               </a>
             </div>
           </div>
 
-          {/* Column 2: Curated Services */}
+          {/* Column 2: What We Do */}
           <div>
-            <h3 className="font-serif text-lg text-ivory font-medium mb-5 pb-2 border-b border-gold/25">
-              Curated Services
+            <h3 className="font-display text-2xl text-ink-light font-medium mb-5 pb-2.5 border-b border-obsidian-line">
+              What We Do
             </h3>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-sm">
               {SERVICES.map((s) => (
                 <li key={s.id}>
                   <Link
                     href={`/services/${s.slug}`}
-                    className="text-ivory/80 hover:text-gold-light transition-colors inline-flex items-center gap-2 py-0.5 group"
+                    className="text-ink-lightMuted hover:text-ink-light transition-colors inline-flex items-center gap-2 py-0.5 group"
                   >
-                    <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold/70 group-hover:text-gold-light group-hover:translate-x-0.5 transition-[color,transform] duration-200" />
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="w-3.5 h-3.5 stroke-[1.5] text-brass-light group-hover:translate-x-0.5 transition-transform duration-200 shrink-0"
+                    />
                     <span>{s.title}</span>
                   </Link>
                 </li>
@@ -97,96 +107,102 @@ export function Footer() {
               <li className="pt-1">
                 <Link
                   href="/gallery"
-                  className="text-ivory/80 hover:text-gold-light transition-colors inline-flex items-center gap-2 py-0.5 group"
+                  className="text-ink-lightMuted hover:text-ink-light transition-colors inline-flex items-center gap-2 py-0.5 group"
                 >
-                  <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold/70 group-hover:text-gold-light group-hover:translate-x-0.5 transition-[color,transform] duration-200" />
-                  <span>Celebration Portfolio</span>
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="w-3.5 h-3.5 stroke-[1.5] text-brass-light group-hover:translate-x-0.5 transition-transform duration-200 shrink-0"
+                  />
+                  <span>Photo Scrapbook (Our Work)</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className="text-ivory/80 hover:text-gold-light transition-colors inline-flex items-center gap-2 py-0.5 group"
+                  className="text-ink-lightMuted hover:text-ink-light transition-colors inline-flex items-center gap-2 py-0.5 group"
                 >
-                  <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold/70 group-hover:text-gold-light group-hover:translate-x-0.5 transition-[color,transform] duration-200" />
-                  <span>Our Philosophy &amp; Craft</span>
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="w-3.5 h-3.5 stroke-[1.5] text-brass-light group-hover:translate-x-0.5 transition-transform duration-200 shrink-0"
+                  />
+                  <span>About Our Hyderabad Team</span>
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Hyderabad Studios */}
+          {/* Column 3: Studios */}
           <div>
-            <h3 className="font-serif text-lg text-ivory font-medium mb-5 pb-2 border-b border-gold/25">
-              Hyderabad Studios
+            <h3 className="font-display text-2xl text-ink-light font-medium mb-5 pb-2.5 border-b border-obsidian-line">
+              Drop By Over Chai
             </h3>
-            <div className="space-y-4 text-xs">
+            <div className="space-y-4 text-sm">
               <div className="flex items-start gap-3">
-                <MapPin aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-light shrink-0 mt-0.5" />
+                <MapPin aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0 mt-1" />
                 <div>
-                  <span className="text-ivory font-medium block">
-                    Design &amp; Tasting Studio
+                  <span className="text-ink-light font-medium block">
+                    Wedding &amp; Tasting Lounge
                   </span>
-                  <span className="text-ivory/75 leading-relaxed block mt-1">
-                    Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033
+                  <span className="text-xs text-ink-lightMuted leading-relaxed block mt-0.5">
+                    Road No. 36, Jubilee Hills, Hyderabad 500033
                   </span>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <MapPin aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-light shrink-0 mt-0.5" />
+                <MapPin aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0 mt-1" />
                 <div>
-                  <span className="text-ivory font-medium block">
-                    Corporate Operations Desk
+                  <span className="text-ink-light font-medium block">
+                    Corporate Ops Desk
                   </span>
-                  <span className="text-ivory/75 leading-relaxed block mt-1">
-                    Financial District, Nanakramguda, Gachibowli, Hyderabad 500032
+                  <span className="text-xs text-ink-lightMuted leading-relaxed block mt-0.5">
+                    Financial District, Nanakramguda, Gachibowli 500032
                   </span>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Clock aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-light shrink-0 mt-0.5" />
+                <Clock aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0 mt-1" />
                 <div>
-                  <span className="text-ivory font-medium block">Consultation Hours</span>
-                  <span className="text-ivory/75 block mt-1 tabular-nums">
-                    Mon – Sun: 10:00 AM – 8:30 PM (By Appointment)
+                  <span className="text-ink-light font-medium block">When We&apos;re Open</span>
+                  <span className="text-xs text-ink-lightMuted block mt-0.5 tabular-nums">
+                    Mon – Sun: 10:00 AM – 8:30 PM
                   </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Column 4: Event Concierge */}
+          {/* Column 4: Talk To Us */}
           <div>
-            <h3 className="font-serif text-lg text-ivory font-medium mb-5 pb-2 border-b border-gold/25">
-              Event Concierge
+            <h3 className="font-display text-2xl text-ink-light font-medium mb-5 pb-2.5 border-b border-obsidian-line">
+              Talk To Us
             </h3>
-            <div className="space-y-4 text-xs">
-              <p className="text-ivory/75 leading-relaxed">
-                Speak directly with our senior curators to arrange a venue walkthrough or private menu tasting.
+            <div className="space-y-4 text-sm">
+              <p className="text-ink-lightMuted leading-relaxed">
+                Got dates locked or just throwing around ideas? Ping us anytime — no tension!
               </p>
 
-              <div className="space-y-2 tabular-nums">
+              <div className="space-y-2.5 text-xs tabular-nums">
                 <a
                   href="tel:+919876543210"
-                  className="flex items-center gap-2 text-ivory hover:text-gold-light transition-colors"
+                  className="flex items-center gap-2.5 text-ink-light hover:text-brass-light transition-colors"
                 >
-                  <Phone aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-light shrink-0" />
-                  <span className="font-medium">+91 98765 43210 (Concierge &amp; WhatsApp)</span>
+                  <Phone aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0" />
+                  <span className="font-medium">+91 98765 43210 (WhatsApp too)</span>
                 </a>
                 <a
                   href="tel:+914023456789"
-                  className="flex items-center gap-2 text-ivory hover:text-gold-light transition-colors"
+                  className="flex items-center gap-2.5 text-ink-lightMuted hover:text-ink-light transition-colors"
                 >
-                  <Phone aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-light shrink-0" />
+                  <Phone aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0" />
                   <span>+91 40 2345 6789 (Jubilee Hills Studio)</span>
                 </a>
                 <a
                   href="mailto:celebrations@tehzaa.com"
-                  className="flex items-center gap-2 text-ivory hover:text-gold-light transition-colors"
+                  className="flex items-center gap-2.5 text-ink-lightMuted hover:text-ink-light transition-colors"
                 >
-                  <Mail aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-gold-light shrink-0" />
+                  <Mail aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0" />
                   <span>celebrations@tehzaa.com</span>
                 </a>
               </div>
@@ -194,34 +210,47 @@ export function Footer() {
               <div className="pt-2">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center w-full py-3 px-4 rounded-lg bg-burgundy hover:bg-burgundy-light border border-gold/30 text-xs font-medium text-ivory transition-colors"
+                  className="inline-flex items-center justify-center w-full py-3.5 px-5 rounded-[2px] bg-alabaster hover:bg-brass-light text-[11px] font-semibold uppercase tracking-[0.15em] text-obsidian transition-colors"
                 >
-                  Request Private Consultation
+                  Book a Chai Pe Charcha
                 </Link>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Monumental Architectural Wordmark Band */}
+        <div className="py-10 sm:py-12 border-b border-obsidian-line text-center overflow-hidden">
+          <p className="text-[11px] font-sans uppercase tracking-[0.26em] text-brass-light/80 tabular-nums mb-3">
+            17.3850° N · 78.4867° E — HYDERABAD ATELIER
+          </p>
+          <p
+            aria-hidden="true"
+            className="font-display font-medium uppercase tracking-[0.22em] text-[clamp(3.25rem,14vw,10.5rem)] leading-[0.88] text-brass-light/[0.16] select-none"
+          >
+            TEHZAA
+          </p>
+        </div>
+
         {/* Bottom Credits */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-ivory/75 gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-ink-lightMuted gap-4">
           <p>
-            © {new Date().getFullYear()} Tehzaa Celebrations. Crafted in Hyderabad.
+            © {new Date().getFullYear()} Tehzaa Celebrations. Born &amp; based in Hyderabad.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
-            <Link href="/about" className="hover:text-gold-light transition-colors">
+            <Link href="/about" className="hover:text-ink-light transition-colors">
               About Us
             </Link>
-            <span className="text-gold/40">•</span>
-            <Link href="/gallery" className="hover:text-gold-light transition-colors">
-              Portfolio
+            <span aria-hidden="true" className="text-obsidian-line">•</span>
+            <Link href="/gallery" className="hover:text-ink-light transition-colors">
+              Our Work
             </Link>
-            <span className="text-gold/40">•</span>
-            <Link href="/contact" className="hover:text-gold-light transition-colors">
+            <span aria-hidden="true" className="text-obsidian-line">•</span>
+            <Link href="/contact" className="hover:text-ink-light transition-colors">
               Contact
             </Link>
-            <span className="text-gold/40">•</span>
-            <Link href="/privacy" className="hover:text-gold-light transition-colors">
+            <span aria-hidden="true" className="text-obsidian-line">•</span>
+            <Link href="/privacy" className="hover:text-ink-light transition-colors">
               Privacy Policy
             </Link>
           </div>

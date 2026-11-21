@@ -1,170 +1,361 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { ArrowRight, UtensilsCrossed } from "lucide-react";
+import {
+  DeccaniArchFrame,
+  HeritageGreetingBanner,
+  JaaliPattern,
+} from "@/components/deccani/DeccaniMotifs";
+import { cn } from "@/lib/utils";
 
-const HERO_SCENES = [
+type HeroVibe =
+  | "all"
+  | "palaces"
+  | "telugu"
+  | "dawat"
+  | "baraat"
+  | "corporate";
+
+interface ExhibitionPlate {
+  id: string;
+  vibe: Exclude<HeroVibe, "all">[];
+  index: string;
+  label: string;
+  slangNote: string;
+  image: string;
+  alt: string;
+  colSpanClass: string;
+  aspectClass: string;
+  href: string;
+}
+
+const VIBE_FILTERS: { id: HeroVibe; label: string }[] = [
+  { id: "all", label: "All Vibes" },
+  { id: "palaces", label: "Real Heritage Palaces" },
+  { id: "telugu", label: "Telugu Pelli" },
+  { id: "dawat", label: "Muslim Dawat" },
+  { id: "baraat", label: "Baraat & Entries" },
+  { id: "corporate", label: "Corporate" },
+];
+
+const EXHIBITION_PLATES: ExhibitionPlate[] = [
   {
-    id: "courtyard",
-    num: "01",
-    label: "Twilight Palace Courtyard",
-    location: "Banjara Hills, Hyderabad",
-    image: "/images/hero-indian-wedding.webp",
-    alt: "Luminous twilight Indian wedding courtyard curated by Tehzaa Celebrations in Hyderabad",
+    id: "chowmahalla",
+    vibe: ["palaces", "dawat"],
+    index: "01",
+    label: "Chowmahalla Khilwat Vibes",
+    slangNote: "Belgian chandeliers + fresh mogra strings — ekdum shahi!",
+    image: "/images/real-chowmahalla-palace.webp",
+    alt: "Original photograph of Khilwat Mubarak at Chowmahalla Palace in Hyderabad with butter-cream scalloped arches and twin rooftop cupolas",
+    colSpanClass: "sm:col-span-6 lg:col-span-4",
+    aspectClass: "aspect-[16/10]",
+    href: "/services/floral-decor?tradition=nikkah",
   },
   {
-    id: "mandap",
-    num: "02",
-    label: "Kalyana Mandapam",
-    location: "Jubilee Hills Estates",
-    image: "/images/floral-mandap-indian.webp",
-    alt: "Handcrafted teakwood Kalyana Mandapam draped in jasmine and marigolds",
+    id: "telugu-vindhu",
+    vibe: ["telugu"],
+    index: "02",
+    label: "Arati Aku Pelli Vindhu",
+    slangNote: "Mudda Pappu + Avakaya + hot Pootharekulu on banana leaf!",
+    image: "/images/hyd-telugu-vindhu-leaf.webp",
+    alt: "Authentic Hyderabadi Telugu Hindu Pelli Vindhu Bhojanam laid on a fresh emerald banana leaf",
+    colSpanClass: "sm:col-span-6 lg:col-span-4",
+    aspectClass: "aspect-[16/10]",
+    href: "/services/catering",
   },
   {
-    id: "baraat",
-    num: "03",
-    label: "Royal Baraat Procession",
-    location: "Shamshabad Heritage Resorts",
+    id: "muslim-dawat",
+    vibe: ["dawat"],
+    index: "03",
+    label: "Shaadi & Walima Dawat",
+    slangNote: "Dum Biryani, Sufiyani Biryani, Pathar ka Gosht & Qubani!",
+    image: "/images/hyd-muslim-dawat-spread.webp",
+    alt: "Hyderabadi Muslim wedding feast featuring copper-deg Dum Biryani, Sufiyani Biryani, Lukhmi, and Qubani ka Meetha",
+    colSpanClass: "sm:col-span-6 lg:col-span-4",
+    aspectClass: "aspect-[16/10]",
+    href: "/services/catering",
+  },
+  {
+    id: "falaknuma-baraat",
+    vibe: ["baraat", "palaces"],
+    index: "04",
+    label: "Full Dhamaka Baraat & Marfa",
+    slangNote: "Hyderabadi Tasha-Marfa, Punjabi Dhol & Falaknuma entries!",
     image: "/images/baraat-grand-entry.webp",
-    alt: "Grand Indian Baraat procession with vintage car, dhol percussionists, and sparklers",
+    alt: "High-energy Hyderabad Baraat arrival with Tasha-Marfa drums, vintage tourer, and jubilant family procession",
+    colSpanClass: "sm:col-span-6 lg:col-span-6",
+    aspectClass: "aspect-[16/9]",
+    href: "/services/baraat",
   },
   {
-    id: "bridal",
-    num: "04",
-    label: "Phoolon Ki Chadar",
-    location: "Gandipet Lakefront Lawns",
-    image: "/images/bridal-entry-indian.webp",
-    alt: "Indian bridal grand entry beneath a canopy of fresh jasmine and blush roses",
+    id: "corporate-gala",
+    vibe: ["corporate", "palaces"],
+    index: "05",
+    label: "HITEC City & Palace Galas",
+    slangNote: "HICC keynotes by day, Taj Falaknuma dinners by night!",
+    image: "/images/corporate-gala-hyderabad.webp",
+    alt: "Contemporary Hyderabad enterprise leadership summit and heritage gala banquet setup",
+    colSpanClass: "sm:col-span-12 lg:col-span-6",
+    aspectClass: "aspect-[16/9]",
+    href: "/services/corporate-events",
   },
 ];
 
 export function InteractiveHero() {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const currentScene = HERO_SCENES[activeIdx];
+  const [selectedVibe, setSelectedVibe] = useState<HeroVibe>("all");
+  const [spotlightId, setSpotlightId] = useState<string>(
+    EXHIBITION_PLATES[0].id
+  );
+  const heroRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const archParallaxY = useTransform(scrollYProgress, [0, 1], [0, 32]);
+
+  const spotlightPlate =
+    EXHIBITION_PLATES.find((p) => p.id === spotlightId) || EXHIBITION_PLATES[0];
 
   return (
-    <section className="relative min-h-[88vh] flex items-end pb-12 sm:pb-16 lg:pb-20 pt-32 overflow-hidden bg-charcoal text-ivory">
-      {/* Background Scene Stage */}
-      <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="sync" initial={false}>
-          <motion.div
-            key={currentScene.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={currentScene.image}
-              alt={currentScene.alt}
-              fill
-              priority={activeIdx === 0}
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          </motion.div>
-        </AnimatePresence>
+    <section
+      ref={heroRef}
+      className="relative bg-obsidian text-ink-light overflow-hidden border-b border-obsidian-line"
+    >
+      {/* Clean Alabaster datum shelf under the translucent fixed Header for razor-sharp nav legibility */}
+      <div
+        aria-hidden="true"
+        className="h-[78px] sm:h-[82px] w-full bg-alabaster border-b border-stone-line"
+      />
 
-        {/* Architectural Atmospheric Scrims */}
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/25" />
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/35 to-transparent" />
+      {/* Atmospheric Deccani Jaali Depth */}
+      <div aria-hidden="true" className="absolute inset-0 top-[82px] pointer-events-none">
+        <JaaliPattern tone="dark" />
       </div>
 
-      {/* Foreground Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-          {/* Left Typography Column */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-8"
-          >
-            <p className="text-xs font-sans font-medium text-gold-light mb-4">
-              Tehzaa Celebrations • Hyderabad
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 sm:pt-16 lg:pt-20 lg:pb-24 space-y-12 lg:space-y-16">
+        {/* Primary Editorial Asymmetric Hero Spread */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Left Typography & CTAs */}
+          <div className="lg:col-span-7 space-y-6">
+            <HeritageGreetingBanner theme="dark" />
+
+            <p className="editorial-kicker-light pt-1">
+              Aadaab &amp; Namaskaram, Hyderabad
             </p>
 
-            <h1 className="font-serif font-medium tracking-[-0.025em] text-4xl sm:text-6xl md:text-7xl lg:text-[72px] text-ivory leading-[1.04]">
-              Where Culture Meets{" "}
-              <span className="text-ivory-dark">Celebration</span>
+            <h1 className="display-hero text-ink-light">
+              Shaadi ho ya Pelli —{" "}
+              <span className="font-display italic font-normal text-brass-light block sm:inline">
+                Ekdum Grand Banadenge.
+              </span>
             </h1>
 
-            <p className="mt-6 text-sm sm:text-base lg:text-lg text-ivory/85 max-w-2xl font-normal leading-relaxed">
-              An architectural wedding and event house in Hyderabad—crafting
-              Telugu Kalyana Mandapams, Marwari &amp; Punjabi festivities, Deccani
-              Nikkah gatherings, authentic Indian feasts, and flagship corporate galas.
+            <p className="font-sans text-[15px] sm:text-[17px] leading-[1.7] text-ink-lightMuted max-w-2xl">
+              No tension, full celebration — we design sacred Telugu Pelli Pandiris, Chowmahalla-style Nikkah stages, proper Dum Biryani &amp; Vindhu feasts, Baraats, and HITEC City parties so your family actually relaxes and enjoys every moment.
             </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-burgundy hover:bg-burgundy-light active:scale-[0.98] text-ivory border border-gold/40 text-sm font-medium transition-[background-color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              >
-                <span>Plan Your Event</span>
-                <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5] group-hover:translate-x-0.5 transition-transform duration-200" />
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <Link href="/contact" className="btn-editorial-light group">
+                <span>Let&apos;s Plan Your Big Day</span>
+                <ArrowRight
+                  aria-hidden="true"
+                  className="w-4 h-4 stroke-[1.5] group-hover:translate-x-0.5 transition-transform"
+                />
               </Link>
 
               <Link
-                href="/services"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-charcoal/85 hover:bg-charcoal border border-ivory/35 text-ivory text-sm font-medium transition-colors duration-200"
+                href="/services/catering"
+                className="btn-editorial-outline-dark"
               >
-                <span>Explore Disciplines</span>
+                <UtensilsCrossed
+                  aria-hidden="true"
+                  className="w-4 h-4 stroke-[1.5] text-brass-light"
+                />
+                <span>Check Out Our Food</span>
               </Link>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Scene Switcher */}
-          <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end">
-            <div className="w-full max-w-sm rounded-xl bg-charcoal/90 border border-ivory/20 p-5">
-              <div className="flex items-center justify-between text-xs text-gold-light mb-3 tabular-nums">
-                <span>Celebration atmosphere</span>
-                <span>{currentScene.num} / 04</span>
+          {/* Right Portrait Monument Plate: Real Charminar */}
+          <div className="lg:col-span-5">
+            <motion.div
+              style={{ y: archParallaxY }}
+              className="max-w-md mx-auto lg:ml-auto lg:mr-0"
+            >
+              <DeccaniArchFrame variant="dome" theme="obsidian">
+                <div className="relative aspect-[3/4] w-full bg-obsidian">
+                  <Image
+                    src="/images/real-charminar.webp"
+                    alt="Original photograph of Charminar in Hyderabad showing all four minarets, stucco arches, and Char Kaman beyond"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 90vw, 36vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+              </DeccaniArchFrame>
+
+              <div className="mt-3.5 px-1 flex items-center justify-between gap-3 text-[11px] font-sans uppercase tracking-[0.16em] text-ink-lightMuted">
+                <span className="text-brass-light font-semibold">
+                  Charminar • 1591 CE
+                </span>
+                <span className="tabular-nums">17.3616° N · Old City</span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Sleek Monumental Index / Vibe Selector + Exhibition Strip */}
+        <div className="pt-10 border-t border-obsidian-line space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+            <div className="lg:col-span-8 space-y-3">
+              <div className="flex items-center gap-4 text-[11px] font-sans uppercase tracking-[0.18em]">
+                <span className="text-brass-light font-semibold">
+                  Pick your vibe
+                </span>
+                <span aria-hidden="true" className="text-obsidian-line">
+                  |
+                </span>
+                <span className="text-ink-lightMuted">
+                  Tap any plate below to spotlight
+                </span>
               </div>
 
-              <div className="space-y-1" role="group" aria-label="Featured celebration scenes">
-                {HERO_SCENES.map((scene, idx) => {
-                  const isActive = idx === activeIdx;
+              <div
+                role="group"
+                aria-label="Highlight Hyderabadi wedding vibes"
+                className="flex flex-wrap gap-2"
+              >
+                {VIBE_FILTERS.map((vibe) => {
+                  const isActive = selectedVibe === vibe.id;
                   return (
                     <button
-                      key={scene.id}
+                      key={vibe.id}
                       type="button"
                       aria-pressed={isActive}
-                      onClick={() => setActiveIdx(idx)}
-                      className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors duration-200 border-l-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light ${
+                      onClick={() => {
+                        setSelectedVibe(vibe.id);
+                        if (vibe.id !== "all") {
+                          const match = EXHIBITION_PLATES.find((p) =>
+                            p.vibe.includes(vibe.id as Exclude<HeroVibe, "all">)
+                          );
+                          if (match) setSpotlightId(match.id);
+                        }
+                      }}
+                      className={cn(
+                        "px-4 py-2 rounded-[2px] text-[11px] font-sans font-semibold uppercase tracking-[0.14em] border transition-colors cursor-pointer",
                         isActive
-                          ? "border-gold-light bg-ivory/10 text-ivory"
-                          : "border-transparent text-ivory/75 hover:text-ivory hover:bg-ivory/5"
-                      }`}
+                          ? "bg-alabaster text-obsidian border-alabaster"
+                          : "bg-obsidian-elevated text-ink-lightMuted border-obsidian-line hover:border-brass-light hover:text-ink-light"
+                      )}
                     >
-                      <span className="text-xs font-medium">
-                        {scene.label}
-                      </span>
-                      <span className="text-xs text-gold-light tabular-nums">
-                        {scene.num}
-                      </span>
+                      {vibe.label}
                     </button>
                   );
                 })}
               </div>
-
-              <div className="mt-3 pt-3 border-t border-ivory/15 flex items-center justify-between text-xs text-ivory/75">
-                <span aria-live="polite">{currentScene.location}</span>
-                <a
-                  href="#studio-narrative"
-                  className="text-gold-light hover:text-ivory transition-colors"
-                >
-                  Our story
-                </a>
-              </div>
             </div>
+
+            {/* Live Spotlight Readout */}
+            <div
+              aria-live="polite"
+              className="lg:col-span-4 border-l border-brass/50 pl-5 py-1 space-y-1"
+            >
+              <span className="text-[11px] font-sans uppercase tracking-[0.16em] text-brass-light font-semibold block tabular-nums">
+                Plate {spotlightPlate.index} — {spotlightPlate.label}
+              </span>
+              <p className="text-xs sm:text-sm text-ink-lightMuted leading-relaxed">
+                {spotlightPlate.slangNote}
+              </p>
+            </div>
+          </div>
+
+          {/* Sharp Architectural Exhibition Plates */}
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 lg:gap-6">
+            {EXHIBITION_PLATES.map((plate, index) => {
+              const matchesVibe =
+                selectedVibe === "all" ||
+                plate.vibe.includes(selectedVibe as Exclude<HeroVibe, "all">);
+              const isSpotlight = plate.id === spotlightId;
+
+              return (
+                <motion.div
+                  key={plate.id}
+                  layout
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{
+                    opacity: matchesVibe ? 1 : 0.35,
+                    y: isSpotlight ? -3 : 0,
+                  }}
+                  whileHover={{ y: -4 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 24,
+                    delay: index * 0.03,
+                  }}
+                  className={cn(plate.colSpanClass)}
+                >
+                  <div
+                    className={cn(
+                      "gallery-frame-dark transition-colors duration-200",
+                      isSpotlight
+                        ? "border-brass-light shadow-obsidian"
+                        : "hover:border-brass/60"
+                    )}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setSpotlightId(plate.id)}
+                      aria-pressed={isSpotlight}
+                      className="w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+                    >
+                      <div
+                        className={cn(
+                          "relative w-full overflow-hidden bg-obsidian",
+                          plate.aspectClass
+                        )}
+                      >
+                        <Image
+                          src={plate.image}
+                          alt={plate.alt}
+                          fill
+                          priority={index < 2}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    </button>
+
+                    <div className="pt-3 pb-1 px-1 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className="text-[11px] font-sans font-semibold text-brass-light tabular-nums shrink-0">
+                          {plate.index}
+                        </span>
+                        <span className="font-display text-lg sm:text-xl font-medium text-ink-light truncate">
+                          {plate.label}
+                        </span>
+                      </div>
+
+                      <Link
+                        href={plate.href}
+                        className="text-[11px] font-sans font-semibold uppercase tracking-[0.14em] text-brass-light hover:text-ink-light shrink-0 border-b border-brass/50 pb-0.5 transition-colors"
+                      >
+                        Details
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
     </section>
   );
 }
-

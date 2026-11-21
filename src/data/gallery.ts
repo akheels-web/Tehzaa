@@ -6,14 +6,24 @@ export type GalleryCategory =
   | "Corporate"
   | "Family";
 
+export type GalleryTradition =
+  | "All Traditions"
+  | "Hindu Ceremonies"
+  | "Muslim Ceremonies"
+  | "Sikh & Christian"
+  | "Hyderabadi Culinary"
+  | "Corporate & Galas";
+
 export interface GalleryItem {
   id: string;
   title: string;
   category: "Weddings" | "Floral" | "Catering" | "Corporate" | "Family";
+  tradition: Exclude<GalleryTradition, "All Traditions">;
   location: string;
   venue: string;
   image: string;
   description: string;
+  craftNotes: string;
   tags: string[];
   date: string;
 }
@@ -27,149 +37,299 @@ export const GALLERY_CATEGORIES: GalleryCategory[] = [
   "Family",
 ];
 
+export const GALLERY_TRADITIONS: GalleryTradition[] = [
+  "All Traditions",
+  "Hindu Ceremonies",
+  "Muslim Ceremonies",
+  "Sikh & Christian",
+  "Hyderabadi Culinary",
+  "Corporate & Galas",
+];
+
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
-    id: "gal-1",
-    title: "Sacred Telugu Kalyana Mandapam & Pelli Pandiri",
+    id: "gal-13",
+    title: "Chowmahalla Khilwat-Style Crystal & Mogra Reception",
     category: "Weddings",
+    tradition: "Muslim Ceremonies",
+    location: "Old City, Hyderabad",
+    venue: "Chowmahalla Palace Khilwat Courtyard",
+    image: "/images/real-chowmahalla-palace.webp",
+    description:
+      "Pale butter-cream scalloped arches draped with fresh mogra garlands and sparkling chandeliers for an unforgettable Hyderabadi Walima evening.",
+    craftNotes:
+      "Fresh jasmine strings hung cleanly without touching antique lime stucco, lighting up the fountain courtyard naturally.",
+    tags: ["Chowmahalla Palace", "Walima Reception", "Mogra & Chandeliers", "Old City"],
+    date: "Signature Royal",
+  },
+  {
+    id: "gal-14",
+    title: "Proper Hyderabadi Shaadi Dawat — Biryani to Qubani",
+    category: "Catering",
+    tradition: "Hyderabadi Culinary",
+    location: "Banjara Hills, Hyderabad",
+    venue: "Taj Krishna Heritage Lawn",
+    image: "/images/hyd-muslim-dawat-spread.webp",
+    description:
+      "Copper handis of Kachche Gosht ki Dum Biryani, creamy white Sufiyani Biryani, crispy Lukhmi, stone-seared Pathar ka Gosht, plus Qubani & Double ka Meetha.",
+    craftNotes:
+      "Full coal-dum kitchen set up out of guest sightlines so every round hits the buffet piping hot.",
+    tags: ["Dum Biryani", "Sufiyani Biryani", "Lukhmi & Pathar", "Qubani Malai"],
+    date: "Shaadi Dawat",
+  },
+  {
+    id: "gal-15",
+    title: "Traditional Telugu Pelli Vindhu Bhojanam on Arati Aku",
+    category: "Catering",
+    tradition: "Hyderabadi Culinary",
+    location: "Jubilee Hills, Hyderabad",
+    venue: "JRC Convention Lawns",
+    image: "/images/hyd-telugu-vindhu-leaf.webp",
+    description:
+      "Sunlight sit-down Muhurtham feast: Mudda Pappu with Avakaya & ghee, Chintapandu Pulihora, Gutti Vankaya, Ulavacharu, Bobbatlu & Atreyapuram Pootharekulu.",
+    craftNotes:
+      "Cooked inside a locked 100% Pure Vegetarian kitchen wing and served in loving pankti order by seasoned hosts.",
+    tags: ["Pelli Vindhu", "Arati Aku", "Pure Veg", "Gutti Vankaya & Pootharekulu"],
+    date: "Muhurtham Lunch",
+  },
+  {
+    id: "gal-16",
+    title: "Taj Falaknuma Hilltop Rose & Marble Reception",
+    category: "Weddings",
+    tradition: "Sikh & Christian",
+    location: "Falaknuma, Hyderabad",
+    venue: "Taj Falaknuma Palace Terrace",
+    image: "/images/real-falaknuma-palace.webp",
+    description:
+      "All-white Italian marble verandah lined gently with ivory roses, blush peonies, and candle lanterns overlooking Hyderabad's twinkling skyline.",
+    craftNotes:
+      "Soft pastels designed to complement the white palace marble rather than fight it.",
+    tags: ["Taj Falaknuma Palace", "White Marble", "Candlelight", "Hilltop Views"],
+    date: "Winter Reception",
+  },
+  {
+    id: "gal-17",
+    title: "Taramati Baradari Sunset Sangeet & Arches",
+    category: "Floral",
+    tradition: "Hindu Ceremonies",
+    location: "Gandipet Corridor, Hyderabad",
+    venue: "Taramati Baradari Pavilion",
+    image: "/images/real-taramati-baradari.webp",
+    description:
+      "Golden-hour marigold drapes, cane lounge seating, terracotta pots, and breezy fairy lights weaving across open stone arches overlooking Golconda Fort.",
+    craftNotes:
+      "Earthy open-air styling built to frame the historic 12-arched stone silhouette at dusk.",
+    tags: ["Taramati Baradari", "Sunset Sangeet", "Golconda Views", "Marigold"],
+    date: "Golden Hour",
+  },
+  {
+    id: "gal-1",
+    title: "Sacred Telugu Pelli Pandiri & Dawn Kalyana Mandapam",
+    category: "Weddings",
+    tradition: "Hindu Ceremonies",
     location: "Jubilee Hills, Hyderabad",
     venue: "JRC Convention Lawns",
     image: "/images/floral-mandap-indian.webp",
     description:
-      "Hand-carved teak Kalyana Mandapam adorned with fresh jasmine curtains, banana-stalk pillars, and mango-leaf toranams for a morning Jeelakarra Bellam & Talambralu ceremony.",
-    tags: ["Telugu Wedding", "Kalyana Mandapam", "Pelli Pandiri", "Jasmine"],
-    date: "Muhurtham Collection",
+      "Real banana stalks, mango leaf thoranalu, fresh malli jasmine, and a vented Agni Kundam for dawn Jeelakarra-Bellam & Mangalya Dharanam.",
+    craftNotes:
+      "Teak four-pillar Pandiri conditioned early morning so every flower stays crisp through Talambralu.",
+    tags: ["Telugu Pelli", "Pelli Pandiri", "Jasmine", "Muhurtham"],
+    date: "Dawn Muhurtham",
   },
   {
     id: "gal-2",
-    title: "Deccani Nikkah & Scalloped Walima Pavilion",
+    title: "Deccani Nikkah & Arsi-Mushaf Mirror Pavilion",
     category: "Weddings",
+    tradition: "Muslim Ceremonies",
     location: "Banjara Hills, Hyderabad",
     venue: "Taj Krishna Heritage Lawn",
     image: "/images/nikkah-walima-arch.webp",
     description:
-      "An architectural scalloped ivory-and-gold Nikkah pavilion framed with fragrant mogra garlands, glass lanterns, and an evening Qawwali lounge.",
-    tags: ["Nikkah & Walima", "Heritage Arch", "Qawwali Night", "Banjara Hills"],
-    date: "Winter Season",
+      "Ivory scalloped floral backdrop crafted for peaceful Ijab-o-Qubul vows, delicate parda screens, and an intimate Arsi-Mushaf mirror moment.",
+    craftNotes:
+      "Calm white mogra and antique brass fanoos lighting tailored around elders' seating.",
+    tags: ["Nikkah Stage", "Arsi-Mushaf", "Ijab-o-Qubul", "Banjara Hills"],
+    date: "Nikkah Morning",
   },
   {
-    id: "gal-3",
-    title: "Shahi Hyderabadi Dastarkhwan & Copper Deg Feast",
+    id: "gal-18",
+    title: "Midnight Irani Chai, Filter Kaapi & Mithai Parlor",
     category: "Catering",
-    location: "Gachibowli, Hyderabad",
-    venue: "ITC Kohenur Grand Ballroom",
-    image: "/images/catering-hyderabadi-feast.webp",
+    tradition: "Hyderabadi Culinary",
+    location: "Jubilee Hills, Hyderabad",
+    venue: "Private Villa Courtyard",
+    image: "/images/irani-chai-mithai-parlor.webp",
     description:
-      "Wood-fired Kachche Gosht ki Dum Biryani, live Pathar ka Gosht on granite slabs, Zafrani Marag, and silver-plated Double ka Meetha service.",
-    tags: ["Hyderabadi Biryani", "Shahi Dastarkhwan", "Live Grills", "Gachibowli"],
-    date: "Signature Culinary",
-  },
-  {
-    id: "gal-4",
-    title: "Traditional Vindhu Bhojanam & Royal Indian Thali",
-    category: "Catering",
-    location: "Secunderabad, Hyderabad",
-    venue: "Secunderabad Club Heritage Courtyard",
-    image: "/images/catering-indian-thali.webp",
-    description:
-      "Authentic Telugu banana-leaf Vindhu Bhojanam featuring Gutti Vankaya, Ulavacharu Biryani, and Bobbatlu alongside dedicated Pure Vegetarian & North Indian chaat counters.",
-    tags: ["Vindhu Bhojanam", "Banana Leaf Feast", "Pure Vegetarian", "Secunderabad"],
-    date: "Ceremonial Dining",
+      "Porcelain cups of creamy Irani Chai with warm Osmania biscuits beside frothy brass-davara Filter Kaapi, Double ka Meetha, and hot Jalebi-Rabri.",
+    craftNotes:
+      "Twin heritage beverage counters — everyone's favorite hangout spot once the DJ kicks off.",
+    tags: ["Irani Chai", "Filter Kaapi", "Osmania Biscuits", "Live Mithai"],
+    date: "Late-Night Counter",
   },
   {
     id: "gal-5",
-    title: "Sunlit Marigold Haldi & Mehendi Courtyard",
+    title: "Yellow Gota-Patti Manjha & Marwari Haldi Courtyard",
     category: "Floral",
+    tradition: "Hindu Ceremonies",
     location: "Gandipet, Hyderabad",
-    venue: "Lakefront Heritage Villa",
+    venue: "Osmansagar Waterfront Villa",
     image: "/images/haldi-mehendi-courtyard.webp",
     description:
-      "Cascading saffron and yellow marigold drapes, brass urlis floating with lotus blooms, and hand-woven floral swings for an intimate Marwari Haldi morning.",
-    tags: ["Haldi & Mehendi", "Marigold Decor", "Floral Jhoola", "Gandipet"],
+      "Sun-soaked yellow marigold cascades, flower-filled brass urlis, and a floral jhoola swing that works equally well for Telugu Haldi or Hyderabadi Manjha.",
+    craftNotes:
+      "Waterproof floral flooring with organic turmeric bowls and gota-patti bangles on tap.",
+    tags: ["Haldi & Manjha", "Banti Puvvu", "Floral Jhoola", "Gandipet"],
     date: "Daytime Courtyard",
   },
   {
     id: "gal-6",
-    title: "Royal Punjabi Baraat & Dhol Procession",
+    title: "Full Dhamaka Baraat, Marfa & Vintage Bagghi",
     category: "Weddings",
+    tradition: "Hindu Ceremonies",
     location: "Shamshabad, Hyderabad",
     venue: "Novotel Airport Heritage Gardens",
     image: "/images/baraat-grand-entry.webp",
     description:
-      "A vibrant Baraat procession led by live Punjabi Dhol ensembles, decorated vintage tourers, and warm evening illumination leading to the Jaimala stage.",
-    tags: ["Baraat", "Vintage Procession", "Dhol Ensemble", "Jaimala"],
+      "High-energy Punjabi Dhol and Hyderabadi Tasha-Marfa processions leading antique tourers right up to the Jaimala & gate Milni.",
+    craftNotes:
+      "Tight driveway coordination with dedicated route captains so the baraat hits the mandap right on cue.",
+    tags: ["Baraat & Marfa", "Vintage Tourer", "Dhol", "Jaimala"],
     date: "Evening Procession",
   },
   {
     id: "gal-7",
-    title: "Bridal Phoolon Ki Chadar & Floral Walkway",
+    title: "Fresh Jasmine Phoolon Ki Chadar Walk",
     category: "Floral",
+    tradition: "Hindu Ceremonies",
     location: "Begumpet, Hyderabad",
     venue: "Chiran Fort Heritage Grounds",
     image: "/images/bridal-entry-indian.webp",
     description:
-      "An emotional bridal arrival beneath a hand-knotted tube-rose and jasmine Phoolon ki Chadar, escorted with live shehnai and acoustic violinists.",
-    tags: ["Bridal Entry", "Phoolon Ki Chadar", "Floral Walkway", "Begumpet"],
+      "A heartwarming bridal walk beneath hand-knotted white tube-rose and rose buds carried by brothers, accompanied by live acoustic strings.",
+    craftNotes:
+      "Feather-light concealed bamboo frame wrapped completely in chilled jasmine buds.",
+    tags: ["Phoolon Ki Chadar", "Bridal Entry", "Jasmine", "Begumpet"],
     date: "Twilight Entry",
   },
   {
     id: "gal-8",
-    title: "Enterprise Leadership Summit & Annual Gala",
+    title: "HITEC City Leadership Summit & Gala Night",
     category: "Corporate",
+    tradition: "Corporate & Galas",
     location: "HITEC City, Hyderabad",
-    venue: "Hyderabad International Convention Centre (HICC)",
+    venue: "HICC Novotel Convention Centre",
     image: "/images/corporate-gala-hyderabad.webp",
     description:
-      "End-to-end technical production featuring a wide-format P2.5 LED keynote stage, precision acoustic engineering, and executive gala dining.",
-    tags: ["Corporate Summit", "HITEC City", "Keynote Stage", "Gala Dinner"],
-    date: "Enterprise Conclave",
+      "Bright wide-screen LED keynote production transforming cleanly into a relaxed black-tie dinner with regional tasting stations.",
+    craftNotes:
+      "Zero audio hiccups during morning keynotes, followed by fast 45-minute gala room flip.",
+    tags: ["Corporate Summit", "HITEC City", "HICC", "Gala Dinner"],
+    date: "Enterprise Summit",
   },
   {
     id: "gal-9",
-    title: "Candlelit Cathedral & Anand Karaj Reception",
+    title: "Golconda Garden Anand Karaj & Cathedral Sanctuary",
     category: "Weddings",
-    location: "Banjara Hills, Hyderabad",
-    venue: "Park Hyatt The Manor",
-    image: "/images/hero-indian-wedding.webp",
+    tradition: "Sikh & Christian",
+    location: "Gachibowli, Hyderabad",
+    venue: "Golconda Resorts Courtyard",
+    image: "/images/anand-karaj-cathedral-garden.webp",
     description:
-      "An heirloom reception hall dressed in warm ivory linen, antique brass candelabras, and low botanical runners honoring multi-faith family traditions.",
-    tags: ["Luxury Reception", "Candlelit Tablescape", "Botanical Decor", "Park Hyatt"],
-    date: "Grand Reception",
+      "Calm morning ivory-chanderi pavilion with white hydrangeas, blush roses, and clean bolster seating built with deep reverence for sacred rituals.",
+    craftNotes:
+      "Elevated respectful Palki Sahib canopy with gentle dawn misting on open lawns.",
+    tags: ["Anand Karaj", "Cathedral Garden", "Ivory Silk", "Morning Ceremony"],
+    date: "Morning Sanctuary",
   },
   {
     id: "gal-10",
-    title: "Traditional Seemantham & Namakaranam Celebration",
+    title: "Sanchaq Thaals, Seemantham & Home Blessings",
     category: "Family",
+    tradition: "Hindu Ceremonies",
     location: "Jubilee Hills, Hyderabad",
-    venue: "Private Residence Courtyard",
+    venue: "Private Residence Verandah",
     image: "/images/family-celebration-indian.webp",
     description:
-      "A serene family blessing ceremony styled with fresh mango-leaf toranams, floral cradle accents, heirloom silverware, and traditional home-style hospitality.",
-    tags: ["Seemantham", "Namakaranam", "Family Milestone", "Jubilee Hills"],
-    date: "Family Blessing",
+      "Intimate ghar-ka-function styling featuring fresh mango thoranalu, decorated bridal Sanchaq/Khada Dupatta trays, or a floral cradle for naming day.",
+    craftNotes:
+      "Compact apartment- and villa-friendly decor packed down cleanly at midnight.",
+    tags: ["Sanchaq", "Seemantham", "Ghar Function", "Jubilee Hills"],
+    date: "Home Celebration",
   },
   {
     id: "gal-11",
-    title: "Golden Jubilee 50th Anniversary Soirée",
+    title: "Moinabad Banyan-Canopy 50th Anniversary Dinner",
     category: "Family",
+    tradition: "Muslim Ceremonies",
     location: "Moinabad, Hyderabad",
     venue: "Private Farmhouse Retreat",
-    image: "/images/family-celebration-indian.webp",
+    image: "/images/hero-indian-wedding.webp",
     description:
-      "A multi-generational evening beneath fairy-lit banyan canopies with live ghazal performances, archival family portraits, and curated Hyderabadi dining.",
-    tags: ["Anniversary Gala", "Farmhouse Soirée", "Ghazal Evening", "Moinabad"],
+      "Starlit family tribute evening under banyan trees with printed nostalgia photo walls, live acoustic ghazals, and hot copper-deg dining.",
+    craftNotes:
+      "Full farmhouse standby power, cozy heaters/coolers, and elder-friendly seating heights.",
+    tags: ["50th Anniversary", "Farmhouse Party", "Ghazal Night", "Moinabad"],
     date: "Milestone Evening",
   },
   {
     id: "gal-12",
-    title: "Financial District FinTech Awards Conclave",
+    title: "Financial District CXO Conclave & Awards Night",
     category: "Corporate",
+    tradition: "Corporate & Galas",
     location: "Financial District, Hyderabad",
-    venue: "Sheraton Hyderabad Grand Ballroom",
+    venue: "Sheraton Hyderabad Ballroom",
     image: "/images/corporate-gala-hyderabad.webp",
     description:
-      "Executive award evening with architectural stage lighting, attentive delegate hospitality, and interactive artisan dining stations.",
-    tags: ["Award Night", "Financial District", "Executive Protocol", "Corporate"],
+      "Warm hospitality-first executive evening pairing sleek stage design with Bidriware speaker mementos and artisanal Hyderabadi dining.",
+    craftNotes:
+      "Express QR registration desks and bespoke pearl-and-Bidri executive gift boxes.",
+    tags: ["Financial District", "Award Night", "Bidri Gifting", "Corporate"],
     date: "Annual Awards",
+  },
+  {
+    id: "gal-19",
+    title: "Charminar & Laad Bazaar Heritage Wedding Trail",
+    category: "Weddings",
+    tradition: "Muslim Ceremonies",
+    location: "Old City, Hyderabad",
+    venue: "Charminar & Char Kaman Precinct",
+    image: "/images/real-charminar.webp",
+    description:
+      "Early morning bridal pearl-and-chooda walks beneath the iconic 1591 minarets and Char Kaman arches before heading into Khilwat receptions.",
+    craftNotes:
+      "Dawn crowd timing and guest hospitality curated smoothly around Old City heritage landmarks.",
+    tags: ["Charminar", "Old City", "Heritage Walk", "Chooda & Pearls"],
+    date: "Heritage Icon",
+  },
+  {
+    id: "gal-20",
+    title: "Golconda Citadel Ramparts & Deccani Stone Arches",
+    category: "Floral",
+    tradition: "Hindu Ceremonies",
+    location: "Ibrahim Bagh, Hyderabad",
+    venue: "Golconda Fort Precinct",
+    image: "/images/real-golconda-fort.webp",
+    description:
+      "Sweeping granite bastions and open green citadel lawns inspiring Tehzaa's stone-toned mandap plinths, brass diyas, and sunset acoustic evenings.",
+    craftNotes:
+      "Architectural reverence with zero invasive mounting around ASI-protected heritage walls.",
+    tags: ["Golconda Fort", "Bala Hisar", "Deccani Arches", "Heritage Study"],
+    date: "Architectural Study",
+  },
+  {
+    id: "gal-21",
+    title: "Qutb Shahi Tombs & Ibrahim Bagh Garden Inspiration",
+    category: "Family",
+    tradition: "Sikh & Christian",
+    location: "Ibrahim Bagh, Hyderabad",
+    venue: "Qutb Shahi Tombs Heritage Park",
+    image: "/images/real-qutb-shahi-tombs.webp",
+    description:
+      "Tranquil domes rising out of restored Charbagh gardens — the exact architectural harmony behind our calm morning garden ceremonies and portrait trails.",
+    craftNotes:
+      "Curated visiting-family heritage tours paired with shaded Irani Chai refreshment stops.",
+    tags: ["Qutb Shahi Tombs", "Ibrahim Bagh", "Charbagh Gardens", "Guest Experience"],
+    date: "Garden Heritage",
   },
 ];

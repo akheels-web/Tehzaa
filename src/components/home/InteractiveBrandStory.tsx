@@ -2,138 +2,116 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import {
+  DeccaniArchFrame,
+  TehzeebDivider,
+} from "@/components/deccani/DeccaniMotifs";
 
 /**
- * Dual-photograph narrative section with overlapping framing
- * and a static architectural Atelier seal.
+ * Limestone editorial magazine spread sharing Tehzaa's Hyderabad studio story.
  */
 export function InteractiveBrandStory() {
   return (
     <section
       id="studio-narrative"
-      className="py-24 lg:py-32 bg-ivory overflow-hidden"
+      className="py-20 lg:py-28 bg-limestone text-ink border-b border-stone-line overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Dual-Frame Photography */}
-          <div className="lg:col-span-6 relative pb-12 sm:pb-16">
-            <div className="relative w-[86%] aspect-[4/5] overflow-hidden rounded-2xl border border-gold/30 bg-cream">
-              <Image
-                src="/images/floral-mandap-indian.webp"
-                alt="Hand-crafted South Indian Kalyana Mandapam draped in jasmine and marigolds"
-                fill
-                sizes="(max-width: 1024px) 85vw, 42vw"
-                className="object-cover"
-              />
-            </div>
-
-            {/* Overlapping Inset Frame */}
-            <div className="absolute right-0 bottom-0 w-[52%] aspect-[4/5] overflow-hidden rounded-xl border-4 border-ivory shadow-luxury bg-cream z-10">
-              <Image
-                src="/images/bridal-entry-indian.webp"
-                alt="Graceful Indian bridal procession under a canopy of fresh tuberose and roses"
-                fill
-                sizes="(max-width: 1024px) 50vw, 25vw"
-                className="object-cover"
-              />
-            </div>
-
-            {/* Static Architectural Seal */}
-            <div
-              aria-hidden="true"
-              className="hidden sm:flex absolute -top-6 right-8 w-24 h-24 items-center justify-center z-20 pointer-events-none"
+          {/* Left Asymmetric Architectural Plates */}
+          <div className="lg:col-span-6 relative pb-16 sm:pb-20">
+            <DeccaniArchFrame
+              variant="dome"
+              theme="alabaster"
+              className="w-[88%]"
             >
-              <svg viewBox="0 0 120 120" className="w-full h-full text-gold-dark">
-                <defs>
-                  <path
-                    id="tehzaa-seal-circle"
-                    d="M 60, 60 m -44, 0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0"
-                  />
-                </defs>
-                <circle
-                  cx="60"
-                  cy="60"
-                  r="54"
-                  fill="#FAF7F2"
-                  fillOpacity="0.95"
-                  stroke="currentColor"
-                  strokeOpacity="0.3"
-                  strokeWidth="1"
+              <div className="relative aspect-[4/4.3] w-full bg-limestone">
+                <Image
+                  src="/images/real-qutb-shahi-tombs.webp"
+                  alt="Original photograph of the Tomb of Muhammad Quli Qutb Shah at Qutb Shahi Tombs in Hyderabad surrounded by Charbagh garden lawns"
+                  fill
+                  sizes="(max-width: 1024px) 85vw, 42vw"
+                  className="object-cover"
                 />
-                <text
-                  fill="currentColor"
-                  fontSize="9.2"
-                  fontWeight="600"
-                  letterSpacing="3.4"
-                >
-                  <textPath href="#tehzaa-seal-circle" startOffset="0%">
-                    TEHZAA • HYDERABAD • TEHZEEB •
-                  </textPath>
-                </text>
-                <circle cx="60" cy="60" r="3" fill="#6B292D" />
-              </svg>
+              </div>
+            </DeccaniArchFrame>
+
+            {/* Crisp Sharp Architectural Gallery Inset (No Slanted Carton) */}
+            <div className="absolute right-0 bottom-0 w-[52%] gallery-frame shadow-gallery z-20">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-limestone">
+                <Image
+                  src="/images/bridal-entry-indian.webp"
+                  alt="Bridal arrival beneath fresh mogra and blush rose Phoolon ki Chadar"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover"
+                />
+              </div>
+              <p className="pt-2.5 pb-1 text-center text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-brass-dark">
+                Made with chai &amp; heart
+              </p>
             </div>
           </div>
 
-          {/* Right Editorial Narrative */}
+          {/* Right Hyderabad Narrative */}
           <div className="lg:col-span-6 space-y-6">
-            <p className="editorial-kicker">The spirit of Tehzeeb</p>
+            <span className="editorial-kicker block">Dil se Hyderabadi</span>
 
-            <h2 className="font-serif font-medium tracking-[-0.02em] text-3xl sm:text-5xl lg:text-[52px] leading-[1.08] text-charcoal">
-              Hospitality Elevated to{" "}
-              <span className="text-burgundy">Living Art</span>
+            <h2 className="display-section text-ink">
+              Why Families Trust Us With{" "}
+              <span className="editorial-italic">Their Biggest Days</span>
             </h2>
 
-            <div className="hairline-divider w-28" />
+            <TehzeebDivider theme="light" className="justify-start max-w-xs" />
 
-            <div className="space-y-4 text-sm sm:text-base text-charcoal/80 leading-relaxed">
+            <div className="space-y-4 editorial-body">
               <p>
-                In Hyderabad, hospitality is never hurried.{" "}
-                <strong className="font-semibold text-charcoal">Tehzeeb</strong> lives in
-                the scent of dawn-woven jasmine, the grace extended to elders, and the
-                abundance of an unhurried festive table.
+                Weddings here aren&apos;t stiff corporate productions — they&apos;re late-night Irani Chai runs with cousins, morning jasmine garlands arriving on time at{" "}
+                <strong className="font-semibold text-ink tabular-nums">
+                  5 AM Muhurthams
+                </strong>
+                , and making sure Dadi, Tatayya, and every visiting chacha feels genuinely looked after.
               </p>
               <p>
-                Tehzaa Celebrations brings this shared cultural poise to every community
-                in the city—whether crafting a sunlit Telugu Pelli Pandiri, a vibrant Marwari
-                Haldi courtyard, a dignified Nikkah pavilion, or a flagship summit in HITEC City.
+                From our Jubilee Hills studio on Road No. 36, we handle both sides effortlessly: Hindu priests &amp; Telugu Pandiri craftsmen work right alongside Deccani khansamas, Baraat bands, and tech-friendly stage crews. You show up smiling —{" "}
+                <strong className="font-semibold text-ink">
+                  baaki sab hum dekh lenge!
+                </strong>
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-5 border-t border-gold/25">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-5 border-t border-stone-line">
               <div>
-                <span className="text-xs font-medium text-gold-dark block mb-1 tabular-nums">
-                  01 / Spatial craft
+                <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-brass-dark block mb-1.5 tabular-nums">
+                  01 / Kirrak Spaces
                 </span>
-                <p className="font-serif text-xl font-medium text-charcoal">
-                  Bespoke Architecture
+                <p className="font-display text-2xl font-medium text-ink">
+                  Real Palaces &amp; Lawns
                 </p>
-                <p className="text-xs sm:text-sm text-charcoal/75 mt-1 leading-relaxed">
-                  Every mandap, arch, and tablescape is drawn uniquely for your venue&apos;s
-                  scale and natural light.
+                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+                  Custom-sketched decor built for Chowmahalla, Falaknuma, Taramati, JRC, or your own backyard.
                 </p>
               </div>
-              <div>
-                <span className="text-xs font-medium text-gold-dark block mb-1 tabular-nums">
-                  02 / Kitchen integrity
+              <div className="sm:border-l sm:border-stone-line sm:pl-6">
+                <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-brass-dark block mb-1.5 tabular-nums">
+                  02 / Zero Tension Kitchens
                 </span>
-                <p className="font-serif text-xl font-medium text-charcoal">
-                  Regional Mastery
+                <p className="font-display text-2xl font-medium text-ink">
+                  Bilkul Alag Cooking Wings
                 </p>
-                <p className="text-xs sm:text-sm text-charcoal/75 mt-1 leading-relaxed">
-                  Specialist regional chefs with strictly segregated Pure Vegetarian and
-                  Jain cookware.
+                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+                  Old-city Dum Biryani specialists alongside isolated Pure Veg &amp; Sattvic Jain kitchens.
                 </p>
               </div>
             </div>
 
             <div className="pt-2">
-              <Link
-                href="/about"
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-burgundy/40 hover:bg-burgundy hover:text-ivory text-sm font-medium text-burgundy transition-colors duration-200"
-              >
-                <span>Discover Our House</span>
-                <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5] group-hover:translate-x-0.5 transition-transform duration-200" />
+              <Link href="/about" className="btn-editorial-outline group">
+                <span>Meet Our Hyderabad Team</span>
+                <ArrowRight
+                  aria-hidden="true"
+                  className="w-4 h-4 stroke-[1.5] group-hover:translate-x-0.5 transition-transform duration-200"
+                />
               </Link>
             </div>
           </div>
@@ -142,4 +120,3 @@ export function InteractiveBrandStory() {
     </section>
   );
 }
-

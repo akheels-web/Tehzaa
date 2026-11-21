@@ -1,3 +1,18 @@
+export type CulinaryCourse =
+  | "Shuruwat"
+  | "Royal Dastarkhwan"
+  | "Pelli Vindhu"
+  | "Live Counter"
+  | "Meetha & Chai";
+
+export interface CulinaryDishDetail {
+  name: string;
+  course: CulinaryCourse;
+  note: string;
+  vessel?: string;
+  veg?: boolean;
+}
+
 export interface ServiceOffering {
   title: string;
   description: string;
@@ -8,6 +23,9 @@ export interface MenuCollection {
   title: string;
   subtitle: string;
   items: string[];
+  dishes?: CulinaryDishDetail[];
+  image?: string;
+  aromaNote?: string;
   dietaryNote?: string;
 }
 
@@ -30,54 +48,55 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: "floral-decorations",
     slug: "floral-decor",
-    title: "Floral & Event Decorations",
-    subtitle: "Architectural Mandaps, Heritage Pelli Pandiris & Botanical Artistry",
+    title: "Kirrak Wedding & Event Decor",
+    subtitle: "Telugu Pelli Pandiris, Chowmahalla Nikkah Arches & Zero Copy-Paste Sets",
     shortDescription:
-      "Bespoke floral installations, traditional Telugu Kalyana Mandapams, Nikkah arches, Jaimala stages, and sunlit Haldi & Mehendi courtyards crafted across Hyderabad.",
+      "Bespoke sets built fresh for your vibe — from sacred Telugu Pelli Pandiris with banana trunks and banti puvvu to Chowmahalla-style Nikkah stages, Sanchaq thaals, Falaknuma pastels, and Taramati sunset courtyards.",
     fullDescription:
-      "At Tehzaa Celebrations, floral architecture bridges sacred Indian tradition with timeless editorial restraint. Whether weaving fragrant jasmine and banana-leaf pillars for a morning Telugu Pelli Pandiri, sculpting velvet-and-ivory floral domes for a Nikkah and Walima, or dressing an open-air Marwari Jaimala pavilion in marigold and heirloom brass, every installation is composed from fresh stems sourced daily from regional farms and specialist growers.",
-    heroImage: "/images/floral-mandap-indian.webp",
+      "No tension about recycled catalogue backdrops! Our Hyderabad designers sketch every mandap and stage around your real venue — whether it's Belgian-chandelier grandeur under Chowmahalla's cream arches, white marble romance at Taj Falaknuma, golden-hour stone vistas at Taramati Baradari, or a dawn Telugu Muhurtham Pelli Pandiri draped in fresh mallige and mango thoranalu.",
+    heroImage: "/images/real-chowmahalla-palace.webp",
     galleryImages: [
+      "/images/real-chowmahalla-palace.webp",
       "/images/floral-mandap-indian.webp",
-      "/images/haldi-mehendi-courtyard.webp",
-      "/images/nikkah-walima-arch.webp",
+      "/images/real-falaknuma-palace.webp",
+      "/images/real-taramati-baradari.webp",
     ],
     startingPrice: "₹1,50,000",
     idealFor: [
-      "Telugu Kalyana Mandapams & Pelli Pandiri",
-      "North Indian Jaimala, Haldi & Sangeet Stages",
-      "Nikkah, Walima & Cathedral Reception Florals",
-      "Anand Karaj & Heritage Courtyard Weddings",
+      "Hindu: Telugu Pelli Pandiri & Agni Kundam Mandapams",
+      "Muslim: Nikkah Stages, Sanchaq & Manjha Gota-Patti",
+      "Marwari & Punjabi: Jharokha Jaimala & Haldi Courts",
+      "Sikh Anand Karaj, Christian & Fusion Weddings",
     ],
     offerings: [
       {
-        title: "Kalyana Mandapam, Pelli Pandiri & Nikkah Architecture",
+        title: "Telugu Pelli Pandiri & Hindu Mandapams",
         description:
-          "Hand-carved wooden and brass-accented mandaps, sacred mango-leaf toranams, and scalloped architectural arches dressed with fresh mogra, Rajnigandha, roses, and orchids.",
+          "Proper traditional vibes tuned right — real banana trunks, mango leaf thoranalu, fresh banti puvvu (marigolds), jasmine curtains, and vented Agni Kundam seating on peatalu.",
         highlights: [
-          "Authentic South Indian banana-stalk, coconut-frond, and jasmine-curtain Pelli Pandiris",
-          "Regal Jaimala pavilions and scalloped Nikkah/Walima backdrops in ivory, antique gold, and burgundy",
-          "Custom floral pews, altar arches, and candlelit reception tablescapes for Christian ceremonies",
+          "Hand-strung malli (jasmine) and vermillion-yellow floral mandapams ready before dawn Muhurtham",
+          "Talambralu & Jeelakarra-Bellam visual moments designed around family photography angles",
+          "Marwari & Punjabi Jharokha stages and Haldi courtyards with brass urlis",
         ],
       },
       {
-        title: "Haldi, Mehendi & Sangeet Courtyards",
+        title: "Muslim Nikkah, Sanchaq & Walima Styling",
         description:
-          "Sunlit courtyard lounges with hand-knotted marigold garlands, artisanal floral jhoolas, brass urlis with floating lotuses, and vibrant textile canopies.",
+          "Chowmahalla-inspired white & butter-cream scalloped arches, plush Nikkah divans for Ijab-o-Qubul & Arsi-Mushaf mirror moments, plus vibrant gota-patti Manjha nights.",
         highlights: [
-          "Custom floral swing (jhoola) seating and hand-painted terracotta accents",
-          "Fragrant genda phool cascades, mogra gajra bars, and artisanal bangle-station styling",
-          "Warm evening transitions with fairy-light canopies, crystal chandeliers, and stage acoustics",
+          "Decorated Sanchaq & Khada Dupatta thaal presentation corners for the groom's family arrival",
+          "Confined home-courtyard Manjha-nishan canopies and vibrant bangle/mehendi corners",
+          "Belgian crystal chandeliers, mogra chidiya strings, and candlelit Walima receptions",
         ],
       },
       {
-        title: "Walkways, Welcome Foyers & Tablescape Design",
+        title: "Falaknuma Pastels, Taramati Sunset & Sanctuaries",
         description:
-          "Cohesive sensory storytelling from the first step onto the venue lawn to every guest dining table.",
+          "White Italian-marble floral styling, earthy Taramati cane & terracotta sunset lounges, tranquil Anand Karaj canopies, and cathedral aisles.",
         highlights: [
-          "Linen-draped dining tables with hand-thrown stoneware, brass taper holders, and low floral runners",
-          "Calligraphed welcome easels and floral-framed family portrait galleries",
-          "Fragrant jasmine-and-rose petal corridors illuminated by warm glass hurricanes",
+          "Clean white peony, rose, and eucalyptus styling complementing Falaknuma staircases",
+          "Low white bolster Palki Sahib canopies with soft golden acoustic calm for Anand Karaj",
+          "Architectural seating plans, family portrait walls, and warm candle pathways",
         ],
       },
     ],
@@ -85,128 +104,291 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: "catering-services",
     slug: "catering",
-    title: "Catering & Food Services",
-    subtitle: "Authentic Hyderabadi Dastarkhwan, Telugu Vindhu Bhojanam & Pan-Indian Gastronomy",
+    title: "Dil se Dawat & Wedding Catering",
+    subtitle: "Proper Hyderabadi Shaadi Menus, Telugu Arati Aku Vindhu & Pure Veg Alag Kitchen",
     shortDescription:
-      "Time-honored Hyderabadi Dum Biryani, traditional banana-leaf Telugu Vindhu Bhojanam, royal North Indian & Mughlai spreads, Pure Vegetarian & Jain kitchens, and live culinary theatres.",
+      "Biryani bina dawat? Nakko ji! From wood-fired Mutton Dum Biryani, Sufiyani Biryani, Lukhmi & Pathar ka Gosht to pure vegetarian Arati Aku Telugu Pelli Vindhu Bhojanam and strictly separate Jain kitchens.",
     fullDescription:
-      "In Hyderabad, hospitality is measured by the warmth and abundance of the table. Tehzaa’s culinary brigade brings together master Hyderabadi khansamas, seasoned South Indian Brahmin and Telugu Vindhu chefs, royal North Indian halwais, and contemporary culinary directors. From slow wood-fired Kachche Gosht ki Dum Biryani and brass-vessel Telugu feasts on fresh plantain leaves to dedicated Pure Vegetarian and Sattvic Jain kitchens, every dish is prepared fresh on site with heritage spices and strict hygiene.",
-    heroImage: "/images/catering-hyderabadi-feast.webp",
+      "In Hyderabad, guests judge an entire wedding by one question: 'Khana kaisa tha?' Our third-generation Bawarchikhana khansamas and seasoned Telugu Vindhu masters serve food people still talk about years later — real coal-dum Mutton & Sufiyani Biryani, Saudi Champagne welcome bars, banana-leaf Gutti Vankaya & Ulavacharu, and a 100% isolated Pure Veg & Jain kitchen where even spoons never cross.",
+    heroImage: "/images/hyd-muslim-dawat-spread.webp",
     galleryImages: [
+      "/images/hyd-muslim-dawat-spread.webp",
+      "/images/hyd-telugu-vindhu-leaf.webp",
       "/images/catering-hyderabadi-feast.webp",
-      "/images/catering-indian-thali.webp",
-      "/images/hero-indian-wedding.webp",
+      "/images/irani-chai-mithai-parlor.webp",
     ],
     startingPrice: "₹850 per plate",
     idealFor: [
-      "Traditional Telugu Banana-Leaf Vindhu Bhojanam",
-      "Royal Hyderabadi & Mughlai Dastarkhwan",
-      "North Indian, Marwari & Pure Vegetarian / Jain Feasts",
-      "Corporate Galas & Private Farmhouse Soirées",
+      "Hyderabadi Muslim Shaadi & Walima Dawat",
+      "Telugu Hindu Arati Aku Pelli Vindhu Bhojanam",
+      "100% Isolated Pure Veg & No-Onion-Garlic Jain",
+      "Saudi Champagne, Irani Chai & Filter Kaapi Bars",
     ],
     offerings: [
       {
-        title: "Hyderabadi & Deccani Royal Dastarkhwan",
+        title: "Hyderabadi Muslim Shaadi & Walima Spread",
         description:
-          "Slow-cooked heirloom recipes sealed in copper degs and served with graceful silver-service etiquette.",
+          "Classic Nizami course flow from Saudi Champagne & hot Mutton Marag at the door to copper-handi Biryani and triple Hyderabadi mithai.",
         highlights: [
-          "Wood-fired Kachche Gosht ki Dum Biryani, Zafrani Chicken Biryani, and Subz Dum Tehri",
-          "Charcoal-seared Pathar ka Gosht, Shikampuri Kebab, and slow-simmered Mutton Marag",
-          "Mirchi ka Salan, Baghara Baingan, Dum ka Murgh, Double ka Meetha, and Khubani ka Meetha",
+          "Kachche Gosht ki Mutton Dum Biryani alongside creamy white Sufiyani Biryani & Mirchi ka Salan",
+          "Crispy square qeema Lukhmi, black-granite Pathar ka Gosht, Shikampur & Chicken 65",
+          "Warm Qubani ka Meetha with malai, Double ka Meetha, Kaddu ki Kheer & clay-pot Badam Firni",
         ],
       },
       {
-        title: "Telugu & South Indian Traditional Vindhu Bhojanam",
+        title: "Telugu Hindu Pelli Vindhu Bhojanam (Arati Aku)",
         description:
-          "Authentic ceremonial sit-down banana-leaf service celebrating Andhra and Telangana festive cuisine.",
+          "Full traditional banana-leaf sit-down feast served in loving pankti order — Panakam & Pesarattu in the morning, classic Andhra-Telangana curries for Muhurtham lunch.",
         highlights: [
-          "Gutti Vankaya Kura, Ulavacharu Biryani, Pulihora, Mamidikaya Pappu, and Gongura Pachadi",
-          "Handcrafted festive sweets: Boorelu, Bobbatlu, Pootharekulu, and warm Semiya Payasam",
-          "Live brass-tumbler Filter Kaapi and traditional paan-supari hospitality",
+          "Mudda Pappu with Avakaya & melting desi ghee, Chintapandu Pulihora & Gutti Vankaya Kura",
+          "Mamidikaya Pappu, Ulavacharu with thick cream, Gongura Pachadi & crisp Minapa Garelu",
+          "Hot ghee Bobbatlu (Bakshalu), delicate Atreyapuram Pootharekulu, Boorelu & Filter Kaapi",
         ],
       },
       {
-        title: "Pure Vegetarian, Jain & North Indian Heritage Kitchens",
+        title: "Bilkul Alag Pure Veg, Jain & Reception Buffets",
         description:
-          "Strictly segregated vegetarian cookware and dedicated Sattvic culinary teams alongside royal North Indian spreads.",
+          "Locked Pure Vegetarian & Sattvic Jain cooking zone — untouched vessels, dedicated halwais — plus lively Telangana Non-Veg & North Indian reception spreads.",
         highlights: [
-          "Separate utensils, prep zones, and serviceware for Pure Vegetarian and no-onion-no-garlic Jain menus",
-          "Old Delhi Chaat Gali, 24-Hour Dal Makhani, Paneer Lababdar, Dal Baati Churma, and Kashmiri Pulao",
-          "Live Jalebi with Kesar Rabri, Matka Kulfi, Banarasi Paan, and Irani Chai with Osmania Biscuits",
+          "Zero cross-contamination guarantee for Pure Veg Telugu, Marwari & Jain families",
+          "Telangana reception favorites: Bagara Khana, Natu Kodi / Mutton Pulusu & Apollo Fish",
+          "Live Old Delhi Chaat Gali, 24-Hour Dal Makhani, Irani Chai & Meetha Paan bars",
         ],
       },
     ],
     menuCollections: [
       {
-        title: "Hyderabadi & Deccani Royal Classics",
-        subtitle: "Copper-deg slow cooking and regal Nizami dastarkhwan traditions",
+        title: "Hyderabadi Muslim Shaadi & Walima Dawat",
+        subtitle: "Classic Nizami Dastarkhwan — from Saudi Champagne & Lukhmi to Dum Biryani & Firni",
+        image: "/images/hyd-muslim-dawat-spread.webp",
+        aromaNote: "Coal dum, saffron-cardamom milk, fried birista & rosewater",
         items: [
-          "Kachche Gosht ki Dum Biryani",
-          "Zafrani Chicken Biryani",
-          "Subz Dum Tehri",
-          "Pathar ka Gosht",
-          "Shikampuri Kebab",
-          "Mutton Marag",
-          "Mirchi ka Salan",
-          "Baghara Baingan",
-          "Dum ka Murgh",
-          "Double ka Meetha",
-          "Khubani ka Meetha",
+          "Saudi Champagne & Badam Milk",
+          "Pathar ka Gosht (Granite Stone)",
+          "Crispy Qeema Lukhmi",
+          "Mutton Marag & Paan Naan",
+          "Kachche Gosht ki Mutton Dum Biryani",
+          "Sufiyani Biryani (Creamy White Nizami)",
+          "Mirchi ka Salan & Dahi ki Chutney",
+          "Dum ka Murgh & Zafrani Korma",
+          "Double ka Meetha & Qubani ka Meetha",
+          "Kaddu ki Kheer & Clay-Pot Badam Firni",
+        ],
+        dishes: [
+          {
+            name: "Saudi Champagne, Lukhmi & Pathar ka Gosht",
+            course: "Shuruwat",
+            vessel: "Black Granite Stone & Brass Tray",
+            note: "Guests get welcomed with chilled fruity Saudi Champagne, crisp square qeema-stuffed Lukhmi, and spiced lamb roasted right over heated Deccani stone.",
+          },
+          {
+            name: "Mutton Marag with Sheermal & Paan Naan",
+            course: "Shuruwat",
+            vessel: "Tinned Copper Lagan",
+            note: "Thin, peppery almond-pistachio mutton soup served piping hot before the mains — pairs ekdum top with sweet saffron Sheermal.",
+          },
+          {
+            name: "Kachche Gosht ki Mutton Dum Biryani",
+            course: "Royal Dastarkhwan",
+            vessel: "Atta-Sealed Copper Handi",
+            note: "Raw marinated mutton layered under fluffy long-grain basmati, saffron milk, birista, and pudina on live coal dum.",
+          },
+          {
+            name: "Sufiyani Biryani & Zafrani Mutton Korma",
+            course: "Royal Dastarkhwan",
+            vessel: "Silvered Degchi",
+            note: "Mild, ultra-rich white Nizami biryani scented with green cardamom & mace — zero artificial color, pure old-city royalty.",
+          },
+          {
+            name: "Mirchi ka Salan, Dum ka Murgh & Malai Paya",
+            course: "Royal Dastarkhwan",
+            vessel: "Heavy Brass Handi",
+            note: "Mandatory nutty peanut-sesame-tamarind Mirchi ka Salan alongside creamy almond-onion Dum ka Murgh and classic breakfast Malai Paya.",
+          },
+          {
+            name: "Double ka Meetha, Qubani Malai, Kaddu Kheer & Firni",
+            course: "Meetha & Chai",
+            vessel: "Clay Sakoras & Silver Bowls",
+            note: "Never just one sweet — stewed apricot Qubani with thick malai, saffron Double ka Meetha, bottle-gourd Kaddu ki Kheer, plus Lychee Cream & Sulaimani Chai.",
+            veg: true,
+          },
         ],
       },
       {
-        title: "Telugu & South Indian Traditional Feast (Vindhu Bhojanam)",
-        subtitle: "Authentic banana-leaf ceremonial dining rooted in Telangana and Andhra heritage",
+        title: "Telugu Hindu Pelli Vindhu Bhojanam (Arati Aku)",
+        subtitle: "Full banana-leaf ceremonial sit-down feast — authentic Telangana & Andhra soul food",
+        image: "/images/hyd-telugu-vindhu-leaf.webp",
+        aromaNote: "Melting cow ghee over Mudda Pappu, curry leaves, Avakaya & roasted jaggery",
+        dietaryNote: "100% Traditional Pure Vegetarian Arati Aku",
         items: [
-          "Traditional Banana Leaf Service",
+          "Panakam, Majjiga & Nannari Sharbat",
+          "Pesarattu-Upma & Minapa Garelu",
+          "Mudda Pappu + Avakaya + Desi Ghee",
+          "Chintapandu Pulihora",
           "Gutti Vankaya Kura",
-          "Pulihora",
-          "Ulavacharu Biryani",
-          "Mamidikaya Pappu",
-          "Gongura Pachadi",
-          "Boorelu",
-          "Bobbatlu",
-          "Pootharekulu",
-          "Semiya Payasam",
-          "Live Filter Kaapi",
+          "Ulavacharu with Fresh Cream",
+          "Mamidikaya Pappu & Pachi Pulusu",
+          "Atreyapuram Pootharekulu & Hot Bobbatlu",
+          "Paramannam, Ariselu & Daddojanam",
         ],
-        dietaryNote: "Available as 100% Traditional Vegetarian Sadhya / Vindhu",
+        dishes: [
+          {
+            name: "Panakam, Spiced Majjiga & Pesarattu-Upma",
+            course: "Shuruwat",
+            vessel: "Brass Tumbler & Hot Tawa",
+            note: "Auspicious jaggery-cardamom Panakam & cool buttermilk for Muhurtham arrivals, plus morning Idli, Minapa Garelu, Uggani & crispy Pesarattu.",
+            veg: true,
+          },
+          {
+            name: "Mudda Pappu, Avakaya & Melting Desi Ghee",
+            course: "Pelli Vindhu",
+            vessel: "Fresh Arati Aku (Banana Leaf)",
+            note: "No Telugu wedding starts without steaming white Annam, plain mashed Mudda Pappu, spicy Avakaya pickle, Kandi Podi, and a generous spoon of warm ghee.",
+            veg: true,
+          },
+          {
+            name: "Chintapandu Pulihora & Gutti Vankaya Kura",
+            course: "Pelli Vindhu",
+            vessel: "Fresh Plantain Leaf",
+            note: "Tangy peanut-tempered tamarind rice beside stuffed baby brinjals simmered in roasted sesame-peanut gravy — total showstopper on the leaf.",
+            veg: true,
+          },
+          {
+            name: "Mamidikaya Pappu, Pachi Pulusu & Ulavacharu Cream",
+            course: "Pelli Vindhu",
+            vessel: "Kalchatti & Silver Katori",
+            note: "Green-mango dal, raw tamarind summer Pachi Pulusu, thick sweet-spicy Andhra wedding Sambar, and slow-reduced horsegram Ulavacharu with fresh cream.",
+            veg: true,
+          },
+          {
+            name: "Bendakaya-Aratikaya Vepudu & Daddojanam",
+            course: "Pelli Vindhu",
+            vessel: "Seasoned Bronze Tray",
+            note: "Crisp ladies-finger and raw-banana dry fries, Gongura & Dosakaya pachadis, finishing calmly with pomegranate-studded curd rice (Daddojanam).",
+            veg: true,
+          },
+          {
+            name: "Bobbatlu, Atreyapuram Pootharekulu & Semiya Payasam",
+            course: "Meetha & Chai",
+            vessel: "Warm Brass Platter",
+            note: "Hot ghee-soaked chana-jaggery Bobbatlu (Bakshalu), delicate sugar-ghee Pootharekulu, sesame Ariselu, Paramannam & brass Filter Kaapi.",
+            veg: true,
+          },
+        ],
       },
       {
-        title: "North Indian & Royal Rajasthani / Mughlai Spread",
-        subtitle: "Bustling bazaar chaats, rich slow-simmered gravies, and heirloom mithai",
+        title: "Telangana Non-Veg Reception & North Indian Classics",
+        subtitle: "Sangeet & Evening Reception favorites uniting Telangana spice with Old Delhi chaat",
+        image: "/images/catering-hyderabadi-feast.webp",
+        aromaNote: "Smoky Apollo Fish, fiery Natu Kodi curry, chaat imli & 24-hour Dal Makhani",
         items: [
+          "Bagara Khana & Telangana Mutton Pulusu",
+          "Natu Kodi Pulusu & Chicken 65",
+          "Apollo Fish & Crisp Minced-Keema Mirchi Bajji",
           "Old Delhi Chaat Gali",
-          "24-Hour Dal Makhani",
-          "Paneer Lababdar",
-          "Dal Baati Churma",
-          "Kashmiri Pulao",
-          "Sheermal & Tandoori Breads",
-          "Live Jalebi with Kesar Rabri",
-          "Matka Kulfi & Banarasi Paan",
+          "24-Hour Dal Makhani & Dal Baati Churma",
+          "Live Crispy Jalebi with Kesar Rabri",
+        ],
+        dishes: [
+          {
+            name: "Apollo Fish, Chicken 65 & Keema Mirchi Bajji",
+            course: "Shuruwat",
+            vessel: "Live Hot Tawa",
+            note: "Hyderabad reception crowd-pleasers served piping hot during Sangeet and Walima starters — spicy, garlicky, and gone in seconds.",
+          },
+          {
+            name: "Bagara Khana with Natu Kodi / Mutton Pulusu",
+            course: "Royal Dastarkhwan",
+            vessel: "Heavy Copper Lagan",
+            note: "Whole-spice aromatic Bagara rice paired with authentic Telangana country-chicken curry or fiery bone-in mutton masala.",
+          },
+          {
+            name: "Old Delhi Chaat Gali & Dal Baati Churma",
+            course: "Live Counter",
+            vessel: "Hammered Brass Tawa",
+            note: "Crisp Palak Patta Chaat, five-water Pani Puri, stuffed Aloo Tikki, plus rich 24-hour coal-simmered Dal Makhani for North Indian & Marwari guests.",
+            veg: true,
+          },
+          {
+            name: "Live Kesar Jalebi, Rabri & Matka Kulfi",
+            course: "Meetha & Chai",
+            vessel: "Flat Copper Tai",
+            note: "Hot saffron jalebis straight out of the kadhai served over chilled rabri alongside pistachio matka kulfi.",
+            veg: true,
+          },
         ],
       },
       {
-        title: "Pure Vegetarian & Jain-Friendly Kitchens",
-        subtitle: "Dedicated segregated culinary preparation for sacred ceremonies",
+        title: "Pure Veg & Sattvic Jain — Bilkul Alag Kitchen",
+        subtitle: "Zero cross-contact: isolated utensils, oils, prep zone & dedicated chefs",
+        image: "/images/catering-indian-thali.webp",
+        aromaNote: "Pure cow ghee, roasted jeera, hing, kesar badam & fresh temple flowers",
+        dietaryNote: "100% Isolated Cookware & Strict Jain Protocol",
         items: [
-          "Dedicated Pure Vegetarian Cookware & Prep Zone",
-          "Sattvic & No-Onion-No-Garlic Ceremonial Menus",
-          "Kesar Badam Thandai & Dry-Fruit Halwas",
-          "Artisanal Farali & Temple-Style Offerings",
-          "Separate Brass & Silver Serviceware",
+          "Isolated Pure Veg & Jain Cooking Hall",
+          "Zero Onion, Zero Garlic & Root-Free Jain Menu",
+          "Chilled Kesar Badam Thandai",
+          "Jodhpuri Gatte & Kaju Panchratna",
+          "Moong Dal Halwa in Pure Ghee",
         ],
-        dietaryNote: "100% Segregated Utensils, Oils & Dedicated Chefs",
+        dishes: [
+          {
+            name: "Kesar Badam Thandai & Farali Chaat",
+            course: "Shuruwat",
+            vessel: "Dedicated Clean Glassware",
+            note: "Freshly stone-ground almond-rose milk cooler and crisp temple-style snacks prepared miles away from any non-veg prep.",
+            veg: true,
+          },
+          {
+            name: "Jain Panchratna Sabzi, Gatte & Dal Tadka",
+            course: "Royal Dastarkhwan",
+            vessel: "Untouched Steel & Brass",
+            note: "Strictly no-onion, no-garlic, root-free recipes bursting with cashew-melon seed richness, jeera tadka, and hing.",
+            veg: true,
+          },
+          {
+            name: "Warm Badam & Moong Dal Halwa",
+            course: "Meetha & Chai",
+            vessel: "Heavy Brass Kadhai",
+            note: "Slow-roasted split lentils in pure ghee studded with sliced pistachios and warm green cardamom.",
+            veg: true,
+          },
+        ],
       },
       {
-        title: "Live Interactive Stations & Global Haute Cuisine",
-        subtitle: "Theatrical live cooking counters blending regional craft with international flair",
+        title: "Irani Chai, Sulaimani, Paan & Late-Night Counters",
+        subtitle: "Because nobody leaves a Hyderabad wedding without chai and a meetha paan!",
+        image: "/images/irani-chai-mithai-parlor.webp",
+        aromaNote: "Strong boiled mawa Irani chai, lemon Sulaimani, Osmania biscuits & gulkand",
         items: [
-          "Charcoal Tandoor & Sigdi Grills",
-          "Appam & Coconut Stew Counter",
-          "Irani Chai & Osmania Biscuits Bar",
-          "Artisanal Pasta & Aged Cheese Wheel",
-          "Pan-Asian Wok & Dim Sum Cart",
+          "Irani Chai & Warm Osmania Biscuits",
+          "Digestive Lemon-Spice Sulaimani Chai",
+          "Meetha, Gulkand & Zarda Paan Bar",
+          "Lychee Cream & Sunrise Pudding",
+          "Brass Davara Filter Kaapi",
+        ],
+        dishes: [
+          {
+            name: "Irani Chai Samovar & Bakery Osmania Biscuits",
+            course: "Meetha & Chai",
+            vessel: "Porcelain Finjal Cup & Brass Tray",
+            note: "Slow-reduced creamy mawa tea served with sweet-salty butter Osmania biscuits — keeps Sangeet & post-Nikkah guests smiling past midnight.",
+            veg: true,
+          },
+          {
+            name: "Post-Biryani Sulaimani Chai & Live Paan Counter",
+            course: "Meetha & Chai",
+            vessel: "Clear Glass & Silver Paan Daans",
+            note: "Spiced black lemon Sulaimani tea paired with custom folded rose-gulkand Meetha Paan and traditional aromatic Zarda options.",
+            veg: true,
+          },
+          {
+            name: "Walima Trending Lychee Cream & Sunrise Pudding",
+            course: "Meetha & Chai",
+            vessel: "Chilled Dessert Parlor",
+            note: "Contemporary Hyderabadi Valima crowd favorites layered fresh with chilled whipped cream, seasonal fruits, and crushed pistachios.",
+            veg: true,
+          },
         ],
       },
     ],
@@ -214,54 +396,45 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: "baraat",
     slug: "baraat",
-    title: "Baraat & Grand Entries",
-    subtitle: "Ceremonial Processions, Bridal Phoolon Ki Chadar & Acoustic Precision",
+    title: "Full Dhamaka Baraat & Grand Entries",
+    subtitle: "Hyderabadi Tasha-Marfa, Punjabi Dhol, Vintage Bagghis & Phoolon Ki Chadar",
     shortDescription:
-      "Joyous groom baraat processions, South Indian Pallaki & Nadaswaram welcomes, vintage motorcades, brass and dhol ensembles, and poetic bridal walkways.",
+      "Big-energy groomsman Baraats with Hyderabadi Tasha-Marfa & Punjabi Dhol, antique Falaknuma-style carriages, Telugu Pallaki & Nadaswaram welcomes, and emotional bridal Phoolon ki Chadar walks.",
     fullDescription:
-      "An entrance sets the emotional cadence for the entire celebration. Whether orchestrating a vibrant North Indian baraat with Punjabi dhol players and vintage tourers, a dignified South Indian ceremonial welcome accompanied by traditional Nadaswaram and Tasha-Marfa ensembles, or a serene bridal procession beneath a hand-stitched Phoolon ki Chadar, Tehzaa choreographs every cue with safety, poise, and cinematic timing.",
+      "An entrance sets the mood for the whole night! Whether you want thunderous Hyderabadi Tasha-Marfa beats outside a Taj Krishna lawn, a classic Punjabi Dhol & Bagghi carriage procession, a traditional sunrise Nadaswaram & Pallaki welcome, or an understated bridal walk under jasmine-and-rose Phoolon ki Chadar, our crew runs every cue safely and right on time.",
     heroImage: "/images/baraat-grand-entry.webp",
     galleryImages: [
       "/images/baraat-grand-entry.webp",
       "/images/bridal-entry-indian.webp",
-      "/images/hero-indian-wedding.webp",
+      "/images/real-chowmahalla-palace.webp",
+      "/images/real-falaknuma-palace.webp",
     ],
     startingPrice: "₹75,000",
     idealFor: [
-      "Groom Baraat Processions & Royal Carriages",
-      "Bridal Phoolon Ki Chadar & Pallaki Walkways",
-      "Nadaswaram, Shehnai & Dhol Ensembles",
-      "Walima & Reception Couple Grand Entries",
+      "Hyderabadi Tasha-Marfa & Sufi Qawwali Welcomes",
+      "Punjabi Dhol, Brass Band & Vintage Bagghi",
+      "Telugu Pallaki & Dawn Nadaswaram Processions",
+      "Jasmine Phoolon Ki Chadar & Cold Sparklers",
     ],
     offerings: [
       {
-        title: "Heritage Baraat Motorcades & Processions",
+        title: "Hyderabadi Marfa, Punjabi Baraat & Bagghis",
         description:
-          "Graceful, high-energy processions led by veteran percussionists, vintage vehicles, and coordinated escort teams.",
+          "High-energy street-to-stage processions guided calmly by ground captains who handle gates, sound timings, and family coordination.",
         highlights: [
-          "Restored vintage convertibles, decorated ceremonial steeds, and traditional Bagghi carriages",
-          "Live Punjabi Dhol, brass band ensembles, Hyderabadi Marfa, and classical Nadaswaram-Thavil troupes",
-          "Dedicated route stewards managing lighting, crowd flow, and venue-gate timing",
+          "Authentic Hyderabadi Tasha-Marfa troupes alongside Punjabi Dhol and vintage convertibles",
+          "Rosewater, attar, and silver-thali Istiqbal / Milni gate welcomes between both families",
+          "Strict sound-curfew and hotel-driveway safety compliance around Banjara & Jubilee Hills",
         ],
       },
       {
-        title: "Poetic Bridal Entries & Phoolon Ki Chadar",
+        title: "Telugu Pallaki & Bridal Phoolon Ki Chadar",
         description:
-          "Heartfelt bridal arrivals framed in fresh florals, live instrumentalists, and soft golden lighting.",
+          "Graceful bridal entrances beneath fresh hand-strung jasmine and garden roses set to live Nadaswaram, flute, or violin.",
         highlights: [
-          "Hand-woven jasmine and rose Phoolon ki Chadar canopies and traditional South Indian Pallaki palanquins",
-          "Live violinists, flute ensembles, and bespoke soundtrack transitions",
-          "Synchronized rose-petal showers and venue-certified smokeless cold sparkler fountains",
-        ],
-      },
-      {
-        title: "Reception & Sangeet Couple Reveals",
-        description:
-          "Dramatic, understated stage arrivals engineered for photography and guest emotion.",
-        highlights: [
-          "Warm low-lying atmospheric mist and sculptural architectural stage lighting",
-          "Custom entrance choreography with family welcome circles and live percussionists",
-          "Zero-smoke indoor-safe pyrotechnic and lighting synchronization",
+          "Weight-balanced fresh mogra Phoolon ki Chadar canopies and decorated Pallaki seats",
+          "Venue-approved smokeless cold sparklers and low mist for ballroom first looks",
+          "Zero stress on brothers, sisters, and elders carrying the canopy",
         ],
       },
     ],
@@ -269,54 +442,45 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: "corporate-events",
     slug: "corporate-events",
-    title: "Corporate Events",
-    subtitle: "Executive Summits, Award Galas & Brand Launches in HITEC City",
+    title: "Corporate Events Minus The Bore",
+    subtitle: "HITEC City Keynotes, HICC Summits & Falaknuma Client Gala Dinners",
     shortDescription:
-      "Precision-led conferences, leadership offsites, product unveilings, and black-tie gala dinners across Hyderabad’s HITEC City, Financial District, and Gachibowli.",
+      "Sharp stage setups, P2.5 LED walls, smooth QR registration, and unforgettable Chowmahalla or Falaknuma gala dinners so visiting CXOs actually love Hyderabad.",
     fullDescription:
-      "Serving Hyderabad’s global technology, pharmaceutical, and financial corridors across HITEC City, Madhapur, and the Financial District, Tehzaa brings architectural polish and clockwork execution to enterprise gatherings. From multi-track conferences at HICC and leadership conclaves at ITC Kohenur to refined evening award banquets, we manage stage engineering, delegate hospitality, and culinary curation under one disciplined roof.",
+      "Hyderabad's global tech and pharma teams deserve better than stiff beige hotel conferences. We combine industrial-strength AV & stage production at HICC and ITC Kohenur with genuine Deccani hospitality — Irani Chai breaks, copper-deg dinners at heritage palaces, and seamless speaker coordination.",
     heroImage: "/images/corporate-gala-hyderabad.webp",
     galleryImages: [
       "/images/corporate-gala-hyderabad.webp",
-      "/images/catering-hyderabadi-feast.webp",
-      "/images/hero-indian-wedding.webp",
+      "/images/real-falaknuma-palace.webp",
+      "/images/hyd-muslim-dawat-spread.webp",
+      "/images/irani-chai-mithai-parlor.webp",
     ],
     startingPrice: "₹2,00,000",
     idealFor: [
-      "Enterprise Tech Summits & Town Halls",
-      "Executive Leadership Offsites & Board Dinners",
-      "Product Launches & Brand Showcases",
-      "Annual Recognition & Gala Evenings",
+      "HICC & HITEC City Tech Summits",
+      "Taj Falaknuma & Chowmahalla Client Galas",
+      "Product Launches & Annual Town Halls",
+      "Executive Leadership Offsites",
     ],
     offerings: [
       {
-        title: "Stage Architecture & Broadcast AV Engineering",
+        title: "Crisp LED Stages, Sound & Hybrid Streaming",
         description:
-          "Custom scenic stage builds integrated with high-resolution LED walls, directional line-array audio, and multi-cam streaming.",
+          "Clean custom stage carpentry paired with bright P2.5 LED walls, zero-feedback audio, and multi-cam live feeds.",
         highlights: [
-          "Wide-format P2.5/P3 LED keynote backdrops and dynamic stage lighting",
-          "Redundant audio routing, confidence monitors, and live hybrid broadcast capability",
-          "Brand-accurate scenic fabrication, podium detailing, and exhibition booths",
+          "Same-day daytime summit to black-tie awards dinner room flip",
+          "Smooth speaker greenrooms and multi-track cue handling",
+          "Full HICC, ITC Kohenur & Financial District technical compliance",
         ],
       },
       {
-        title: "Delegate Registration & VIP Executive Protocol",
+        title: "Hyderabadi Hospitality That Wows Visiting Teams",
         description:
-          "Frictionless guest arrival, badging, and backstage speaker hospitality.",
+          "Turn standard coffee breaks into Irani Chai & Filter Kaapi bars and finish the week with a heritage palace dinner.",
         highlights: [
-          "Express QR check-in desks, branded lanyards, and multilingual floor concierges",
-          "Private greenroom lounges for keynote dignitaries and board leadership",
-          "Curated executive gift hampers showcasing Hyderabadi pearls, Bidri craft, and artisanal teas",
-        ],
-      },
-      {
-        title: "Gala Dinners, Networking Lounges & Entertainment",
-        description:
-          "Coordinated daytime-to-evening room transformations paired with elevated dining and live acoustic acts.",
-        highlights: [
-          "Award-night cue management, trophy reveals, and curated ambient music",
-          "Gourmet multi-cuisine buffets and interactive artisan mocktail lounges",
-          "Full venue compliance, fire-safety sign-offs, and teardown logistics",
+          "Express QR check-in desks with helpful bilingual floor hosts",
+          "Bidriware, Pochampally silk & artisan chocolate delegate hampers",
+          "Multi-dietary gala menus (Halal, Pure Veg, Vegan, Gluten-Free)",
         ],
       },
     ],
@@ -324,54 +488,45 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: "family-celebrations",
     slug: "family-celebrations",
-    title: "Social & Family Celebrations",
-    subtitle: "Seemantham, Namakaranam, Anniversaries & Jubilee Hills Soirées",
+    title: "Ghar Ke Functions & Family Milestones",
+    subtitle: "Seemantham, Sanchaq, Manjha, Aqiqah, Anniversaries & Gandipet Villas",
     shortDescription:
-      "Warm, thoughtfully styled family milestones including Seemantham, Namakaranam, Gruhapravesham, milestone birthdays, silver & golden jubilees, and farmhouse retreats.",
+      "Warm, stress-free styling and homestyle food for Seemantham, Namakaranam, Gruhapravesham, Muslim Sanchaq, Manjha & Aqiqah, 50th anniversaries, and Moinabad farmhouse weekends.",
     fullDescription:
-      "A family’s cherished milestones deserve the same artistic care and gracious hospitality as a grand wedding. Tehzaa designs intimate, deeply personal celebrations across Hyderabad’s residences, private clubs, and scenic Gandipet and Moinabad farmhouses—honoring sacred South Indian Seemantham and Namakaranam traditions, Gruhapravesham blessings, milestone birthdays, and 25th or 50th anniversary evenings.",
+      "Not every big day needs a 1,000-person ballroom! Some of our favorite days happen inside Jubilee Hills living rooms, Old City courtyards, and breezy Gandipet villas — hanging fresh mango-leaf thoranalu for a Seemantham, dressing golden gota-patti corners for a bride's Manjha & Sanchaq, or setting up twinkling banyan-tree fairy lights for Amma & Nanna's 25th anniversary.",
     heroImage: "/images/family-celebration-indian.webp",
     galleryImages: [
       "/images/family-celebration-indian.webp",
+      "/images/real-taramati-baradari.webp",
       "/images/haldi-mehendi-courtyard.webp",
-      "/images/catering-indian-thali.webp",
+      "/images/irani-chai-mithai-parlor.webp",
     ],
     startingPrice: "₹95,000",
     idealFor: [
-      "Seemantham, Baby Showers & Namakaranam",
-      "Gruhapravesham & Traditional House Blessings",
+      "Hindu: Seemantham, Namakaranam & Gruhapravesham",
+      "Muslim: Sanchaq, Manjha, Dholki & Aqiqah",
       "Silver & Golden Wedding Anniversaries",
-      "1st Birthdays & Private Farmhouse Retreats",
+      "1st Birthdays & Gandipet Farmhouse Weekends",
     ],
     offerings: [
       {
-        title: "Cultural Milestones: Seemantham, Namakaranam & Gruhapravesham",
+        title: "Hindu Home Rituals (Seemantham, Naming & Housewarming)",
         description:
-          "Respectful, serene floral and ceremonial styling tailored to home courtyards and boutique banquet halls.",
+          "Respectful home-sized floral swings, fresh mango thoranalu, brass oil lamps, and comforting banana-leaf vegetarian meals.",
         highlights: [
-          "Fresh mango-leaf toranams, floral swings, brass lamps, and traditional seating arrangements",
-          "Authentic home-style vegetarian feasts and return-gift hampers curated with silver or brass accents",
-          "Calm coordination with family priests, musicians, and photographers",
+          "Hand-woven jasmine cradles (Palna) & traditional wooden swings",
+          "Homestyle Arati Aku food packed neatly alongside tamboolam return bags",
+          "Quiet setup and spotless clean-up before we pack out",
         ],
       },
       {
-        title: "Silver, Ruby & Golden Anniversary Galas",
+        title: "Muslim Home Mehfils (Sanchaq, Manjha & Aqiqah)",
         description:
-          "Intimate generational tribute evenings celebrating enduring family bonds.",
+          "Vibrant gota-patti yellow backdrops, Khada Dupatta & Sanchaq thaal styling, cozy floor cushions, live dholki audio, and small-batch Deg Biryanis.",
         highlights: [
-          "Curated archival family photo walls and warm candlelit banquet seating",
-          "Live ghazal ensembles, classical instrumentalists, or nostalgic retro acoustic bands",
-          "Custom multi-generational dining menus tailored to elders and younger guests alike",
-        ],
-      },
-      {
-        title: "Milestone Birthdays & Private Farmhouse Retreats",
-        description:
-          "Turnkey styling and hospitality at Jubilee Hills residences, Banjara Hills lawns, and Moinabad villas.",
-        highlights: [
-          "Storybook pastel 1st-birthday installations, artisanal dessert tables, and family host games",
-          "Outdoor fairy-light canopies, poolside lounge cabanas, and live acoustic sundowners",
-          "Complete setup, housekeeping, valet management, and post-event restoration",
+          "Dedicated Thaal decoration & bridal floral veil canopies",
+          "Chilled Badam Milk, hot Lukhmi & Double ka Meetha family trays",
+          "Cozy Gandipet & Moinabad villa retreats with acoustic ghazal nights",
         ],
       },
     ],

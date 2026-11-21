@@ -3,13 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --color-antique-gold: #90643d;
-  --color-burgundy: #6b292d;
-  --color-warm-ivory: #f4ede2;
-  --color-cream: #faf7f2;
-  --color-deep-emerald: #263b32;
-  --color-dark-charcoal: #282522;
-  --color-muted-taupe: #806b56;
+  --color-alabaster: #f9f6f1;
+  --color-silk: #ffffff;
+  --color-limestone: #efe9df;
+  --color-obsidian: #12100e;
+  --color-obsidian-elevated: #1a1715;
+  --color-obsidian-line: #2e2823;
+  --color-brass: #a27b43;
+  --color-brass-light: #c7a36b;
+  --color-brass-dark: #7a5929;
+  --color-garnet: #5c1f24;
+  --color-ink: #161412;
+  --color-ink-muted: #4a453f;
+  --color-ink-subtle: #6e675f;
+  --color-stone-line: #e2dad0;
 }
 
 html {
@@ -34,59 +41,113 @@ html {
 }
 
 body {
-  background-color: #f4ede2;
-  color: #282522;
-  font-family: var(--font-jakarta), system-ui, sans-serif;
+  background-color: #f9f6f1;
+  color: #161412;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid #90643d;
+  outline: 2px solid #a27b43;
   outline-offset: 2px;
 }
 
 ::selection {
-  background-color: #90643d;
-  color: #faf7f2;
+  background-color: #12100e;
+  color: #f9f6f1;
 }
 
-/* Custom Scrollbar */
+/* Custom Editorial Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f4ede2;
+  background: #f9f6f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(128, 107, 86, 0.55);
-  border-radius: 4px;
+  background: #d5cbbf;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #90643d;
+  background: #a27b43;
 }
 
-/* Editorial Typography & Architectural Hairline Utilities */
+/* Deccani Editorial Luxury Typography & Architectural Utilities */
 @layer utilities {
+  .display-hero {
+    @apply font-display font-medium tracking-[-0.025em] leading-[0.98];
+    font-size: clamp(2.75rem, 6vw, 5.25rem);
+  }
+
+  .display-section {
+    @apply font-display font-medium tracking-[-0.02em] leading-[1.06];
+    font-size: clamp(2.125rem, 4vw, 3.5rem);
+  }
+
+  .display-card {
+    @apply font-display font-medium tracking-[-0.015em] leading-[1.14];
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+  }
+
+  .editorial-italic {
+    @apply font-display italic font-normal text-brass-dark tracking-[-0.01em] leading-[1.15];
+  }
+
   .editorial-kicker {
-    @apply text-xs font-sans font-medium tracking-[0.02em] text-gold-dark;
+    @apply font-sans font-semibold text-[11px] sm:text-xs tracking-[0.18em] uppercase text-brass-dark;
   }
 
-  .editorial-heading {
-    @apply font-serif font-medium tracking-[-0.02em] text-charcoal;
+  .editorial-kicker-light {
+    @apply font-sans font-semibold text-[11px] sm:text-xs tracking-[0.18em] uppercase text-brass-light;
   }
 
-  .hairline-gold {
-    border-color: rgba(144, 100, 61, 0.25);
+  .editorial-body {
+    @apply font-sans text-[15px] sm:text-[17px] leading-[1.68] text-ink-muted;
+  }
+
+  .gallery-frame {
+    @apply bg-silk border border-stone-line rounded-[2px] p-2 sm:p-3;
+  }
+
+  .gallery-frame-dark {
+    @apply bg-obsidian-elevated border border-obsidian-line rounded-[2px] p-2 sm:p-3;
+  }
+
+  .btn-editorial-dark {
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-[2px] bg-obsidian text-alabaster hover:bg-brass-dark text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
+  }
+
+  .btn-editorial-light {
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-[2px] bg-alabaster text-obsidian hover:bg-brass-light text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
+  }
+
+  .btn-editorial-outline {
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-[2px] border border-obsidian/30 hover:border-obsidian text-ink text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
+  }
+
+  .btn-editorial-outline-dark {
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-[2px] border border-brass/45 hover:border-brass-light text-ink-light text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
+  }
+
+  .hairline-rule {
+    height: 1px;
+    background-color: #e2dad0;
+  }
+
+  .hairline-rule-dark {
+    height: 1px;
+    background-color: #2e2823;
   }
 
   .hairline-divider {
     height: 1px;
-    background-color: rgba(144, 100, 61, 0.3);
+    background-color: #e2dad0;
   }
 
   .transition-editorial {
@@ -94,8 +155,21 @@ body {
     transition-duration: 300ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
-}
 
-.border-gold-subtle {
-  border-color: rgba(144, 100, 61, 0.25);
+  /* Compatibility mappings for existing sections until Wave 2 alignment */
+  .wedding-display {
+    @apply font-display font-medium tracking-[-0.02em] text-ink;
+  }
+
+  .deccani-display {
+    @apply font-display font-medium tracking-[-0.02em] text-ink;
+  }
+
+  .editorial-heading {
+    @apply font-display font-medium tracking-[-0.02em] text-ink;
+  }
+
+  .wedding-script {
+    @apply font-display italic font-normal text-brass-dark tracking-[-0.01em] leading-[1.15];
+  }
 }
