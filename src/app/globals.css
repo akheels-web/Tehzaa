@@ -100,7 +100,7 @@ body {
   }
 
   .editorial-italic {
-    @apply font-display italic font-normal text-brass-dark tracking-[-0.01em] leading-[1.15];
+    @apply font-display italic font-normal text-ruby tracking-[-0.01em] leading-[1.15];
   }
 
   .editorial-kicker {
@@ -116,7 +116,7 @@ body {
   }
 
   .gallery-frame {
-    @apply bg-silk border border-stone-line rounded-[2px] p-2 sm:p-3;
+    @apply bg-white border border-brass/40 p-2 sm:p-3 shadow-ruby;
   }
 
   .gallery-frame-dark {
@@ -124,15 +124,15 @@ body {
   }
 
   .btn-editorial-dark {
-    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-[2px] bg-obsidian text-alabaster hover:bg-brass-dark text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-ruby text-marble hover:bg-ruby-dark text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
   }
 
   .btn-editorial-light {
-    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-[2px] bg-alabaster text-obsidian hover:bg-brass-light text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-marble text-ruby hover:bg-white text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
   }
 
   .btn-editorial-outline {
-    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-[2px] border border-obsidian/30 hover:border-obsidian text-ink text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 border border-ruby/40 hover:border-ruby text-ruby text-xs font-sans font-semibold uppercase tracking-[0.15em] transition-colors duration-200;
   }
 
   .btn-editorial-outline-dark {
@@ -141,7 +141,7 @@ body {
 
   .hairline-rule {
     height: 1px;
-    background-color: #e2dad0;
+    background-color: rgba(176, 138, 74, 0.3);
   }
 
   .hairline-rule-dark {
@@ -151,7 +151,7 @@ body {
 
   .hairline-divider {
     height: 1px;
-    background-color: #e2dad0;
+    background-color: rgba(176, 138, 74, 0.3);
   }
 
   .transition-editorial {

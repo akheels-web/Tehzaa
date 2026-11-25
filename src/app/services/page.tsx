@@ -3,11 +3,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowUpRight, MapPin, PhoneCall } from "lucide-react";
 import { SERVICES } from "@/data/services";
-import { ServicesTraditionIndex } from "@/components/services/ServicesTraditionIndex";
-import {
-  HeritageGreetingBanner,
-  TehzeebDivider,
-} from "@/components/deccani/DeccaniMotifs";
+import { whatsappHref } from "@/lib/contact";
+import { creditForImage } from "@/lib/landing/credits";
+import { ServicesExplorer } from "@/components/inner/ServicesExplorer";
+import { PageHero } from "@/components/landing/primitives/PageHero";
+import { ArchMedallionList } from "@/components/landing/primitives/ArchMedallionList";
+import { SceneHeading } from "@/components/landing/primitives/SceneHeading";
+import { DepthJaali } from "@/components/landing/primitives/DepthJaali";
+import { DawatnamaCTA } from "@/components/landing/DawatnamaCTA";
 
 export const metadata: Metadata = {
   title: "Services & Celebrations | Tehzaa Celebrations Hyderabad",
@@ -28,176 +31,124 @@ export const metadata: Metadata = {
   },
 };
 
+const PILLARS = [
+  {
+    title: "Pelli, Shaadi & Every Faith",
+    body: "Telugu Kalyana Mandapams, Muslim Nikkah & Sanchaq, Marwari Phere, Anand Karaj canopies, and cathedral flowers — handled respectfully.",
+  },
+  {
+    title: "Zero Copy-Paste Backdrops",
+    body: "Fresh flowers and structures sketched around your real venue lighting and layout.",
+  },
+  {
+    title: "Bilkul Alag Kitchens",
+    body: "Coal-dum Biryani and Telugu Arati Aku Vindhu cooked separately from our isolated Pure Veg & Jain hall.",
+  },
+  {
+    title: "Zero Headache For Parents",
+    body: "Honest transparent budgets and dedicated floor captains so Amma, Nanna & elders relax completely.",
+  },
+];
+
+const VENUES = [
+  "Chowmahalla Palace",
+  "Taj Falaknuma Palace",
+  "Taramati Baradari",
+  "Taj Krishna Banjara Hills",
+  "ITC Kohenur Gachibowli",
+  "HICC Novotel HITEC City",
+  "JRC Convention & Gandipet Villas",
+];
+
 export default function ServicesPage() {
-  const pillars = [
-    {
-      num: "01",
-      title: "Pelli, Shaadi & Every Faith",
-      desc: "Telugu Kalyana Mandapams, Muslim Nikkah & Sanchaq, Marwari Phere, Anand Karaj canopies, and cathedral flowers — handled respectfully.",
-    },
-    {
-      num: "02",
-      title: "Zero Copy-Paste Backdrops",
-      desc: "Fresh flowers and structures sketched around your real venue lighting and layout.",
-    },
-    {
-      num: "03",
-      title: "Bilkul Alag Kitchens",
-      desc: "Coal-dum Biryani and Telugu Arati Aku Vindhu cooked separately from our isolated Pure Veg & Jain hall.",
-    },
-    {
-      num: "04",
-      title: "Zero Headache For Parents",
-      desc: "Honest transparent budgets and dedicated floor captains so Amma, Nanna & elders relax completely.",
-    },
-  ];
-
-  const venues = [
-    "Chowmahalla Palace",
-    "Taj Falaknuma Palace",
-    "Taramati Baradari",
-    "Taj Krishna Banjara Hills",
-    "ITC Kohenur Gachibowli",
-    "HICC Novotel HITEC City",
-    "JRC Convention & Gandipet Villas",
-  ];
-
   return (
-    <div className="bg-alabaster text-ink">
-      {/* Band 1: Alabaster Page Header */}
-      <section className="pt-28 lg:pt-32 pb-16 border-b border-stone-line bg-alabaster">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-8 space-y-5">
-              <HeritageGreetingBanner theme="light" />
+    <div className="bg-marble text-ink">
+      <PageHero
+        crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+        kicker="Shaadi ho ya Pelli"
+        title="Everything we do"
+        italicTail="for your big day."
+        intro="From dawn Telugu Pelli Pandiris and Chowmahalla-style Nikkah stages to real Dum Biryani, banana-leaf Vindhu Bhojanam, and stress-free corporate summits."
+        image={{ src: SERVICES[0].heroImage, alt: SERVICES[0].title, credit: creditForImage(SERVICES[0].heroImage) }}
+        floating={[
+          { src: SERVICES[1].heroImage, alt: "" },
+          { src: SERVICES[2].heroImage, alt: "" },
+        ]}
+        actions={
+          <>
+            <Link href="/contact" className="btn-editorial-dark">
+              <span>Let&apos;s Chat Over Chai</span>
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
+            </Link>
+            <a
+              href={whatsappHref("Hello Tehzaa Celebrations, would love to discuss our event in Hyderabad!")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-editorial-outline"
+            >
+              <PhoneCall aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
+              <span>Ping on WhatsApp</span>
+            </a>
+          </>
+        }
+      />
 
-              <p className="editorial-italic text-2xl sm:text-3xl pt-1">
-                Shaadi ho ya Pelli
-              </p>
-
-              <h1 className="display-hero text-ink">
-                Everything We Do For{" "}
-                <span className="editorial-italic">Your Big Day</span>
-              </h1>
-
-              <p className="editorial-body max-w-2xl">
-                From dawn Telugu Pelli Pandiris and Chowmahalla-style Nikkah
-                stages to real Dum Biryani, banana-leaf Vindhu Bhojanam, and
-                stress-free corporate summits.
-              </p>
-            </div>
-
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-end gap-3">
-              <Link href="/contact" className="btn-editorial-dark">
-                <span>Let&apos;s Chat Over Chai</span>
-                <ArrowUpRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
-              </Link>
-              <a
-                href="https://wa.me/919876543210?text=Hello%20Tehzaa%20Celebrations,%20would%20love%20to%20discuss%20our%20event%20in%20Hyderabad!"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-editorial-outline"
-              >
-                <PhoneCall aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass" />
-                <span>Ping on WhatsApp</span>
-              </a>
-            </div>
-          </div>
+      {/* Tradition filter, Darbar doors, and the five service spreads */}
+      <section className="relative overflow-hidden bg-marble py-20 lg:py-24">
+        <DepthJaali />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+          <SceneHeading
+            kicker="Paanch Darbar"
+            title="Five doors,"
+            italicTail="open one."
+            intro="Hover or tap a door to step inside. Every service, with what's included and where to begin, follows below."
+            className="mb-12"
+          />
+          <ServicesExplorer services={SERVICES} />
         </div>
       </section>
 
-      {/* Band 2: Limestone Tradition Lens & Alternating Spreads */}
-      <section className="bg-limestone/60 border-b border-stone-line py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ServicesTraditionIndex services={SERVICES} />
+      {/* Promises */}
+      <section className="relative overflow-hidden bg-marble-warm py-20 lg:py-24">
+        <DepthJaali />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+          <SceneHeading kicker="Zero drama, proper finish" title="Four things we never" italicTail="compromise on." className="mb-12" />
+          <ArchMedallionList items={PILLARS} columns={4} />
         </div>
       </section>
 
-      {/* Band 3: Deep Obsidian Numbered Promises */}
-      <section className="bg-obsidian text-ink-light py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <TehzeebDivider theme="dark" className="mb-14" />
-
-          <div className="max-w-2xl mb-12 space-y-2.5">
-            <span className="editorial-kicker-light block">
-              Zero drama, proper finish
-            </span>
-            <h2 className="display-section text-ink-light">
-              Four Things We Never{" "}
-              <span className="font-display italic font-normal text-brass-light tracking-[-0.01em]">
-                Compromise On
-              </span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 rounded-[2px] overflow-hidden border border-obsidian-line bg-obsidian-elevated">
-            {pillars.map((pillar) => (
-              <div
-                key={pillar.num}
-                className="p-7 sm:p-8 border-b lg:border-b-0 sm:border-r border-obsidian-line last:border-r-0 space-y-4"
-              >
-                <span className="font-display text-3xl font-medium text-brass-light tabular-nums block">
-                  {pillar.num}
-                </span>
-                <h3 className="display-card text-ink-light">{pillar.title}</h3>
-                <p className="text-xs sm:text-sm text-ink-lightMuted leading-relaxed">
-                  {pillar.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Band 4: Alabaster Hyderabad Venues & Consultation Spread */}
-      <section className="bg-alabaster py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[2px] overflow-hidden border border-stone-line bg-silk shadow-gallery">
-            <div className="lg:col-span-7 p-8 sm:p-12 space-y-6 border-b lg:border-b-0 lg:border-r border-stone-line">
-              <span className="editorial-kicker block">
-                Every palace, convention &amp; farmhouse
-              </span>
-              <h2 className="display-section text-ink">
-                We Know Every{" "}
-                <span className="editorial-italic">Hyderabad Venue</span>
-              </h2>
-              <p className="editorial-body max-w-xl">
-                From Chowmahalla arches and Falaknuma marble steps to Taramati
-                Baradari sunsets, JRC lawns, and Moinabad farmhouses — our
-                load-in trucks know every gate!
-              </p>
+      {/* Venues */}
+      <section className="bg-marble py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid grid-cols-1 border-[6px] border-white bg-white shadow-ruby outline outline-1 outline-offset-4 outline-brass/40 lg:grid-cols-12">
+            <div className="space-y-6 p-8 sm:p-12 lg:col-span-7">
+              <SceneHeading
+                kicker="Every palace, convention & farmhouse"
+                title="We know every"
+                italicTail="Hyderabad venue."
+                intro="From Chowmahalla arches and Falaknuma marble steps to Taramati Baradari sunsets, JRC lawns, and Moinabad farmhouses — our load-in trucks know every gate!"
+              />
               <div className="flex flex-wrap gap-2 pt-2">
-                {venues.map((venue) => (
-                  <span
-                    key={venue}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-[2px] bg-alabaster border border-stone-line text-xs font-medium text-ink"
-                  >
-                    <MapPin
-                      aria-hidden="true"
-                      className="w-3.5 h-3.5 stroke-[1.5] text-brass"
-                    />
+                {VENUES.map((venue) => (
+                  <span key={venue} className="inline-flex items-center gap-2 border border-brass/40 bg-marble px-4 py-2 font-sans text-xs font-medium text-ink">
+                    <MapPin aria-hidden="true" className="h-3.5 w-3.5 stroke-[1.5] text-ruby" />
                     {venue}
                   </span>
                 ))}
               </div>
             </div>
-
-            <div className="lg:col-span-5 p-8 sm:p-12 bg-limestone/65 flex flex-col justify-between space-y-6">
+            <div className="flex flex-col justify-between space-y-6 bg-marble-warm p-8 sm:p-12 lg:col-span-5">
               <div className="space-y-3">
-                <span className="editorial-kicker block">Chai pe milenge</span>
-                <h3 className="display-card sm:text-3xl text-ink leading-tight">
-                  Come Taste Our Menus &amp; Check Swatches
-                </h3>
-                <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed">
-                  Drop by Road No. 36 in Jubilee Hills — we&apos;ll sit over
-                  Irani Chai, sketch your stage, and lock a clean custom quote.
+                <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-brass-dark">Chai pe milenge</span>
+                <h3 className="font-display text-3xl font-medium leading-tight text-ink">Come taste our menus &amp; check swatches</h3>
+                <p className="font-sans text-sm leading-relaxed text-ink-muted sm:text-[15px]">
+                  Drop by Road No. 36 in Jubilee Hills — we&apos;ll sit over Irani Chai, sketch your stage, and lock a clean custom quote.
                 </p>
               </div>
-
-              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 pt-2">
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row lg:flex-col">
                 <Link href="/contact" className="btn-editorial-dark">
                   <span>Plan Your Event</span>
-                  <ArrowUpRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
                 </Link>
                 <Link href="/gallery" className="btn-editorial-outline">
                   <span>See Our Photo Scrapbook</span>
@@ -207,6 +158,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <DawatnamaCTA />
     </div>
   );
 }

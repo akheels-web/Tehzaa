@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
 import { ArrowRight, Check } from "lucide-react";
 import type { ServiceCategory } from "@/data/services";
+import { ArchFrame } from "@/components/landing/primitives/ArchFrame";
 import { cn } from "@/lib/utils";
 
 type TraditionLensId = "all" | "hindu" | "muslim" | "sikh-christian" | "corporate";
@@ -49,32 +51,37 @@ function serviceMatchesLens(serviceId: string, lens: TraditionLensId): boolean {
   return serviceId !== "corporate-events";
 }
 
-export function ServicesTraditionIndex({ services }: { services: ServiceCategory[] }) {
+/**
+ * Tradition filter + the five long service sections (the page's comparison content).
+ * `renderIndex` draws a visual index (the Darbar doors) between the filter and the
+ * sections; it receives the same dimming rule. Filtering dims non-matching services
+ * rather than removing them, so the comparison stays intact.
+ */
+export function ServicesTraditionIndex({
+  services,
+  renderIndex,
+}: {
+  services: ServiceCategory[];
+  renderIndex?: (isDimmed: (s: ServiceCategory) => boolean) => React.ReactNode;
+}) {
   const [activeLens, setActiveLens] = useState<TraditionLensId>("all");
   const currentLens = LENSES.find((l) => l.id === activeLens) || LENSES[0];
-  const visibleServices = services.filter((s) =>
-    serviceMatchesLens(s.id, activeLens)
-  );
+  const isDimmed = (s: ServiceCategory) => !serviceMatchesLens(s.id, activeLens);
 
   return (
-    <div className="space-y-12">
-      {/* Architectural Tradition Filter Bar */}
-      <div className="rounded-[2px] border border-stone-line bg-silk p-6 sm:p-8 space-y-4 shadow-gallery">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <span className="editorial-kicker">Pick your celebration type</span>
-          <span
-            aria-live="polite"
-            className="text-xs sm:text-sm text-ink-muted font-medium"
-          >
+    <div className="space-y-14">
+      {/* Tradition filter */}
+      <div className="space-y-4 border-y border-brass/30 py-6">
+        <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+          <span className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-brass-dark">
+            Pick your celebration type
+          </span>
+          <span aria-live="polite" className="font-sans text-xs font-medium text-ink-muted sm:text-sm">
             {currentLens.note}
           </span>
         </div>
 
-        <div
-          role="group"
-          aria-label="Filter celebration services by community tradition"
-          className="flex flex-wrap gap-2.5"
-        >
+        <div role="group" aria-label="Filter celebration services by community tradition" className="flex flex-wrap gap-2.5">
           {LENSES.map((lens) => {
             const isSelected = lens.id === activeLens;
             return (
@@ -84,10 +91,10 @@ export function ServicesTraditionIndex({ services }: { services: ServiceCategory
                 aria-pressed={isSelected}
                 onClick={() => setActiveLens(lens.id)}
                 className={cn(
-                  "px-4 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-[0.1em] border transition-colors cursor-pointer",
+                  "cursor-pointer border px-4 py-2.5 font-sans text-xs font-bold uppercase tracking-[0.1em] transition-colors",
                   isSelected
-                    ? "bg-obsidian text-alabaster border-obsidian"
-                    : "bg-alabaster text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
+                    ? "border-ruby bg-ruby text-marble"
+                    : "border-brass/40 bg-marble text-ink-muted hover:border-ruby hover:text-ruby"
                 )}
               >
                 {lens.label}
@@ -97,135 +104,87 @@ export function ServicesTraditionIndex({ services }: { services: ServiceCategory
         </div>
       </div>
 
-      {/* Sharp Architectural Editorial Service Spreads */}
-      <div className="space-y-12">
-        {visibleServices.map((service, idx) => {
+      {renderIndex?.(isDimmed)}
+
+      {/* Service spreads */}
+      <div className="space-y-20">
+        {services.map((service, idx) => {
           const isReversed = idx % 2 === 1;
-          const indexLabel = `0${idx + 1}`;
+          const dimmed = isDimmed(service);
 
           return (
-            <article
+            <motion.article
               key={service.id}
               id={service.slug}
-              className="rounded-[2px] border border-stone-line bg-silk p-6 sm:p-10 lg:p-12 shadow-gallery"
+              animate={{ opacity: dimmed ? 0.35 : 1 }}
+              transition={{ duration: 0.4 }}
+              className="scroll-mt-28"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                {/* Photography Column */}
-                <div
-                  className={`lg:col-span-5 space-y-3 ${
-                    isReversed ? "lg:order-2" : "lg:order-1"
-                  }`}
-                >
-                  <div className="gallery-frame bg-alabaster">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-limestone">
-                      <Image
-                        src={service.heroImage}
-                        alt={service.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 42vw"
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Secondary Preview Plates */}
-                  <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+                <div className={cn("space-y-4 lg:col-span-5", isReversed ? "lg:order-2" : "lg:order-1")}>
+                  <ArchFrame
+                    src={service.heroImage}
+                    alt={service.title}
+                    sizes="(max-width: 1024px) 90vw, 36vw"
+                    className="mx-auto aspect-[4/4.6] w-full max-w-[440px]"
+                  />
+                  <div className="mx-auto grid max-w-[440px] grid-cols-3 gap-2.5">
                     {service.galleryImages.slice(0, 3).map((thumb, tIdx) => (
-                      <div
-                        key={`${service.id}-thumb-${tIdx}`}
-                        className="relative aspect-[4/3] overflow-hidden rounded-[2px] border border-stone-line bg-limestone"
-                      >
-                        <Image
-                          src={thumb}
-                          alt={`${service.title} detail ${tIdx + 1}`}
-                          fill
-                          sizes="(max-width: 1024px) 33vw, 14vw"
-                          className="object-cover"
-                        />
+                      <div key={`${service.id}-thumb-${tIdx}`} className="border-[4px] border-white shadow-[0_8px_18px_-10px_rgba(92,31,36,0.4)]">
+                        <div className="relative aspect-[4/3]">
+                          <Image src={thumb} alt={`${service.title} detail ${tIdx + 1}`} fill sizes="(max-width: 1024px) 30vw, 12vw" className="object-cover" />
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Editorial Content Column */}
-                <div
-                  className={`lg:col-span-7 space-y-6 ${
-                    isReversed ? "lg:order-1" : "lg:order-2"
-                  }`}
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-line pb-4">
+                <div className={cn("space-y-6 lg:col-span-7", isReversed ? "lg:order-1" : "lg:order-2")}>
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brass/30 pb-4">
                     <div className="flex items-center gap-3">
-                      <span className="font-display text-2xl sm:text-3xl font-medium text-brass-dark tabular-nums">
-                        {indexLabel}
-                      </span>
-                      <span className="h-4 w-px bg-stone-line" />
-                      <span className="text-xs text-ink-subtle font-medium">
-                        {service.subtitle}
-                      </span>
+                      <span className="font-display text-3xl italic tabular-nums text-ruby">0{idx + 1}</span>
+                      <span className="h-4 w-px bg-brass/40" />
+                      <span className="font-sans text-xs font-medium text-ink-muted">{service.subtitle}</span>
                     </div>
-
                     {service.startingPrice && (
-                      <span className="text-xs font-semibold text-ink bg-alabaster px-3 py-1 rounded-[2px] border border-stone-line tabular-nums">
+                      <span className="border border-brass/40 bg-marble px-3 py-1 font-sans text-xs font-bold tabular-nums text-ink">
                         From {service.startingPrice}
                       </span>
                     )}
                   </div>
 
                   <div>
-                    <h2 className="display-card sm:text-4xl text-ink leading-tight">
-                      {service.title}
-                    </h2>
-                    <p className="mt-3 editorial-body">
-                      {service.shortDescription}
-                    </p>
+                    <h2 className="font-display text-[clamp(2rem,3.4vw,2.8rem)] font-medium leading-tight text-ink">{service.title}</h2>
+                    <p className="mt-3 font-sans text-[15px] leading-relaxed text-ink-muted sm:text-[17px]">{service.shortDescription}</p>
                   </div>
 
-                  {/* Clean Hairline Offerings Index */}
                   <div className="space-y-3">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brass-dark block">
+                    <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-brass-dark">
                       What&apos;s included
                     </span>
-                    <div className="divide-y divide-stone-line border-t border-b border-stone-line">
+                    <div className="divide-y divide-brass/25 border-y border-brass/25">
                       {service.offerings.map((offering) => (
-                        <div
-                          key={offering.title}
-                          className="py-3.5 flex items-start gap-3"
-                        >
-                          <Check
-                            aria-hidden="true"
-                            className="w-4 h-4 stroke-[1.5] text-brass shrink-0 mt-1"
-                          />
+                        <div key={offering.title} className="flex items-start gap-3 py-3.5">
+                          <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                           <div>
-                            <h3 className="font-display text-xl font-medium text-ink leading-snug">
-                              {offering.title}
-                            </h3>
-                            <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-                              {offering.description}
-                            </p>
+                            <h3 className="font-display text-xl font-medium leading-snug text-ink">{offering.title}</h3>
+                            <p className="mt-1 font-sans text-xs leading-relaxed text-ink-muted sm:text-sm">{offering.description}</p>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Ideal Occasions */}
                   <div className="flex flex-wrap gap-2 pt-1">
                     {service.idealFor.map((occasion) => (
-                      <span
-                        key={occasion}
-                        className="text-xs px-3 py-1 rounded-[2px] bg-alabaster border border-stone-line text-ink-muted"
-                      >
+                      <span key={occasion} className="border border-brass/30 bg-marble px-3 py-1 font-sans text-xs text-ink-muted">
                         {occasion}
                       </span>
                     ))}
                   </div>
 
-                  {/* Actions */}
-                  <div className="pt-2 flex flex-wrap items-center gap-3.5">
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="btn-editorial-dark group"
-                    >
+                  <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                    <Link href={`/services/${service.slug}`} className="btn-editorial-dark group">
                       <span>
                         {service.menuCollections
                           ? "Open Interactive Menu Builder"
@@ -233,19 +192,15 @@ export function ServicesTraditionIndex({ services }: { services: ServiceCategory
                             ? "Open Wedding Decor Studio"
                             : "Open Interactive Blueprint"}
                       </span>
-                      <ArrowRight
-                        aria-hidden="true"
-                        className="w-4 h-4 stroke-[1.5] group-hover:translate-x-0.5 transition-transform duration-200"
-                      />
+                      <ArrowRight aria-hidden="true" className="h-4 w-4 stroke-[1.5] transition-transform duration-200 group-hover:translate-x-0.5" />
                     </Link>
-
                     <Link href="/contact" className="btn-editorial-outline">
                       <span>Ask for a Quote</span>
                     </Link>
                   </div>
                 </div>
               </div>
-            </article>
+            </motion.article>
           );
         })}
       </div>
