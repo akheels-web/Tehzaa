@@ -22,11 +22,13 @@ import {
   GalleryTradition,
   GalleryItem,
 } from "@/data/gallery";
-import {
-  DeccaniArchFrame,
-  HeritageGreetingBanner,
-} from "@/components/deccani/DeccaniMotifs";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { creditForImage } from "@/lib/landing/credits";
+import { useMotionAllowed } from "@/lib/landing/motionPreference";
+import { HOUSE_EASE } from "@/lib/landing/motion";
+import { PageHero } from "@/components/landing/primitives/PageHero";
+import { ArchClipDef } from "@/components/landing/primitives/ArchFrame";
 
 const VENUE_FILTERS = [
   "All Venues",
@@ -119,6 +121,7 @@ export default function GalleryPage() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
+  const motionAllowed = useMotionAllowed();
   const filteredItems = useMemo(() => {
     return GALLERY_ITEMS.filter((item) => {
       const matchesCategory =
@@ -226,87 +229,42 @@ export default function GalleryPage() {
       : null;
 
   return (
-    <div className="bg-alabaster text-ink min-h-screen">
+    <div className="bg-marble text-ink min-h-screen">
       <Suspense fallback={null}>
         <GallerySearchParamSync onSelectCategory={setSelectedCategory} />
       </Suspense>
 
-      {/* 1. Alabaster Architectural Lookbook Header */}
-      <section className="pt-28 lg:pt-32 pb-14 bg-alabaster border-b border-stone-line">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
-            <div className="lg:col-span-7 space-y-5">
-              <HeritageGreetingBanner theme="light" />
+      <PageHero
+        compact
+        crumbs={[{ label: "Home", href: "/" }, { label: "Our Work" }]}
+        kicker="Real venues, real dawat"
+        title="Hyderabad's best"
+        italicTail="moments."
+        intro="Browse Telugu Pelli Pandiris, Chowmahalla Nikkah courts, Taj Falaknuma marble receptions, Taramati Baradari sunsets, proper Shaadi & Vindhu food spreads, and family ghar functions."
+        image={{
+          src: "/images/real-charminar.webp",
+          alt: "Charminar and Char Kaman in Old City Hyderabad",
+          credit: creditForImage("/images/real-charminar.webp"),
+        }}
+        actions={
+          <Link href="/contact" className="btn-editorial-dark">
+            <span>Plan Something Like This</span>
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
+          </Link>
+        }
+      />
 
-              <span className="editorial-kicker block pt-1">
-                Real venues, real dawat
-              </span>
-
-              <h1 className="display-hero text-ink">
-                Hyderabad&apos;s Best{" "}
-                <span className="editorial-italic">Moments</span>
-              </h1>
-
-              <p className="editorial-body max-w-2xl">
-                Browse Telugu Pelli Pandiris, Chowmahalla Nikkah courts, Taj Falaknuma marble receptions, Taramati Baradari sunsets, proper Shaadi &amp; Vindhu food spreads, and family ghar functions.
-              </p>
-
-              <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Link href="/contact" className="btn-editorial-dark">
-                  <span>Plan Something Like This</span>
-                  <ArrowUpRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Real Hyderabad Monument Double Plate */}
-            <div className="lg:col-span-5 grid grid-cols-12 gap-3 sm:gap-4 items-end">
-              <div className="col-span-5">
-                <DeccaniArchFrame variant="mehrab" theme="alabaster">
-                  <div className="relative aspect-[3/4] w-full bg-limestone">
-                    <Image
-                      src="/images/real-charminar.webp"
-                      alt="Original photograph of Charminar and Char Kaman in Old City Hyderabad"
-                      fill
-                      priority
-                      sizes="(max-width: 1024px) 40vw, 18vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </DeccaniArchFrame>
-              </div>
-              <div className="col-span-7 space-y-2">
-                <div className="gallery-frame shadow-gallery">
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-limestone">
-                    <Image
-                      src="/images/real-chowmahalla-palace.webp"
-                      alt="Original photograph of Khilwat Mubarak courtyard at Chowmahalla Palace Hyderabad"
-                      fill
-                      priority
-                      sizes="(max-width: 1024px) 60vw, 24vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-                <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink-subtle tabular-nums">
-                  Charminar • Chowmahalla Palace
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Friendly Showcase Note */}
-          <div className="mt-10 p-4 sm:p-5 rounded-[2px] bg-limestone/70 border border-stone-line border-l-2 border-l-brass flex items-start gap-3 text-xs sm:text-sm text-ink-muted leading-relaxed">
-            <Info aria-hidden="true" className="w-4 h-4 text-brass-dark shrink-0 mt-0.5 stroke-[1.5]" />
-            <p>
-              <span className="font-semibold text-ink">Heads up:</span> What you see below are showcase studies &amp; aesthetic previews across Hyderabad palaces. Full private family wedding albums stay confidential — drop by Road No. 36 in Jubilee Hills over chai to flip through those!
-            </p>
-          </div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 flex items-start gap-3 border border-brass/30 border-l-2 border-l-ruby bg-marble-warm p-4 font-sans text-xs leading-relaxed text-ink-muted sm:p-5 sm:text-sm">
+          <Info aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
+          <p>
+            <span className="font-semibold text-ink">Heads up:</span> What you see below are showcase studies &amp; aesthetic previews across Hyderabad palaces. Full private family wedding albums stay confidential — drop by Road No. 36 in Jubilee Hills over chai to flip through those!
+          </p>
         </div>
-      </section>
+      </div>
 
       {/* 2. Architectural Filter Controls on Limestone */}
-      <section className="bg-limestone border-b border-stone-line py-8">
+      <section className="bg-marble-warm border-b border-brass/30 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           {/* Category Filters */}
           <div className="space-y-3">
@@ -344,8 +302,8 @@ export default function GalleryPage() {
                     className={cn(
                       "px-4 py-2 rounded-[2px] text-xs sm:text-sm font-medium transition-colors border flex items-center gap-2 cursor-pointer",
                       isActive
-                        ? "bg-obsidian text-alabaster border-obsidian"
-                        : "bg-silk text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
+                        ? "bg-ruby text-marble border-ruby"
+                        : "bg-marble text-ink-muted border-brass/40 hover:border-ruby hover:text-ruby"
                     )}
                   >
                     <span>{cat}</span>
@@ -353,8 +311,8 @@ export default function GalleryPage() {
                       className={cn(
                         "text-[11px] px-1.5 py-0.5 rounded-[2px] tabular-nums",
                         isActive
-                          ? "bg-brass/25 text-brass-light"
-                          : "bg-alabaster text-ink-subtle"
+                          ? "bg-brass/25 text-brass-dark"
+                          : "bg-marble text-ink-subtle"
                       )}
                     >
                       {count}
@@ -366,7 +324,7 @@ export default function GalleryPage() {
           </div>
 
           {/* Community Filter */}
-          <div className="pt-5 border-t border-stone-line space-y-3">
+          <div className="pt-5 border-t border-brass/30 space-y-3">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-subtle block">
               Pick by community or food vibe
             </span>
@@ -386,8 +344,8 @@ export default function GalleryPage() {
                     className={cn(
                       "px-3.5 py-1.5 rounded-[2px] text-xs font-medium border transition-colors cursor-pointer",
                       isActive
-                        ? "bg-obsidian text-alabaster border-obsidian"
-                        : "bg-silk text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
+                        ? "bg-ruby text-marble border-ruby"
+                        : "bg-marble text-ink-muted border-brass/40 hover:border-ruby hover:text-ruby"
                     )}
                   >
                     {trad}
@@ -398,7 +356,7 @@ export default function GalleryPage() {
           </div>
 
           {/* Palace & Venue Filters */}
-          <div className="pt-5 border-t border-stone-line space-y-3">
+          <div className="pt-5 border-t border-brass/30 space-y-3">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-subtle block">
               Hyderabad Palace or Area
             </span>
@@ -418,8 +376,8 @@ export default function GalleryPage() {
                     className={cn(
                       "px-3.5 py-1.5 rounded-[2px] text-xs font-medium border transition-colors cursor-pointer",
                       isActive
-                        ? "bg-obsidian text-alabaster border-obsidian"
-                        : "bg-silk text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
+                        ? "bg-ruby text-marble border-ruby"
+                        : "bg-marble text-ink-muted border-brass/40 hover:border-ruby hover:text-ruby"
                     )}
                   >
                     {venue}
@@ -434,7 +392,7 @@ export default function GalleryPage() {
       {/* 3. Exhibition Plates Masonry */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
         {filteredItems.length === 0 ? (
-          <div className="p-14 sm:p-16 rounded-[2px] bg-silk border border-stone-line shadow-gallery text-center space-y-4">
+          <div className="p-14 sm:p-16 rounded-[2px] bg-white border border-brass/30 shadow-gallery text-center space-y-4">
             <h2 className="display-section text-ink">
               No matches for that combo yet!
             </h2>
@@ -454,90 +412,90 @@ export default function GalleryPage() {
             </button>
           </div>
         ) : (
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-7 space-y-7">
-            {filteredItems.map((item, index) => {
-              const aspectClass =
-                MASONRY_ASPECTS[index % MASONRY_ASPECTS.length];
-              const plateNumber = String(index + 1).padStart(2, "0");
+          <LayoutGroup>
+            <motion.ul layout={motionAllowed} className="grid grid-cols-1 items-start gap-7 md:grid-cols-2 lg:grid-cols-3">
+              <AnimatePresence mode="popLayout" initial={false}>
+                {filteredItems.map((item, index) => {
+                  const aspectClass = MASONRY_ASPECTS[index % MASONRY_ASPECTS.length];
+                  const plateNumber = String(index + 1).padStart(2, "0");
+                  const arched = index % 3 === 0;
+                  const clipId = `g-arch-${item.id}`;
 
-              return (
-                <article
-                  key={item.id}
-                  className="break-inside-avoid rounded-[2px] border border-stone-line bg-silk overflow-hidden group transition-colors hover:border-brass shadow-gallery"
-                >
-                  <button
-                    type="button"
-                    onClick={(e) => handleOpenLightbox(index, e.currentTarget)}
-                    className="w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brass"
-                    aria-label={`Open full photo of ${item.title}`}
-                  >
-                    <div className="p-3 pb-0">
-                      <div
-                        className={cn(
-                          "relative w-full overflow-hidden bg-limestone",
-                          aspectClass
-                        )}
+                  return (
+                    <motion.li
+                      key={item.id}
+                      layout={motionAllowed}
+                      initial={motionAllowed ? { opacity: 0, y: 20 } : false}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={motionAllowed ? { opacity: 0, scale: 0.96 } : { opacity: 0 }}
+                      whileHover={motionAllowed ? { y: -4 } : undefined}
+                      transition={{ duration: 0.5, ease: HOUSE_EASE }}
+                      className="group list-none border-[5px] border-white bg-white shadow-ruby outline outline-1 outline-offset-4 outline-brass/40 transition-[outline-color,box-shadow] hover:outline-brass hover:shadow-[0_0_0_1px_#B08A4A,0_24px_40px_-18px_rgba(176,138,74,0.55)]"
+                    >
+                      <button
+                        type="button"
+                        onClick={(e) => handleOpenLightbox(index, e.currentTarget)}
+                        className="w-full cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brass"
+                        aria-label={`Open full photo of ${item.title}`}
                       >
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover"
-                        />
-
-                        <span className="absolute top-3 left-3 rounded-[2px] bg-alabaster/95 border border-stone-line text-ink text-[11px] font-semibold uppercase tracking-[0.12em] px-2.5 py-1">
-                          {item.category}
-                        </span>
-
-                        <span className="absolute top-3 right-3 rounded-[2px] bg-obsidian/85 text-alabaster text-[11px] font-medium px-2 py-0.5 tabular-nums">
-                          {plateNumber}
-                        </span>
-
-                        <span
-                          aria-hidden="true"
-                          className="absolute bottom-3 right-3 p-2 rounded-[2px] bg-alabaster/95 border border-stone-line text-ink opacity-90 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100 transition-opacity"
+                        {arched && <ArchClipDef id={clipId} />}
+                        <div
+                          className={cn("relative w-full overflow-hidden bg-marble-warm", arched ? "aspect-[3/4]" : aspectClass)}
+                          style={arched ? { clipPath: `url(#${clipId})` } : undefined}
                         >
-                          <Maximize2 className="w-4 h-4 stroke-[1.5]" />
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-5 sm:p-6 space-y-3">
-                      <div className="flex items-center justify-between gap-2 text-xs text-brass-dark font-medium">
-                        <span className="inline-flex items-center gap-1.5 truncate">
-                          <MapPin aria-hidden="true" className="w-3.5 h-3.5 stroke-[1.5] shrink-0" />
-                          {item.venue}
-                        </span>
-                        <span className="shrink-0 text-ink-subtle tabular-nums">
-                          {item.date}
-                        </span>
-                      </div>
-
-                      <h2 className="display-card text-ink group-hover:text-brass-dark transition-colors">
-                        {item.title}
-                      </h2>
-
-                      <p className="text-xs sm:text-sm text-ink-muted leading-relaxed line-clamp-3">
-                        {item.description}
-                      </p>
-
-                      <div className="pt-3 border-t border-stone-line flex flex-wrap gap-1.5">
-                        {item.tags.map((tag) => (
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover"
+                          />
                           <span
-                            key={tag}
-                            className="text-[11px] text-ink-subtle px-2.5 py-0.5 rounded-[2px] bg-alabaster border border-stone-line"
+                            className={cn(
+                              "absolute left-3 bg-marble/95 px-2.5 py-1 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-ink",
+                              arched ? "bottom-3" : "top-3"
+                            )}
                           >
-                            {tag}
+                            {item.category}
                           </span>
-                        ))}
-                      </div>
-                    </div>
-                  </button>
-                </article>
-              );
-            })}
-          </div>
+                          <span
+                            className={cn(
+                              "absolute right-3 bg-ruby/90 px-2 py-0.5 font-sans text-[11px] font-medium tabular-nums text-marble",
+                              arched ? "bottom-3" : "top-3"
+                            )}
+                          >
+                            {plateNumber}
+                          </span>
+                        </div>
+
+                        <div className="space-y-3 p-5 sm:p-6">
+                          <div className="flex items-center justify-between gap-2 font-sans text-xs font-medium text-brass-dark">
+                            <span className="inline-flex items-center gap-1.5 truncate">
+                              <MapPin aria-hidden="true" className="h-3.5 w-3.5 shrink-0 stroke-[1.5] text-ruby" />
+                              {item.venue}
+                            </span>
+                            <span className="inline-flex shrink-0 items-center gap-1.5 tabular-nums text-ink-muted">
+                              {item.date}
+                              <Maximize2 aria-hidden="true" className="h-3.5 w-3.5 stroke-[1.5] text-brass opacity-70 group-hover:opacity-100" />
+                            </span>
+                          </div>
+                          <h2 className="display-card text-ink transition-colors group-hover:text-ruby">{item.title}</h2>
+                          <p className="line-clamp-3 font-sans text-xs leading-relaxed text-ink-muted sm:text-sm">{item.description}</p>
+                          <div className="flex flex-wrap gap-1.5 border-t border-brass/25 pt-3">
+                            {item.tags.map((tag) => (
+                              <span key={tag} className="border border-brass/30 bg-marble px-2.5 py-0.5 font-sans text-[11px] text-ink-muted">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </button>
+                    </motion.li>
+                  );
+                })}
+              </AnimatePresence>
+            </motion.ul>
+          </LayoutGroup>
         )}
       </section>
 
@@ -547,35 +505,35 @@ export default function GalleryPage() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="lightbox-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/95 backdrop-blur-md p-4 sm:p-8"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#2A1A14]/95 backdrop-blur-md p-4 sm:p-8"
           onClick={handleCloseLightbox}
         >
           <div
             ref={modalRef}
-            className="relative w-full max-w-5xl rounded-[2px] bg-obsidian-elevated border border-obsidian-line overflow-hidden shadow-obsidian flex flex-col max-h-[92vh]"
+            className="relative w-full max-w-5xl rounded-[2px] bg-white border border-brass/30 overflow-hidden shadow-ruby flex flex-col max-h-[92vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-obsidian-line bg-obsidian text-ink-light">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-brass/30 bg-marble text-ink">
               <div className="flex items-center gap-3 text-xs">
-                <span className="text-brass-light font-semibold uppercase tracking-[0.16em]">
+                <span className="text-brass-dark font-semibold uppercase tracking-[0.16em]">
                   {currentItem.tradition}
                 </span>
-                <span aria-hidden="true" className="text-obsidian-line">•</span>
-                <span aria-live="polite" className="text-ink-lightMuted tabular-nums">
+                <span aria-hidden="true" className="text-brass/50">•</span>
+                <span aria-live="polite" className="text-ink-muted tabular-nums">
                   {(lightboxIndex ?? 0) + 1} of {filteredItems.length}
                 </span>
               </div>
 
               <div className="flex items-center gap-4">
-                <span className="hidden sm:inline text-xs text-ink-lightMuted">
+                <span className="hidden sm:inline text-xs text-ink-muted">
                   Arrow keys to browse • Esc to close
                 </span>
                 <button
                   ref={closeButtonRef}
                   type="button"
                   onClick={handleCloseLightbox}
-                  className="p-2 rounded-[2px] border border-obsidian-line bg-obsidian-elevated text-ink-light hover:bg-brass hover:text-obsidian hover:border-brass transition-colors cursor-pointer"
+                  className="p-2 rounded-[2px] border border-brass/30 bg-white text-ink hover:bg-ruby hover:text-marble hover:border-brass transition-colors cursor-pointer"
                   aria-label="Close lightbox"
                 >
                   <X aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
@@ -585,7 +543,7 @@ export default function GalleryPage() {
 
             {/* Body */}
             <div className="overflow-y-auto flex-1 flex flex-col">
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[54vh] bg-obsidian flex items-center justify-center">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[54vh] bg-[#2A1A14] flex items-center justify-center">
                 <Image
                   src={currentItem.image}
                   alt={currentItem.title}
@@ -603,7 +561,7 @@ export default function GalleryPage() {
                         e.stopPropagation();
                         handlePrevImage();
                       }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-[2px] bg-obsidian/90 border border-brass/40 text-ink-light hover:bg-brass hover:text-obsidian transition-colors cursor-pointer"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-[2px] bg-marble/90 border border-brass/40 text-ink hover:bg-ruby hover:text-marble transition-colors cursor-pointer"
                       aria-label="Previous photo"
                     >
                       <ChevronLeft aria-hidden="true" className="w-5 h-5 stroke-[1.5]" />
@@ -614,7 +572,7 @@ export default function GalleryPage() {
                         e.stopPropagation();
                         handleNextImage();
                       }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-[2px] bg-obsidian/90 border border-brass/40 text-ink-light hover:bg-brass hover:text-obsidian transition-colors cursor-pointer"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-[2px] bg-marble/90 border border-brass/40 text-ink hover:bg-ruby hover:text-marble transition-colors cursor-pointer"
                       aria-label="Next photo"
                     >
                       <ChevronRight aria-hidden="true" className="w-5 h-5 stroke-[1.5]" />
@@ -623,21 +581,21 @@ export default function GalleryPage() {
                 )}
               </div>
 
-              <div className="p-6 sm:p-8 bg-obsidian-elevated border-t border-obsidian-line text-ink-light space-y-5">
+              <div className="p-6 sm:p-8 bg-white border-t border-brass/30 text-ink space-y-5">
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-5">
                   <div className="space-y-1.5">
                     <h2
                       id="lightbox-title"
-                      className="font-display text-2xl sm:text-3xl font-medium text-ink-light leading-tight"
+                      className="font-display text-2xl sm:text-3xl font-medium text-ink leading-tight"
                     >
                       {currentItem.title}
                     </h2>
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-brass-light font-medium">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-brass-dark font-medium">
                       <span className="inline-flex items-center gap-1.5">
                         <MapPin aria-hidden="true" className="w-3.5 h-3.5 stroke-[1.5]" />
                         {currentItem.venue}, {currentItem.location}
                       </span>
-                      <span aria-hidden="true" className="text-obsidian-line">•</span>
+                      <span aria-hidden="true" className="text-brass/50">•</span>
                       <span className="tabular-nums">{currentItem.date}</span>
                     </div>
                   </div>
@@ -648,7 +606,7 @@ export default function GalleryPage() {
                         `Loved the gallery card "${currentItem.title}" at ${currentItem.venue}.`
                       )}`}
                       onClick={() => setLightboxIndex(null)}
-                      className="btn-editorial-light"
+                      className="btn-editorial-dark"
                     >
                       Want Something Like This!
                     </Link>
@@ -658,20 +616,20 @@ export default function GalleryPage() {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-editorial-outline-dark"
+                      className="btn-editorial-outline"
                     >
-                      <PhoneCall aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-light" />
+                      <PhoneCall aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-dark" />
                       <span>WhatsApp</span>
                     </a>
                   </div>
                 </div>
 
-                <p className="text-sm sm:text-base text-ink-lightMuted leading-relaxed">
+                <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
                   {currentItem.description}
                 </p>
 
-                <div className="p-4 rounded-[2px] bg-obsidian border border-obsidian-line text-xs text-ink-lightMuted leading-relaxed">
-                  <span className="font-semibold text-brass-light">Behind the Setup:</span>{" "}
+                <div className="p-4 rounded-[2px] bg-marble border border-brass/30 text-xs text-ink-muted leading-relaxed">
+                  <span className="font-semibold text-brass-dark">Behind the Setup:</span>{" "}
                   {currentItem.craftNotes}
                 </div>
 
@@ -679,7 +637,7 @@ export default function GalleryPage() {
                   {currentItem.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 rounded-[2px] bg-obsidian border border-obsidian-line text-xs text-ink-lightMuted"
+                      className="px-3 py-1 rounded-[2px] bg-marble border border-brass/30 text-xs text-ink-muted"
                     >
                       {tag}
                     </span>
@@ -692,25 +650,25 @@ export default function GalleryPage() {
       )}
 
       {/* 4. Luxury Studio Invitation Band on Limestone */}
-      <section className="bg-limestone border-t border-stone-line py-20">
+      <section className="bg-marble-warm border-t border-brass/30 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[2px] border border-obsidian-line bg-obsidian text-ink-light p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center shadow-obsidian">
+          <div className="rounded-[2px] border border-brass/30 bg-marble text-ink p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center shadow-ruby">
             <div className="lg:col-span-7 space-y-4">
-              <span className="editorial-kicker-light block">
+              <span className="editorial-kicker block">
                 Chai pe milenge
               </span>
-              <h2 className="display-section text-ink-light">
+              <h2 className="display-section text-ink">
                 Want to Flip Through Private Wedding Albums In Person?
               </h2>
-              <p className="text-sm sm:text-base text-ink-lightMuted leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-base text-ink-muted leading-relaxed max-w-2xl">
                 Swing by Road No. 36 in Jubilee Hills — we&apos;ll show you real full-day albums, floral mockups, and let you taste freshly cooked Biryani and Vindhu samples.
               </p>
 
               <div className="pt-2 flex flex-wrap gap-4">
-                <Link href="/contact" className="btn-editorial-light">
+                <Link href="/contact" className="btn-editorial-dark">
                   Book a Visit
                 </Link>
-                <Link href="/services" className="btn-editorial-outline-dark">
+                <Link href="/services" className="btn-editorial-outline">
                   Explore Services
                 </Link>
               </div>
@@ -718,7 +676,7 @@ export default function GalleryPage() {
 
             <div className="lg:col-span-5">
               <div className="gallery-frame-dark">
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-obsidian">
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-marble">
                   <Image
                     src="/images/real-qutb-shahi-tombs.webp"
                     alt="Original photograph of Qutb Shahi Tombs surrounded by serene Ibrahim Bagh gardens in Hyderabad"
