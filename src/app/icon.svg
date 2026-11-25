@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- Tehzaa emblem (Deccani arch + lotus) in gold on ruby, with bolder strokes for small sizes -->
+  <rect width="40" height="40" rx="7" fill="#7A1F2B"/>
+  <g fill="none" stroke="#E7C27D" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 4.5C18.2 7.6 14.7 8.6 12.1 11.2C9.6 13.8 9 17.4 9 21.4V33.5H31V21.4C31 17.4 30.4 13.8 27.9 11.2C25.3 8.6 21.8 7.6 20 4.5Z" stroke-width="2.4"/>
+    <path d="M20 13.5C17.9 16.8 16.9 19.8 16.9 23C16.9 25.5 18.2 27.4 20 28.6C21.8 27.4 23.1 25.5 23.1 23C23.1 19.8 22.1 16.8 20 13.5Z" stroke-width="2.1"/>
+    <path d="M6.5 33.5H33.5" stroke-width="2.4"/>
+  </g>
+</svg>
