@@ -7,7 +7,7 @@ import { GALLERY_ITEMS } from "@/data/gallery";
 import { TESTIMONIALS } from "@/data/testimonials";
 import { ArchPortalHero } from "@/components/landing/ArchPortalHero";
 import { BrandMarquee } from "@/components/home/BrandMarquee";
-import { GangaJamuniShowcase } from "@/components/home/GangaJamuniShowcase";
+import { PelliShaadiScene } from "@/components/landing/PelliShaadiScene";
 import { InteractiveBrandStory } from "@/components/home/InteractiveBrandStory";
 import { InteractiveDisciplines } from "@/components/home/InteractiveDisciplines";
 import { HomeCulinaryStage } from "@/components/home/HomeCulinaryStage";
@@ -67,7 +67,7 @@ export default function HomePage() {
       <BrandMarquee />
 
       {/* 3. Warm Alabaster Interactive Split-Curtain Telugu Pelli vs Muslim Shaadi Explorer */}
-      <GangaJamuniShowcase />
+      <PelliShaadiScene />
 
       {/* 4. Limestone Editorial Hyderabad Studio Story */}
       <InteractiveBrandStory />
