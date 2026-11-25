@@ -14,6 +14,7 @@ import { DegReveal } from "@/components/landing/DegReveal";
 import { ParallaxGalleryShowcase } from "@/components/home/ParallaxGalleryShowcase";
 import { AnimatedPlanningTimeline } from "@/components/home/AnimatedPlanningTimeline";
 import { RasmeinThread } from "@/components/landing/RasmeinThread";
+import { DawatnamaCTA } from "@/components/landing/DawatnamaCTA";
 import { VenueMap } from "@/components/landing/VenueMap";
 import { MotionReveal } from "@/components/home/MotionReveal";
 import { TehzeebDivider } from "@/components/deccani/DeccaniMotifs";
@@ -76,6 +77,8 @@ export default function HomePage() {
       <VenueMap />
 
       <RasmeinThread />
+
+      <DawatnamaCTA />
 
       {/* 4. Limestone Editorial Hyderabad Studio Story */}
       <InteractiveBrandStory />
