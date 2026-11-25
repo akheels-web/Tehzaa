@@ -34,9 +34,13 @@ function getSnapshot(): boolean {
   });
 }
 
-/** Client hook: true when full motion may run. Server render assumes false (static layout). */
+/**
+ * Client hook: true when full motion may run. The server render assumes motion is
+ * allowed (most visitors), so the pinned scenes don't swap layout on hydration;
+ * reduced-motion visitors switch to the static layouts right after hydrating.
+ */
 export function useMotionAllowed(): boolean {
-  return useSyncExternalStore(subscribe, getSnapshot, () => false);
+  return useSyncExternalStore(subscribe, getSnapshot, () => true);
 }
 
 /** Non-hook check for effects (e.g. Lenis setup). */

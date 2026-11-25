@@ -10,7 +10,7 @@ import { BrandMarquee } from "@/components/home/BrandMarquee";
 import { PelliShaadiScene } from "@/components/landing/PelliShaadiScene";
 import { InteractiveBrandStory } from "@/components/home/InteractiveBrandStory";
 import { DarbarsGallery } from "@/components/landing/DarbarsGallery";
-import { HomeCulinaryStage } from "@/components/home/HomeCulinaryStage";
+import { DegReveal } from "@/components/landing/DegReveal";
 import { ParallaxGalleryShowcase } from "@/components/home/ParallaxGalleryShowcase";
 import { AnimatedPlanningTimeline } from "@/components/home/AnimatedPlanningTimeline";
 import { InteractiveTestimonials } from "@/components/home/InteractiveTestimonials";
@@ -71,13 +71,14 @@ export default function HomePage() {
 
       <DarbarsGallery />
 
+      <DegReveal />
+
       {/* 4. Limestone Editorial Hyderabad Studio Story */}
       <InteractiveBrandStory />
 
       {/* 5. Warm Alabaster Five Services Index Lookbook */}
 
       {/* 6. Deep Obsidian Fine-Dining Culinary Stage (Biryani Bina Dawat? Nakko Ji!) */}
-      <HomeCulinaryStage />
 
       {/* 7. Warm Alabaster Staggered Photo Scrapbook */}
       <ParallaxGalleryShowcase items={GALLERY_ITEMS} />
