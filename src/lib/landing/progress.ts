@@ -9,3 +9,9 @@ export function indexFromProgress(progress: number, count: number): number {
   if (count <= 0) return 0;
   return Math.min(count - 1, Math.floor(clampProgress(progress) * count));
 }
+
+/** Linear map of `v` from [a, b] onto [from, to], clamped at both ends; NaN maps to `from`. */
+export function mapRange(v: number, [a, b]: [number, number], [from, to]: [number, number]): number {
+  const t = Number.isNaN(v) ? 0 : Math.min(1, Math.max(0, (v - a) / (b - a)));
+  return from + (to - from) * t;
+}

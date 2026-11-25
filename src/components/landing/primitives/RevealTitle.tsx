@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { HOUSE_EASE } from "@/lib/landing/motion";
+import { useMotionAllowed } from "@/lib/landing/motionPreference";
 import { cn } from "@/lib/utils";
 
 const word = {
@@ -44,11 +45,25 @@ export function RevealTitle({
   italicTail?: string;
   className?: string;
 }) {
+  const motionAllowed = useMotionAllowed();
+  const classes = cn("font-display font-medium tracking-[-0.02em] text-ink", className);
+
+  // Reduced motion (and the server render): plain heading, fully visible.
+  if (!motionAllowed) {
+    const Static = as;
+    return (
+      <Static className={classes}>
+        {children}
+        {italicTail && <span className="block italic text-ruby">{italicTail}</span>}
+      </Static>
+    );
+  }
+
   const Tag = motion[as];
   const headWords = children.split(" ").length;
   return (
     <Tag
-      className={cn("font-display font-medium tracking-[-0.02em] text-ink", className)}
+      className={classes}
       initial="hidden"
       whileInView="shown"
       viewport={{ once: true, amount: 0.6 }}

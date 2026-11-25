@@ -5,7 +5,7 @@ import { ArrowRight, Phone } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { GALLERY_ITEMS } from "@/data/gallery";
 import { TESTIMONIALS } from "@/data/testimonials";
-import { InteractiveHero } from "@/components/home/InteractiveHero";
+import { ArchPortalHero } from "@/components/landing/ArchPortalHero";
 import { BrandMarquee } from "@/components/home/BrandMarquee";
 import { GangaJamuniShowcase } from "@/components/home/GangaJamuniShowcase";
 import { InteractiveBrandStory } from "@/components/home/InteractiveBrandStory";
@@ -61,7 +61,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col w-full bg-alabaster text-ink">
       {/* 1. Cinematic Deep Obsidian Hero with Charminar & Chowmahalla */}
-      <InteractiveHero />
+      <ArchPortalHero />
 
       {/* 2. Limestone Architectural Highlights Ribbon */}
       <BrandMarquee />
