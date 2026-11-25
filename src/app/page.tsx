@@ -9,7 +9,7 @@ import { ArchPortalHero } from "@/components/landing/ArchPortalHero";
 import { BrandMarquee } from "@/components/home/BrandMarquee";
 import { PelliShaadiScene } from "@/components/landing/PelliShaadiScene";
 import { InteractiveBrandStory } from "@/components/home/InteractiveBrandStory";
-import { InteractiveDisciplines } from "@/components/home/InteractiveDisciplines";
+import { DarbarsGallery } from "@/components/landing/DarbarsGallery";
 import { HomeCulinaryStage } from "@/components/home/HomeCulinaryStage";
 import { ParallaxGalleryShowcase } from "@/components/home/ParallaxGalleryShowcase";
 import { AnimatedPlanningTimeline } from "@/components/home/AnimatedPlanningTimeline";
@@ -69,11 +69,12 @@ export default function HomePage() {
       {/* 3. Warm Alabaster Interactive Split-Curtain Telugu Pelli vs Muslim Shaadi Explorer */}
       <PelliShaadiScene />
 
+      <DarbarsGallery />
+
       {/* 4. Limestone Editorial Hyderabad Studio Story */}
       <InteractiveBrandStory />
 
       {/* 5. Warm Alabaster Five Services Index Lookbook */}
-      <InteractiveDisciplines services={SERVICES} />
 
       {/* 6. Deep Obsidian Fine-Dining Culinary Stage (Biryani Bina Dawat? Nakko Ji!) */}
       <HomeCulinaryStage />
