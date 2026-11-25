@@ -5,6 +5,8 @@ import {
   mapRange,
   sliceScrollTarget,
   darbarArchWidth,
+  stripTarget,
+  stripIndex,
 } from "./progress";
 import { whatsappHref } from "../contact";
 
@@ -69,5 +71,20 @@ describe("darbarArchWidth", () => {
     expect(darbarArchWidth(1366, 657)).toBeLessThanOrEqual(Math.floor((657 - 400) * 0.7));
     expect(darbarArchWidth(1366, 657)).toBeGreaterThan(150);
     expect(darbarArchWidth(1366, 300)).toBe(120);
+  });
+});
+
+describe("stripTarget", () => {
+  it("steps one frame per index and clamps to the drag range", () => {
+    expect(stripTarget(0, 328, 1000)).toBe(-0);
+    expect(stripTarget(1, 328, 1000)).toBe(-328);
+    expect(stripTarget(3, 328, 1000)).toBe(-984);
+    expect(stripTarget(4, 328, 1000)).toBe(-1000);
+    expect(stripTarget(-2, 328, 1000)).toBe(-0);
+  });
+  it("maps an x offset back to the nearest frame index", () => {
+    expect(stripIndex(-500, 328, 1000)).toBe(2);
+    expect(stripIndex(0, 328, 1000)).toBe(0);
+    expect(stripIndex(-1000, 328, 1000)).toBe(4);
   });
 });

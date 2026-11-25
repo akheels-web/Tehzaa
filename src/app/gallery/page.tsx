@@ -311,7 +311,7 @@ export default function GalleryPage() {
                       className={cn(
                         "text-[11px] px-1.5 py-0.5 rounded-[2px] tabular-nums",
                         isActive
-                          ? "bg-brass/25 text-brass-dark"
+                          ? "bg-marble/20 text-marble"
                           : "bg-marble text-ink-subtle"
                       )}
                     >
@@ -675,7 +675,7 @@ export default function GalleryPage() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="gallery-frame-dark">
+              <div className="gallery-frame">
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-marble">
                   <Image
                     src="/images/real-qutb-shahi-tombs.webp"

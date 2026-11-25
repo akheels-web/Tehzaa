@@ -252,8 +252,8 @@ export default async function ServiceDetailPage({
         </div>
       </nav>
 
-      {/* Main column + concierge sidebar */}
-      <section className="relative overflow-hidden bg-marble py-16 lg:py-20">
+      {/* Main column + concierge sidebar (overflow-clip, not hidden: hidden would break the sticky card) */}
+      <section className="relative overflow-clip bg-marble py-16 lg:py-20">
         <DepthJaali />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
@@ -294,10 +294,25 @@ export default async function ServiceDetailPage({
               </section>
             </div>
 
-            {/* Concierge sidebar: ivory card, gold border, ruby CTA */}
+            {/* Concierge sidebar: other services first, then the sticky ivory card (gold border, ruby CTA) */}
             <aside className="space-y-6 lg:col-span-4">
-              <div className="sticky top-28 space-y-6">
-                <div className="space-y-6 border border-brass/60 bg-white p-7 shadow-ruby outline outline-1 outline-offset-4 outline-brass/30 sm:p-8">
+              <div className="space-y-3 border border-brass/30 bg-marble-warm p-6">
+                <h4 className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-brass-dark">See other things we handle</h4>
+                <div className="divide-y divide-brass/25">
+                  {otherServices.map((other) => (
+                    <Link
+                      key={other.id}
+                      href={`/services/${other.slug}`}
+                      className="group flex items-center justify-between py-3 font-sans text-xs text-ink transition-colors hover:text-ruby sm:text-sm"
+                    >
+                      <span>{other.title}</span>
+                      <ChevronRight aria-hidden="true" className="h-4 w-4 stroke-[1.5] text-brass transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div className="sticky top-28">
+                <div className="space-y-6 border border-brass/60 bg-white p-7 lg:max-h-[calc(100svh-8rem)] lg:overflow-y-auto shadow-ruby outline outline-1 outline-offset-4 outline-brass/30 sm:p-8">
                   <div className="space-y-2">
                     <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-brass-dark">Chai pe milenge</span>
                     <h3 className="font-display text-3xl font-medium leading-tight text-ink">
@@ -344,21 +359,6 @@ export default async function ServiceDetailPage({
                   </div>
                 </div>
 
-                <div className="space-y-3 border border-brass/30 bg-marble-warm p-6">
-                  <h4 className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-brass-dark">See other things we handle</h4>
-                  <div className="divide-y divide-brass/25">
-                    {otherServices.map((other) => (
-                      <Link
-                        key={other.id}
-                        href={`/services/${other.slug}`}
-                        className="group flex items-center justify-between py-3 font-sans text-xs text-ink transition-colors hover:text-ruby sm:text-sm"
-                      >
-                        <span>{other.title}</span>
-                        <ChevronRight aria-hidden="true" className="h-4 w-4 stroke-[1.5] text-brass transition-transform duration-200 group-hover:translate-x-0.5" />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
               </div>
             </aside>
           </div>

@@ -6,8 +6,8 @@ import { useMotionAllowed } from "@/lib/landing/motionPreference";
 
 /**
  * Contact signature, "Write your dawat": a ruby envelope opens on arrival and the enquiry
- * card rises into place beneath it. The seal replays the opening. With motion off the card
- * is simply shown.
+ * card rises into place beneath it. The card is visible throughout; with motion off it is
+ * simply shown.
  */
 export function DawatFormEnvelope({ children }: { children: React.ReactNode }) {
   const motionAllowed = useMotionAllowed();
@@ -19,14 +19,9 @@ export function DawatFormEnvelope({ children }: { children: React.ReactNode }) {
     return () => window.clearTimeout(timer.current);
   }, []);
 
-  const replay = () => {
-    setOpen(false);
-    window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setOpen(true), 700);
-  };
-
+  // No replay here: closing the envelope would move the form while someone is filling it in.
   return (
-    <Envelope variant="letterhead" open={open} motionAllowed={motionAllowed} onReplay={replay} sealLabel="Replay the envelope">
+    <Envelope variant="letterhead" open={open} motionAllowed={motionAllowed}>
       {children}
     </Envelope>
   );

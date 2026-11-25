@@ -44,3 +44,15 @@ export function sliceScrollTarget({
 export function darbarArchWidth(vw: number, vh: number): number {
   return Math.floor(Math.max(120, Math.min(vw * 0.19, 270, (vh - 400) * 0.7)));
 }
+
+/** Filmstrip x for frame `index`: one frame width per step, clamped to [−maxDrag, 0]. */
+export function stripTarget(index: number, frameW: number, maxDrag: number): number {
+  return -Math.min(Math.max(index, 0) * frameW, maxDrag);
+}
+
+/** Nearest frame index for an x offset; at the end of the range it is the last index. */
+export function stripIndex(x: number, frameW: number, maxDrag: number): number {
+  const lastIndex = Math.ceil(maxDrag / frameW);
+  if (-x >= maxDrag - 1) return lastIndex;
+  return Math.min(lastIndex, Math.max(0, Math.round(-x / frameW)));
+}

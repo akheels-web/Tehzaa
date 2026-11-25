@@ -17,9 +17,11 @@ const invitationCard = {
   closed: { y: "0%", transition: { duration: 0.5, ease: HOUSE_EASE } },
   open: { y: "-62%", transition: { duration: 0.9, ease: HOUSE_EASE, delay: 0.55 } },
 };
+// Letterhead card stays fully visible at all times (it holds the contact form, which must
+// never be blank before hydration); it only rises a little as the flap opens.
 const letterheadCard = {
-  closed: { y: 48, opacity: 0, transition: { duration: 0.4, ease: HOUSE_EASE } },
-  open: { y: 0, opacity: 1, transition: { duration: 0.9, ease: HOUSE_EASE, delay: 0.5 } },
+  closed: { y: 48, transition: { duration: 0.4, ease: HOUSE_EASE } },
+  open: { y: 0, transition: { duration: 0.9, ease: HOUSE_EASE, delay: 0.5 } },
 };
 
 /** Front pocket (V cut) with a gold edge and frame. */

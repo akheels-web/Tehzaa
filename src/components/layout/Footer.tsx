@@ -14,6 +14,7 @@ import { SERVICES } from "@/data/services";
 import { TehzaaLogo } from "@/components/brand/TehzaaLogo";
 import { CharminarSkylineCrest } from "@/components/deccani/DeccaniMotifs";
 import { STUDIO_PHONE_DISPLAY, STUDIO_PHONE_TEL } from "@/lib/contact";
+import { HYDERABAD_MONUMENTS } from "@/data/monuments";
 
 export function Footer() {
   return (
@@ -232,6 +233,17 @@ export function Footer() {
             TEHZAA
           </p>
         </div>
+
+        {/* Monument photo credits (CC licences require attribution wherever these photos appear) */}
+        <p className="pt-8 text-center font-sans text-[11px] leading-relaxed text-ink-muted">
+          Monument photographs via Wikimedia Commons:{" "}
+          {HYDERABAD_MONUMENTS.map((m, i) => (
+            <span key={m.id}>
+              {i > 0 && " · "}
+              {m.name} — {m.creditLicense.replace(" / Wikimedia Commons", "")}
+            </span>
+          ))}
+        </p>
 
         {/* Bottom Credits */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-ink-muted gap-4">

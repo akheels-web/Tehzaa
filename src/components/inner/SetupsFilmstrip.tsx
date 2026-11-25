@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { stripIndex, stripTarget } from "@/lib/landing/progress";
 import Link from "next/link";
 import { animate, motion, useMotionValue } from "motion/react";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
@@ -48,24 +49,48 @@ export function SetupsFilmstrip({ items, label = "Real setups" }: { items: Galle
   const x = useMotionValue(0);
   const [maxDrag, setMaxDrag] = useState(0);
   const dragged = useRef(false);
+  // The frame the strip is (or is animating) at; steps go from here, not mid-animation x.
+  const indexRef = useRef(0);
+  const stepping = useRef(false);
 
   useLayoutEffect(() => {
     const measure = () => {
       const vp = viewportRef.current;
       const tr = trackRef.current;
-      if (vp && tr) setMaxDrag(Math.max(0, tr.scrollWidth - vp.clientWidth));
+      if (!vp || !tr) return;
+      const cs = getComputedStyle(vp);
+      const pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      // Last frame ends flush with the padded right edge.
+      setMaxDrag(Math.max(0, tr.scrollWidth - vp.clientWidth + pad));
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [items.length]);
 
+  // In drag mode the viewport must never scroll natively (focus would otherwise scroll it
+  // out of reach of the buttons/drag, which only move x). Reset when the mode switches on.
+  useEffect(() => {
+    if (draggable && viewportRef.current) viewportRef.current.scrollLeft = 0;
+  }, [draggable]);
+
   const frameWidth = () => (trackRef.current?.querySelector("li")?.getBoundingClientRect().width ?? 300) + GAP;
+
+  const goTo = (index: number) => {
+    const fw = frameWidth();
+    const last = Math.ceil(maxDrag / fw);
+    indexRef.current = Math.min(last, Math.max(0, index));
+    stepping.current = true;
+    animate(x, stripTarget(indexRef.current, fw, maxDrag), { duration: 0.6, ease: HOUSE_EASE }).then(() => {
+      stepping.current = false;
+    });
+  };
 
   const step = (dir: 1 | -1) => {
     if (draggable) {
-      const next = Math.min(0, Math.max(-maxDrag, x.get() - dir * frameWidth()));
-      animate(x, next, { duration: 0.6, ease: HOUSE_EASE });
+      // Mid-step: continue from the step target. Otherwise (e.g. after a drag) from where x is.
+      const base = stepping.current ? indexRef.current : stripIndex(x.get(), frameWidth(), maxDrag);
+      goTo(base + dir);
     } else {
       viewportRef.current?.scrollBy({ left: dir * frameWidth(), behavior: motionAllowed ? "smooth" : "auto" });
     }
@@ -76,6 +101,19 @@ export function SetupsFilmstrip({ items, label = "Real setups" }: { items: Galle
     else if (e.key === "ArrowLeft") step(-1);
     else return;
     e.preventDefault();
+  };
+
+  // Keyboard focus on an off-screen frame: bring it into view by moving x, not by scrolling.
+  const onFocusCapture = (e: React.FocusEvent) => {
+    if (!draggable) return;
+    const li = (e.target as HTMLElement).closest("li");
+    const track = trackRef.current;
+    if (!li || !track) return;
+    const i = Array.prototype.indexOf.call(track.children, li);
+    requestAnimationFrame(() => {
+      if (viewportRef.current) viewportRef.current.scrollLeft = 0;
+    });
+    if (i >= 0) goTo(i);
   };
 
   // A click right after a drag shouldn't navigate.
@@ -113,6 +151,10 @@ export function SetupsFilmstrip({ items, label = "Real setups" }: { items: Galle
         role="region"
         aria-label={`${label}: use the arrow keys to move`}
         onKeyDown={onKeyDown}
+        onFocusCapture={onFocusCapture}
+        onScroll={(e) => {
+          if (draggable) e.currentTarget.scrollLeft = 0;
+        }}
         className={cn(
           "-mx-5 px-5 pb-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brass sm:-mx-8 sm:px-8",
           draggable ? "cursor-grab overflow-hidden active:cursor-grabbing" : "snap-x snap-mandatory overflow-x-auto"
@@ -124,10 +166,11 @@ export function SetupsFilmstrip({ items, label = "Real setups" }: { items: Galle
           dragConstraints={{ left: -maxDrag, right: 0 }}
           dragElastic={0.08}
           style={{ ...(draggable ? { x } : {}), gap: GAP }}
-          onDragStart={() => (dragged.current = false)}
+          onPointerDownCapture={() => (dragged.current = false)}
           onDrag={(_, info) => {
             if (Math.abs(info.offset.x) > 6) dragged.current = true;
           }}
+
           className="flex w-max"
         >
           {items.map((item) => (
