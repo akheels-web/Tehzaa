@@ -35,8 +35,8 @@ function EntryCard({ item, lead, className }: { item: ShowcaseItem; lead: boolea
       >
         {lead ? "Now arriving" : item.subtitle}
       </span>
-      <h3 className="mt-1 font-display text-2xl font-medium leading-tight text-ink">{item.tab}</h3>
-      <ul className="mt-2 space-y-1 font-sans text-xs leading-relaxed text-ink-muted">
+      <h3 className="mt-1 font-display text-2xl font-medium leading-tight text-ink [@media(max-height:780px)]:text-xl">{item.tab}</h3>
+      <ul className="mt-2 space-y-1 font-sans text-xs leading-relaxed text-ink-muted [@media(max-height:780px)]:hidden">
         {item.cues.slice(0, 2).map((c) => (
           <li key={c}>{c}</li>
         ))}
@@ -98,19 +98,19 @@ function PinnedLane({ items }: { items: ShowcaseItem[] }) {
     <section ref={sectionRef} className="relative h-[220svh] bg-marble-warm">
       <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
         <DepthJaali />
-        <div className="relative mx-auto mb-8 w-full max-w-7xl px-8 pt-16">
+        <div className="relative mx-auto mb-8 w-full max-w-7xl px-8 pt-20">
           <SceneHeading {...HEADING} className="[&_h2]:text-[clamp(2.2rem,4vw,3.6rem)] [@media(max-height:780px)]:[&_p]:hidden" />
         </div>
 
-        <motion.div ref={rowRef} style={{ x }} className="relative flex w-max items-start gap-16">
-          {/* the road, running along the arch bases (arch height = 1.2 × card width) */}
-          <span aria-hidden="true" className="absolute -left-[60vw] -right-[60vw] top-[calc(min(22vw,290px)*1.2+2px)] h-px bg-brass/80" />
+        <motion.div ref={rowRef} style={{ x }} className="relative flex w-max items-start gap-16 [--card-w:min(22vw,290px,calc((100svh-26rem)/1.2))]">
+          {/* the road, along the arch bases (arch height = 1.2 × card width; card width also bounded by viewport height) */}
+          <span aria-hidden="true" className="absolute -left-[60vw] -right-[60vw] top-[calc(var(--card-w)*1.2+2px)] h-px bg-brass/80" />
           <span
             aria-hidden="true"
-            className="absolute -left-[60vw] -right-[60vw] top-[calc(min(22vw,290px)*1.2+8px)] h-1 bg-[radial-gradient(circle,#E9A23B_1.5px,transparent_2px)] bg-[length:22px_4px] opacity-70"
+            className="absolute -left-[60vw] -right-[60vw] top-[calc(var(--card-w)*1.2+8px)] h-1 bg-[radial-gradient(circle,#E9A23B_1.5px,transparent_2px)] bg-[length:22px_4px] opacity-70"
           />
           {items.map((item, i) => (
-            <EntryCard key={item.id} item={item} lead={i === lead} className="w-[min(22vw,290px)]" />
+            <EntryCard key={item.id} item={item} lead={i === lead} className="w-[var(--card-w)]" />
           ))}
         </motion.div>
       </div>

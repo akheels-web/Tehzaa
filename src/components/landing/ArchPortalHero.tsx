@@ -20,6 +20,7 @@ import { RevealTitle } from "./primitives/RevealTitle";
 import { useMotionAllowed } from "@/lib/landing/motionPreference";
 import { indexFromProgress } from "@/lib/landing/progress";
 import { useRange } from "./primitives/useRange";
+import { creditForImage } from "@/lib/landing/credits";
 
 const PORTAL_VIEWS = [
   { src: "/images/real-falaknuma-palace.webp", name: "Taj Falaknuma Palace", alt: "Taj Falaknuma Palace's white Palladian facade and marble staircase in Hyderabad" },
@@ -85,6 +86,9 @@ function StaticHero() {
           sizes="(max-width: 1024px) 90vw, 40vw"
           className="mx-auto aspect-[3/4.2] w-full max-w-[420px] lg:col-span-5"
         />
+        <p className="text-center font-sans text-[10px] text-ink-muted lg:col-span-5 lg:col-start-8">
+          Photo: {creditForImage(PORTAL_VIEWS[0].src)}
+        </p>
       </div>
     </section>
   );
@@ -214,6 +218,9 @@ function PortalHero() {
                 <span key={viewIndex} className="whitespace-nowrap font-sans text-[9px] font-bold uppercase tracking-[0.2em] text-marble sm:text-[10px] sm:tracking-[0.24em]">
                   {PORTAL_VIEWS[viewIndex].name}
                 </span>
+                <span className="mt-0.5 block truncate font-sans text-[8px] text-marble/80">
+                  Photo: {creditForImage(PORTAL_VIEWS[viewIndex].src)}
+                </span>
               </div>
             </div>
           </motion.div>
@@ -225,6 +232,9 @@ function PortalHero() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#2A1A14]/55 via-transparent to-transparent" />
           <span className="absolute bottom-10 left-1/2 -translate-x-1/2 font-display text-[clamp(1.5rem,3vw,2.5rem)] italic text-marble">
             Chowmahalla Palace, Old City
+            <span className="mt-1 block text-center font-sans text-[10px] not-italic text-marble/80">
+              Photo: {creditForImage(PORTAL_VIEWS[2].src)}
+            </span>
           </span>
         </motion.div>
 

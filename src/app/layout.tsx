@@ -73,10 +73,10 @@ export default function RootLayout({
       lang="en"
       className={`${cormorantGaramond.variable} ${manrope.variable}`}
     >
-      <body className="min-h-screen flex flex-col bg-alabaster text-ink font-sans antialiased selection:bg-obsidian selection:text-alabaster">
+      <body className="min-h-screen flex flex-col bg-marble text-ink font-sans antialiased selection:bg-ruby selection:text-marble">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:rounded-[2px] focus:bg-obsidian focus:text-alabaster focus:border focus:border-brass-light focus:text-xs focus:font-semibold focus:tracking-[0.12em] focus:uppercase focus:shadow-obsidian"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:rounded-[2px] focus:bg-ruby focus:text-marble focus:border focus:border-brass focus:text-xs focus:font-semibold focus:tracking-[0.12em] focus:uppercase focus:shadow-ruby"
         >
           Skip to main content
         </a>

@@ -1,7 +1,6 @@
 import React from "react";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { TehzeebDivider } from "@/components/deccani/DeccaniMotifs";
+import { PageHero } from "@/components/landing/primitives/PageHero";
+import { STUDIO_PHONE_DISPLAY } from "@/lib/contact";
 
 export const metadata = {
   title: "Privacy Policy | Tehzaa Celebrations Hyderabad",
@@ -9,46 +8,54 @@ export const metadata = {
     "Simple, honest Privacy Policy for Tehzaa Celebrations covering event inquiry details, Telegram alerts, data retention, and deletion requests.",
 };
 
+/** Small gold arch holding a section number. */
+function SectionMark({ n }: { n: number }) {
+  return (
+    <span className="relative inline-flex h-12 w-10 flex-none items-end justify-center pb-2" aria-hidden="true">
+      <svg viewBox="0 0 40 48" className="absolute inset-0 h-full w-full">
+        <path d="M2 47 V20 C2 10 12 5 18 3 Q20 2 20 0.5 Q20 2 22 3 C28 5 38 10 38 20 V47 Z" fill="rgba(176,138,74,0.08)" stroke="#B08A4A" strokeWidth="1" />
+      </svg>
+      <span className="relative font-display text-lg italic tabular-nums text-ruby">{n}</span>
+    </span>
+  );
+}
+
+function Section({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
+  return (
+    <section className="flex gap-5 border-b border-brass/25 pb-8">
+      <SectionMark n={n} />
+      <div className="space-y-3">
+        <h2 className="display-card text-ink">{title}</h2>
+        {children}
+      </div>
+    </section>
+  );
+}
+
 export default function PrivacyPolicyPage() {
   return (
-    <div className="pt-28 lg:pt-32 pb-24 bg-alabaster text-ink min-h-screen">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-brass-dark hover:text-ink transition-colors mb-10 rounded-[2px]"
-        >
-          <ArrowLeft aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
-          <span>Back to Home</span>
-        </Link>
+    <div className="min-h-screen bg-marble text-ink">
+      <PageHero
+        compact
+        crumbs={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]}
+        kicker="Your trust matters"
+        title="Privacy"
+        italicTail="policy."
+        intro={
+          <p className="text-sm tabular-nums">Tehzaa Celebrations Pvt. Ltd. • Road No. 36, Jubilee Hills, Hyderabad 500033</p>
+        }
+      />
 
-        {/* Architectural Header */}
-        <header className="border-b border-stone-line pb-10 mb-12 space-y-3">
-          <span className="editorial-kicker block">Your trust matters</span>
-          <h1 className="display-hero text-ink">
-            Privacy <span className="editorial-italic">Policy</span>
-          </h1>
-          <p className="text-xs text-ink-subtle tabular-nums pt-1">
-            Tehzaa Celebrations Pvt. Ltd. • Road No. 36, Jubilee Hills, Hyderabad 500033
-          </p>
-          <TehzeebDivider theme="light" className="justify-start max-w-xs pt-2" />
-        </header>
-
-        {/* Legal Sections */}
-        <div className="space-y-10 text-[15px] text-ink-muted leading-[1.72]">
-          <section className="space-y-3 border-b border-stone-line pb-8">
-            <h2 className="display-card text-ink">
-              1. Who We Are &amp; Promise
-            </h2>
+      <div className="mx-auto max-w-3xl px-5 pb-24 pt-4 sm:px-8">
+        <div className="space-y-10 font-sans text-[15px] leading-[1.72] text-ink-muted">
+          <Section n={1} title="Who We Are & Promise">
             <p>
               At <strong className="font-semibold text-ink">Tehzaa Celebrations Pvt. Ltd.</strong> (&ldquo;Tehzaa&rdquo;, &ldquo;we&rdquo;), your family event notes, phone numbers, and wedding plans stay strictly private. This page explains calmly how information from our Contact form and WhatsApp studio chats gets handled.
             </p>
-          </section>
+          </Section>
 
-          <section className="space-y-3 border-b border-stone-line pb-8">
-            <h2 className="display-card text-ink">
-              2. What You Share With Us
-            </h2>
-            <ul className="list-disc pl-5 space-y-2.5 text-ink-muted">
+          <Section n={2} title="What You Share With Us">
+            <ul className="list-disc space-y-2.5 pl-5">
               <li>
                 <strong className="font-semibold text-ink">Contact Info:</strong> Name, Indian WhatsApp / mobile number, and email (if provided).
               </li>
@@ -62,56 +69,45 @@ export default function PrivacyPolicyPage() {
                 <strong className="font-semibold text-ink">Basic Abuse Checks:</strong> Temporary IP rate limits and invisible honeypot checks solely to block automated spam bots.
               </li>
             </ul>
-          </section>
+          </Section>
 
-          <section className="space-y-3 border-b border-stone-line pb-8">
-            <h2 className="display-card text-ink">
-              3. How We Use It
-            </h2>
+          <Section n={3} title="How We Use It">
             <p>
               We only use your details to build your event quote, invite you for tastings at Jubilee Hills, and coordinate on-ground teams once booked. We never sell or rent numbers to external brokers or cold-callers.
             </p>
-          </section>
+          </Section>
 
-          <section className="space-y-3 border-b border-stone-line pb-8">
-            <h2 className="display-card text-ink">
-              4. Studio Inquiry Alerts (Telegram Bot API)
-            </h2>
+          <Section n={4} title="Studio Inquiry Alerts (Telegram Bot API)">
             <p>
               Form enquiries are sanitized and dispatched instantaneously over encrypted HTTPS to an access-restricted internal planner channel via the <strong className="font-semibold text-ink">Telegram Bot API</strong> so our Hyderabad desk sees your brief right away.
             </p>
-          </section>
+          </Section>
 
-          <section className="space-y-3 border-b border-stone-line pb-8">
-            <h2 className="display-card text-ink">
-              5. Retention &amp; Deletion
-            </h2>
+          <Section n={5} title="Retention & Deletion">
             <p>
               Unconfirmed enquiries are deleted or anonymized within 180 days. Want your inquiry deleted earlier? Just email or message our studio anytime and we&apos;ll wipe it cleanly.
             </p>
-          </section>
+          </Section>
 
-          <section className="p-7 sm:p-8 rounded-[2px] bg-silk border border-stone-line shadow-gallery space-y-3">
-            <span className="editorial-kicker block">Direct Studio Contact</span>
-            <h2 className="display-card text-ink">
-              6. Reach Out Anytime
-            </h2>
-            <div className="text-sm space-y-1.5 pt-2 text-ink-muted tabular-nums">
-              <p>
-                <strong className="font-semibold text-ink">Email:</strong>{" "}
-                <a
-                  href="mailto:celebrations@tehzaa.com"
-                  className="text-ink underline decoration-brass underline-offset-4 hover:text-brass-dark transition-colors"
-                >
-                  celebrations@tehzaa.com
-                </a>
-              </p>
-              <p>
-                <strong className="font-semibold text-ink">Phone:</strong> +91 98765 43210 / +91 40 2345 6789
-              </p>
-              <p>
-                <strong className="font-semibold text-ink">Studio:</strong> Road No. 36, Jubilee Hills, Hyderabad 500033
-              </p>
+          <section className="flex gap-5 border-[5px] border-white bg-white p-7 shadow-ruby outline outline-1 outline-offset-4 outline-brass/40 sm:p-8">
+            <SectionMark n={6} />
+            <div className="space-y-3">
+              <span className="editorial-kicker block">Direct Studio Contact</span>
+              <h2 className="display-card text-ink">Reach Out Anytime</h2>
+              <div className="space-y-1.5 pt-2 text-sm tabular-nums">
+                <p>
+                  <strong className="font-semibold text-ink">Email:</strong>{" "}
+                  <a href="mailto:celebrations@tehzaa.com" className="text-ink underline decoration-brass underline-offset-4 transition-colors hover:text-ruby">
+                    celebrations@tehzaa.com
+                  </a>
+                </p>
+                <p>
+                  <strong className="font-semibold text-ink">Phone:</strong> {STUDIO_PHONE_DISPLAY} / +91 40 2345 6789
+                </p>
+                <p>
+                  <strong className="font-semibold text-ink">Studio:</strong> Road No. 36, Jubilee Hills, Hyderabad 500033
+                </p>
+              </div>
             </div>
           </section>
         </div>
