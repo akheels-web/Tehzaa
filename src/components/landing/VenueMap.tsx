@@ -168,6 +168,9 @@ export function VenueMap() {
                   <span className="block font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-brass-dark">{active.era}</span>
                   <h3 className="mt-1 font-display text-3xl font-medium text-ink">{active.name}</h3>
                   <p className="mt-2 font-sans text-sm leading-relaxed text-ink-muted">{active.line}</p>
+                  {active.credit && (
+                    <p className="mt-3 font-sans text-[10px] text-ink-muted">Photo: {active.credit}</p>
+                  )}
                 </div>
               </motion.article>
             </AnimatePresence>

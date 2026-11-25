@@ -7,6 +7,8 @@ export interface MapVenue {
   line: string;
   image: string;
   alt: string;
+  /** Licence credit for CC photos (e.g. Wikimedia Commons). */
+  credit?: string;
   /** Position in the map's 0 0 1000 700 viewBox (schematic, from real lat/long). */
   x: number;
   y: number;
@@ -30,6 +32,7 @@ export const MAP_VENUES: MapVenue[] = [
     line: m.celebrationRole,
     image: m.image,
     alt: m.alt,
+    credit: m.creditLicense,
     ...POSITIONS[m.id],
   })),
   {

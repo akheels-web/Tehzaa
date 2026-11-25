@@ -17,4 +17,8 @@ describe("MAP_VENUES", () => {
       expect(v.line.length).toBeGreaterThan(10);
     }
   });
+
+  it("carries the CC credit for every monument", () => {
+    expect(MAP_VENUES.filter((v) => v.id !== "hicc").every((v) => (v.credit ?? "").includes("Wikimedia"))).toBe(true);
+  });
 });
