@@ -14,7 +14,7 @@ import { DegReveal } from "@/components/landing/DegReveal";
 import { ParallaxGalleryShowcase } from "@/components/home/ParallaxGalleryShowcase";
 import { AnimatedPlanningTimeline } from "@/components/home/AnimatedPlanningTimeline";
 import { InteractiveTestimonials } from "@/components/home/InteractiveTestimonials";
-import { HyderabadPrecinctAtlas } from "@/components/home/HyderabadPrecinctAtlas";
+import { VenueMap } from "@/components/landing/VenueMap";
 import { MotionReveal } from "@/components/home/MotionReveal";
 import { TehzeebDivider } from "@/components/deccani/DeccaniMotifs";
 
@@ -72,6 +72,8 @@ export default function HomePage() {
       <DarbarsGallery />
 
       <DegReveal />
+
+      <VenueMap />
 
       {/* 4. Limestone Editorial Hyderabad Studio Story */}
       <InteractiveBrandStory />
@@ -143,7 +145,6 @@ export default function HomePage() {
       <InteractiveTestimonials testimonials={TESTIMONIALS} />
 
       {/* 10. Deep Obsidian Authentic Hyderabad Monuments Exhibition */}
-      <HyderabadPrecinctAtlas />
 
       {/* 11. Warm Alabaster Architectural Taj Falaknuma Invitation CTA */}
       <section className="py-20 lg:py-28 bg-alabaster text-ink">
