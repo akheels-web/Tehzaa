@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, MoveHorizontal } from "lucide-react";
-import { PelliVsShaadiCurtain } from "@/components/home/PelliVsShaadiCurtain";
+import { PelliVsShaadiCurtain } from "./PelliVsShaadiCurtain";
 import { JaaliLattice } from "./primitives/JaaliLattice";
 import { SceneHeading } from "./primitives/SceneHeading";
 import { HOUSE_EASE } from "@/lib/landing/motion";
