@@ -108,7 +108,7 @@ The homepage is now immersive and unmistakably Hyderabadi. The inner pages picke
 
 ### `/gallery`: "Arch salon"
 - **Hero:** `PageHero` (compact).
-- **Signature:** a masonry of photos whose frames alternate between arch-topped and white-matted. Changing a filter chip **re-flows the grid smoothly** (motion `layout` + `AnimatePresence` popLayout), so cards glide to their new places, and new ones rise in. Hovering a card lifts it slightly with a gold edge glow. The lightbox shows the photo in an arch-topped frame on a dark ink backdrop. Under reduced motion, filtering is instant.
+- **Signature:** a masonry of photos whose frames alternate between arch-topped and white-matted. Changing a filter chip **re-flows the grid smoothly** (motion `layout` + `AnimatePresence` popLayout), so cards glide to their new places, and new ones rise in. Hovering a card lifts it slightly with a gold edge glow. The lightbox shows the full, uncropped photo in a gold-edged marble frame on a dark ink backdrop (owner decision, 2026-11-25: an arch crop would hide the photo's corners). Under reduced motion, filtering is instant.
 - **Consistency:** the obsidian styling in chips and the lightbox moves to the marble and ink palette; the "private albums" CTA band is restyled.
 
 ### Photo credits
