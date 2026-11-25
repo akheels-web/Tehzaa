@@ -235,7 +235,7 @@ export function DecorTraditionStudio() {
       </Suspense>
 
       {/* Header + 4-Palace Dynamic Backdrop Switcher */}
-      <div className="border-b border-stone-line pb-6 flex flex-col gap-5">
+      <div className="border-b border-brass/30 pb-6 flex flex-col gap-5">
         <div className="space-y-2">
           <span className="editorial-kicker block">
             Kirrak decor, bilkul your vibe
@@ -271,8 +271,8 @@ export function DecorTraditionStudio() {
                   className={cn(
                     "inline-flex items-center gap-2 px-3.5 py-2 rounded-[2px] border text-xs font-semibold tracking-[0.04em] transition-colors cursor-pointer",
                     isSelected
-                      ? "bg-obsidian text-alabaster border-obsidian"
-                      : "bg-alabaster text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
+                      ? "bg-ruby text-marble border-ruby"
+                      : "bg-marble text-ink-muted border-brass/40 hover:border-ruby hover:text-ruby"
                   )}
                 >
                   <Castle
@@ -315,8 +315,8 @@ export function DecorTraditionStudio() {
               className={cn(
                 "text-left p-4 rounded-[2px] border transition-colors cursor-pointer",
                 isSelected
-                  ? "bg-obsidian text-alabaster border-obsidian"
-                  : "bg-alabaster text-ink border-stone-line hover:border-obsidian"
+                  ? "bg-ruby text-marble border-ruby"
+                  : "bg-marble text-ink border-brass/40 hover:border-ruby"
               )}
             >
               <span
@@ -336,7 +336,7 @@ export function DecorTraditionStudio() {
       </div>
 
       {/* Interactive Architectural Decor Panel */}
-      <div className="rounded-[2px] border border-stone-line bg-alabaster p-6 sm:p-8 lg:p-10">
+      <div className="border-[5px] border-white bg-white shadow-ruby outline outline-1 outline-offset-4 outline-brass/40 p-6 sm:p-8 lg:p-10">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={current.id}
@@ -353,7 +353,7 @@ export function DecorTraditionStudio() {
             {/* Left Column: Primary Tradition Plate + Live Real Landmark Matcher Plate */}
             <div className="md:col-span-5 space-y-4">
               <DeccaniArchFrame variant="mehrab" theme="alabaster">
-                <div className="relative aspect-[16/11] w-full bg-limestone">
+                <div className="relative aspect-[16/11] w-full bg-marble-warm">
                   <Image
                     src={current.image}
                     alt={current.alt}
@@ -365,7 +365,7 @@ export function DecorTraditionStudio() {
               </DeccaniArchFrame>
 
               {/* Dynamic Real Palace Backdrop Preview Card */}
-              <div className="rounded-[2px] border border-stone-line bg-silk p-3 space-y-2.5">
+              <div className="border border-brass/30 bg-marble p-3 space-y-2.5">
                 <div className="flex items-center justify-between gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-brass-dark">
                   <span>Active Venue Backdrop</span>
                   <span className="inline-flex items-center gap-1 text-ink-subtle normal-case tracking-normal font-medium">
@@ -383,7 +383,7 @@ export function DecorTraditionStudio() {
                     transition={{ duration: 0.2 }}
                     className="space-y-2"
                   >
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-limestone border border-stone-line">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-marble-warm border border-brass/30">
                       <Image
                         src={activePalace.image}
                         alt={activePalace.alt}
@@ -421,7 +421,7 @@ export function DecorTraditionStudio() {
               </p>
 
               {/* Venue Match Note */}
-              <div className="p-4 sm:p-5 rounded-[2px] bg-silk border border-stone-line space-y-1.5">
+              <div className="p-4 sm:p-5 bg-marble border border-brass/30 space-y-1.5">
                 <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brass-dark block">
                   Paired With {activePalace.label}
                 </span>
@@ -430,7 +430,7 @@ export function DecorTraditionStudio() {
                 </p>
               </div>
 
-              <div className="space-y-2.5 pt-3 border-t border-stone-line">
+              <div className="space-y-2.5 pt-3 border-t border-brass/30">
                 <span className="text-xs font-semibold uppercase tracking-[0.12em] text-ink block">
                   Flowers &amp; Touches Inside This Setup
                 </span>

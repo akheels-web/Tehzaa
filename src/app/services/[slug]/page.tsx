@@ -1,25 +1,22 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  Check,
-  Calendar,
-  MapPin,
-  PhoneCall,
-  ChevronRight,
-  ShieldCheck,
-  ArrowRight,
-  ArrowUpRight,
-} from "lucide-react";
+import { Check, Calendar, MapPin, PhoneCall, ChevronRight, ShieldCheck, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SERVICES } from "@/data/services";
-import { GALLERY_ITEMS, GalleryItem } from "@/data/gallery";
+import { whatsappHref } from "@/lib/contact";
+import { creditForImage } from "@/lib/landing/credits";
+import { setupsForService } from "@/lib/landing/setups";
+import { PageHero } from "@/components/landing/primitives/PageHero";
+import { SceneHeading } from "@/components/landing/primitives/SceneHeading";
+import { ThreadFaq } from "@/components/landing/primitives/ThreadFaq";
+import { DepthJaali } from "@/components/landing/primitives/DepthJaali";
+import { DawatnamaCTA } from "@/components/landing/DawatnamaCTA";
+import { SetupsFilmstrip } from "@/components/inner/SetupsFilmstrip";
 import { CulinaryMenuExplorer } from "@/components/services/CulinaryMenuExplorer";
 import { CateringPageExperience } from "@/components/services/CateringPageExperience";
 import { DecorTraditionStudio } from "@/components/services/DecorTraditionStudio";
 import { DisciplineInteractiveShowcase } from "@/components/services/DisciplineInteractiveShowcase";
-import { DeccaniArchFrame } from "@/components/deccani/DeccaniMotifs";
 
 const SLUG_TO_ID: Record<string, string> = {
   "floral-decor": "floral-decorations",
@@ -160,27 +157,6 @@ const SERVICE_FAQS: Record<string, ServiceFAQ[]> = {
   ],
 };
 
-function getRelatedGalleryItems(serviceId: string): GalleryItem[] {
-  if (serviceId === "floral-decorations") {
-    return GALLERY_ITEMS.filter(
-      (item) => item.category === "Floral" || item.category === "Weddings"
-    );
-  }
-  if (serviceId === "catering-services") {
-    return GALLERY_ITEMS.filter((item) => item.category === "Catering");
-  }
-  if (serviceId === "baraat") {
-    return GALLERY_ITEMS.filter((item) => item.category === "Weddings");
-  }
-  if (serviceId === "corporate-events") {
-    return GALLERY_ITEMS.filter((item) => item.category === "Corporate");
-  }
-  if (serviceId === "family-celebrations") {
-    return GALLERY_ITEMS.filter((item) => item.category === "Family");
-  }
-  return GALLERY_ITEMS.slice(0, 2);
-}
-
 export default async function ServiceDetailPage({
   params,
 }: {
@@ -200,7 +176,7 @@ export default async function ServiceDetailPage({
   }
 
   const faqs = SERVICE_FAQS[service.id] || [];
-  const relatedGallery = getRelatedGalleryItems(service.id);
+  const relatedGallery = setupsForService(service.id);
   const otherServices = SERVICES.filter((s) => s.id !== service.id);
 
   if (service.id === "catering-services") {
@@ -213,202 +189,99 @@ export default async function ServiceDetailPage({
     );
   }
 
+  const jumpLink =
+    "border border-brass/40 bg-marble px-4 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-ink-muted transition-colors hover:border-ruby hover:text-ruby";
+
   return (
-    <div className="bg-alabaster text-ink">
-      {/* Band 1: Alabaster Split Editorial Hero */}
-      <section className="pt-28 lg:pt-32 pb-16 border-b border-stone-line bg-alabaster">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav
-            aria-label="Breadcrumb"
-            className="inline-flex items-center gap-2 text-xs font-medium text-ink-subtle mb-8"
-          >
-            <Link href="/" className="hover:text-ink transition-colors">
-              Home
+    <div className="bg-marble text-ink">
+      <PageHero
+        crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.title }]}
+        kicker={service.subtitle}
+        title={service.title}
+        intro={
+          <>
+            <p>{service.shortDescription}</p>
+            <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-y border-brass/30 py-3 text-sm font-medium tabular-nums text-ink">
+              {service.startingPrice && <span>Packages from {service.startingPrice}</span>}
+              <span className="inline-flex items-center gap-2 text-ink-muted">
+                <MapPin aria-hidden="true" className="h-4 w-4 stroke-[1.5] text-ruby" />
+                Across All of Hyderabad
+              </span>
+            </p>
+          </>
+        }
+        image={{ src: service.heroImage, alt: service.title, credit: creditForImage(service.heroImage) }}
+        floating={service.galleryImages.slice(1, 3).map((src) => ({ src, alt: "" }))}
+        actions={
+          <>
+            <Link href="/contact" className="btn-editorial-dark">
+              <span>Ask For Custom Quote</span>
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
             </Link>
-            <ChevronRight aria-hidden="true" className="w-3 h-3 text-brass" />
-            <Link href="/services" className="hover:text-ink transition-colors">
-              Services
-            </Link>
-            <ChevronRight aria-hidden="true" className="w-3 h-3 text-brass" />
-            <span className="text-ink font-semibold" aria-current="page">
-              {service.title}
-            </span>
-          </nav>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-6 space-y-5">
-              <span className="editorial-kicker block">{service.subtitle}</span>
-
-              <h1 className="display-hero text-ink">{service.title}</h1>
-
-              <p className="editorial-body">{service.shortDescription}</p>
-
-              <div className="border-t border-b border-stone-line py-3.5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm font-medium text-ink tabular-nums">
-                {service.startingPrice && (
-                  <span>Packages from {service.startingPrice}</span>
-                )}
-                {service.startingPrice && (
-                  <span aria-hidden="true" className="text-brass">
-                    •
-                  </span>
-                )}
-                <span className="inline-flex items-center gap-2 text-ink-muted">
-                  <MapPin
-                    aria-hidden="true"
-                    className="w-4 h-4 stroke-[1.5] text-brass"
-                  />
-                  Across All of Hyderabad
-                </span>
-              </div>
-
-              <div className="pt-2 flex flex-wrap items-center gap-3.5">
-                <Link href="/contact" className="btn-editorial-dark">
-                  <span>Ask For Custom Quote</span>
-                  <ArrowUpRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
-                </Link>
-                <a
-                  href={`https://wa.me/919876543210?text=${encodeURIComponent(
-                    `Hi Tehzaa! Would love to chat about ${service.title} in Hyderabad.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-editorial-outline"
-                >
-                  <PhoneCall
-                    aria-hidden="true"
-                    className="w-4 h-4 stroke-[1.5] text-brass"
-                  />
-                  <span>WhatsApp Us</span>
-                </a>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6">
-              <DeccaniArchFrame variant="mehrab" theme="alabaster">
-                <div className="relative aspect-[16/10] w-full bg-limestone">
-                  <Image
-                    src={service.heroImage}
-                    alt={service.title}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                </div>
-              </DeccaniArchFrame>
-            </div>
-          </div>
-
-          {/* Section Jump Links */}
-          <nav
-            aria-label="Jump to section"
-            className="mt-10 pt-6 border-t border-stone-line flex flex-wrap items-center gap-2.5"
-          >
-            {service.menuCollections && service.menuCollections.length > 0 && (
-              <a
-                href="#culinary-collections-heading"
-                className="px-4 py-2 rounded-[2px] bg-silk border border-stone-line hover:border-obsidian text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted hover:text-ink transition-colors"
-              >
-                Build Your Menu
-              </a>
-            )}
             <a
-              href="#service-offerings"
-              className="px-4 py-2 rounded-[2px] bg-silk border border-stone-line hover:border-obsidian text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted hover:text-ink transition-colors"
+              href={whatsappHref(`Hi Tehzaa! Would love to chat about ${service.title} in Hyderabad.`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-editorial-outline"
             >
-              What&apos;s Included
+              <PhoneCall aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
+              <span>WhatsApp Us</span>
             </a>
-            {relatedGallery.length > 0 && (
-              <a
-                href="#service-gallery"
-                className="px-4 py-2 rounded-[2px] bg-silk border border-stone-line hover:border-obsidian text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted hover:text-ink transition-colors"
-              >
-                Real Hyderabad Setups
-              </a>
-            )}
-            <a
-              href="#service-faqs"
-              className="px-4 py-2 rounded-[2px] bg-silk border border-stone-line hover:border-obsidian text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted hover:text-ink transition-colors"
-            >
+          </>
+        }
+      />
+
+      {/* Section jump links */}
+      <nav aria-label="Jump to section" className="border-y border-brass/30 bg-marble-warm">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2.5 px-5 py-4 sm:px-8">
+          <a href="#service-offerings" className={jumpLink}>
+            What&apos;s Included
+          </a>
+          {relatedGallery.length > 0 && (
+            <a href="#service-gallery" className={jumpLink}>
+              Real Hyderabad Setups
+            </a>
+          )}
+          {faqs.length > 0 && (
+            <a href="#service-faqs" className={jumpLink}>
               Common Questions
             </a>
-          </nav>
+          )}
         </div>
-      </section>
+      </nav>
 
-      {/* Band 2: Silk White Main Atelier + Obsidian Concierge Sidebar */}
-      <section className="bg-silk border-b border-stone-line py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14">
-            <div className="lg:col-span-8 space-y-16">
-              <div className="space-y-4">
-                <span className="editorial-kicker block">
-                  Why customers love this
-                </span>
-                <h2 className="display-section text-ink">
-                  Done With{" "}
-                  <span className="editorial-italic">
-                    Heart &amp; Proper Hyderabadi Vibe
-                  </span>
-                </h2>
-                <p className="editorial-body">{service.fullDescription}</p>
-              </div>
+      {/* Main column + concierge sidebar */}
+      <section className="relative overflow-hidden bg-marble py-16 lg:py-20">
+        <DepthJaali />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
+            <div className="space-y-16 lg:col-span-8">
+              <SceneHeading kicker="Why customers love this" title="Done with heart &" italicTail="proper Hyderabadi vibe." intro={service.fullDescription} />
 
-              {/* Interactive Worlds per Service */}
+              {/* Interactive world per service */}
               {service.id === "floral-decorations" && <DecorTraditionStudio />}
-
-              {(service.id === "baraat" ||
-                service.id === "corporate-events" ||
-                service.id === "family-celebrations") && (
+              {(service.id === "baraat" || service.id === "corporate-events" || service.id === "family-celebrations") && (
                 <DisciplineInteractiveShowcase serviceId={service.id} />
               )}
-
               {service.menuCollections && service.menuCollections.length > 0 && (
-                <CulinaryMenuExplorer
-                  collections={service.menuCollections}
-                  embedded
-                />
+                <CulinaryMenuExplorer collections={service.menuCollections} embedded />
               )}
 
-              {/* Service Breakdown */}
-              <section id="service-offerings" className="space-y-8">
-                <div className="border-b border-stone-line pb-4">
-                  <span className="editorial-kicker block mb-2">
-                    Detailed breakdown
-                  </span>
-                  <h2 className="display-section text-ink">
-                    Everything We{" "}
-                    <span className="editorial-italic">Take Care Of</span>
-                  </h2>
-                </div>
-
-                <div className="space-y-5">
+              {/* Service breakdown */}
+              <section id="service-offerings" className="scroll-mt-28 space-y-8">
+                <SceneHeading kicker="Detailed breakdown" title="Everything we" italicTail="take care of." />
+                <div className="space-y-6">
                   {service.offerings.map((offering, idx) => (
-                    <div
-                      key={offering.title}
-                      className="p-6 sm:p-8 rounded-[2px] bg-alabaster border border-stone-line space-y-4"
-                    >
+                    <div key={offering.title} className="space-y-4 border-[5px] border-white bg-white p-6 shadow-ruby outline outline-1 outline-offset-4 outline-brass/40 sm:p-8">
                       <div className="flex items-baseline gap-3">
-                        <span className="font-display text-2xl font-medium text-brass-dark tabular-nums">
-                          0{idx + 1}
-                        </span>
-                        <h3 className="display-card text-ink">{offering.title}</h3>
+                        <span className="font-display text-3xl italic tabular-nums text-ruby">0{idx + 1}</span>
+                        <h3 className="font-display text-2xl font-medium text-ink">{offering.title}</h3>
                       </div>
-
-                      <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed">
-                        {offering.description}
-                      </p>
-
-                      <div className="pt-4 border-t border-stone-line space-y-2.5">
+                      <p className="font-sans text-sm leading-relaxed text-ink-muted sm:text-[15px]">{offering.description}</p>
+                      <div className="space-y-2.5 border-t border-brass/25 pt-4">
                         {offering.highlights.map((highlight) => (
-                          <div
-                            key={highlight}
-                            className="flex items-start gap-3 text-xs sm:text-sm text-ink"
-                          >
-                            <Check
-                              aria-hidden="true"
-                              className="w-4 h-4 stroke-[1.5] text-brass shrink-0 mt-0.5"
-                            />
+                          <div key={highlight} className="flex items-start gap-3 font-sans text-xs text-ink sm:text-sm">
+                            <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                             <span>{highlight}</span>
                           </div>
                         ))}
@@ -419,94 +292,67 @@ export default async function ServiceDetailPage({
               </section>
             </div>
 
-            {/* Deep Obsidian Concierge Sticky Sidebar */}
-            <aside className="lg:col-span-4 space-y-6">
+            {/* Concierge sidebar: ivory card, gold border, ruby CTA */}
+            <aside className="space-y-6 lg:col-span-4">
               <div className="sticky top-28 space-y-6">
-                <div className="rounded-[2px] bg-obsidian text-ink-light p-7 sm:p-8 border border-obsidian-line shadow-obsidian space-y-6">
+                <div className="space-y-6 border border-brass/60 bg-white p-7 shadow-ruby outline outline-1 outline-offset-4 outline-brass/30 sm:p-8">
                   <div className="space-y-2">
-                    <span className="editorial-kicker-light block">
-                      Chai pe milenge
-                    </span>
-                    <h3 className="display-card text-ink-light">
-                      Let&apos;s Quote This For You
+                    <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-brass-dark">Chai pe milenge</span>
+                    <h3 className="font-display text-3xl font-medium leading-tight text-ink">
+                      Let&apos;s quote this <span className="italic text-ruby">for you</span>
                     </h3>
-                    <p className="text-xs sm:text-sm text-ink-lightMuted leading-relaxed">
-                      Tell us your guest count and dates — we&apos;ll send back
-                      clean numbers with zero hidden surprise fees.
+                    <p className="font-sans text-xs leading-relaxed text-ink-muted sm:text-sm">
+                      Tell us your guest count and dates — we&apos;ll send back clean numbers with zero hidden surprise fees.
                     </p>
                   </div>
 
                   {service.startingPrice && (
-                    <div className="p-4 rounded-[2px] bg-obsidian-elevated border border-obsidian-line">
-                      <span className="text-[11px] uppercase tracking-[0.14em] text-ink-lightMuted block">
-                        Packages usually start at
-                      </span>
-                      <span className="font-display text-2xl sm:text-3xl font-medium text-brass-light mt-1 block tabular-nums">
-                        {service.startingPrice}
-                      </span>
-                      <span className="text-xs text-ink-lightMuted block mt-1">
-                        Adjusted fairly to your venue &amp; menu
-                      </span>
+                    <div className="border border-brass/40 bg-marble p-4">
+                      <span className="block font-sans text-[11px] uppercase tracking-[0.14em] text-ink-muted">Packages usually start at</span>
+                      <span className="mt-1 block font-display text-3xl font-medium tabular-nums text-ruby">{service.startingPrice}</span>
+                      <span className="mt-1 block font-sans text-xs text-ink-muted">Adjusted fairly to your venue &amp; menu</span>
                     </div>
                   )}
 
-                  <div className="space-y-3 text-xs border-t border-obsidian-line pt-4 text-ink-lightMuted">
+                  <div className="space-y-3 border-t border-brass/30 pt-4 font-sans text-xs text-ink-muted">
                     <div className="flex items-center gap-3">
-                      <MapPin
-                        aria-hidden="true"
-                        className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0"
-                      />
+                      <MapPin aria-hidden="true" className="h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                       <span>Jubilee Hills • Old City • HITEC City</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <ShieldCheck
-                        aria-hidden="true"
-                        className="w-4 h-4 stroke-[1.5] text-brass-light shrink-0"
-                      />
+                      <ShieldCheck aria-hidden="true" className="h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                       <span>Itemized transparency from day one</span>
                     </div>
                   </div>
 
                   <div className="space-y-3 pt-1">
-                    <Link href="/contact" className="btn-editorial-light w-full">
-                      <Calendar aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
+                    <Link href="/contact" className="btn-editorial-dark w-full">
+                      <Calendar aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
                       <span>Book a Chat</span>
                     </Link>
-
                     <a
-                      href={`https://wa.me/919876543210?text=${encodeURIComponent(
-                        `Hi Tehzaa! Interested in ${service.title} in Hyderabad.`
-                      )}`}
+                      href={whatsappHref(`Hi Tehzaa! Interested in ${service.title} in Hyderabad.`)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-editorial-outline-dark w-full"
+                      className="btn-editorial-outline w-full"
                     >
-                      <PhoneCall
-                        aria-hidden="true"
-                        className="w-4 h-4 stroke-[1.5] text-brass-light"
-                      />
+                      <PhoneCall aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
                       <span>WhatsApp Directly</span>
                     </a>
                   </div>
                 </div>
 
-                {/* Other Services Architectural Index */}
-                <div className="rounded-[2px] bg-alabaster p-6 border border-stone-line space-y-3">
-                  <h4 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brass-dark">
-                    See other things we handle
-                  </h4>
-                  <div className="divide-y divide-stone-line">
+                <div className="space-y-3 border border-brass/30 bg-marble-warm p-6">
+                  <h4 className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-brass-dark">See other things we handle</h4>
+                  <div className="divide-y divide-brass/25">
                     {otherServices.map((other) => (
                       <Link
                         key={other.id}
                         href={`/services/${other.slug}`}
-                        className="flex items-center justify-between text-xs sm:text-sm text-ink hover:text-brass-dark py-3 transition-colors group"
+                        className="group flex items-center justify-between py-3 font-sans text-xs text-ink transition-colors hover:text-ruby sm:text-sm"
                       >
                         <span>{other.title}</span>
-                        <ChevronRight
-                          aria-hidden="true"
-                          className="w-4 h-4 stroke-[1.5] text-brass group-hover:translate-x-0.5 transition-transform duration-200"
-                        />
+                        <ChevronRight aria-hidden="true" className="h-4 w-4 stroke-[1.5] text-brass transition-transform duration-200 group-hover:translate-x-0.5" />
                       </Link>
                     ))}
                   </div>
@@ -517,117 +363,34 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      {/* Band 3: Deep Obsidian Related Work Exhibition */}
+      {/* Real setups filmstrip */}
       {relatedGallery.length > 0 && (
-        <section
-          id="service-gallery"
-          className="bg-obsidian text-ink-light py-16 lg:py-20"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-obsidian-line pb-5">
-              <div>
-                <span className="editorial-kicker-light block mb-2">
-                  From the gallery
-                </span>
-                <h2 className="display-section text-ink-light">
-                  Real Setups Around{" "}
-                  <span className="font-display italic font-normal text-brass-light tracking-[-0.01em]">
-                    Hyderabad
-                  </span>
-                </h2>
-              </div>
-              <Link
-                href="/gallery"
-                className="text-xs font-semibold uppercase tracking-[0.14em] text-brass-light hover:text-ink-light inline-flex items-center gap-1.5 transition-colors"
-              >
+        <section id="service-gallery" className="relative scroll-mt-20 overflow-hidden bg-marble-warm py-16 lg:py-20">
+          <DepthJaali />
+          <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="mb-2 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <SceneHeading kicker="From the gallery" title="Real setups around" italicTail="Hyderabad." intro="Drag the strip, or use the arrows." />
+              <Link href="/gallery" className="inline-flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-[0.14em] text-ruby hover:text-ruby-dark">
                 <span>See all</span>
-                <ArrowRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
+                <ArrowRight aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
               </Link>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {relatedGallery.slice(0, 2).map((item) => (
-                <Link
-                  key={item.id}
-                  href="/gallery"
-                  className="group rounded-[2px] border border-obsidian-line bg-obsidian-elevated overflow-hidden flex flex-col hover:border-brass/60 transition-colors"
-                >
-                  <div className="p-2.5">
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-obsidian-muted">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 48vw"
-                        className="object-cover"
-                      />
-                      <span className="absolute top-3 left-3 rounded-[2px] bg-obsidian/90 border border-brass/40 text-brass-light text-[11px] font-semibold uppercase tracking-[0.12em] px-3 py-1">
-                        {item.tradition}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-6 pt-3 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <h3 className="display-card text-ink-light group-hover:text-brass-light transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-ink-lightMuted mt-2 line-clamp-2 leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="pt-3 border-t border-obsidian-line flex items-center justify-between text-xs text-ink-lightMuted tabular-nums">
-                      <span className="inline-flex items-center gap-1.5">
-                        <MapPin
-                          aria-hidden="true"
-                          className="w-3.5 h-3.5 stroke-[1.5] text-brass-light"
-                        />
-                        {item.venue}
-                      </span>
-                      <span>{item.date}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <SetupsFilmstrip items={relatedGallery} label="Real Hyderabad setups" />
           </div>
         </section>
       )}
 
-      {/* Band 4: Limestone Hairline FAQs */}
+      {/* FAQs */}
       {faqs.length > 0 && (
-        <section
-          id="service-faqs"
-          className="bg-limestone border-t border-stone-line py-16 lg:py-20"
-        >
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <div className="space-y-2">
-              <span className="editorial-kicker block">Straight answers</span>
-              <h2 className="display-section text-ink">
-                Quick <span className="editorial-italic">Questions</span>
-              </h2>
-            </div>
-
-            <div className="divide-y divide-stone-line border-t border-b border-stone-line">
-              {faqs.map((faq) => (
-                <details key={faq.question} className="group py-5 sm:py-6">
-                  <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden flex items-center justify-between gap-4 font-display text-xl sm:text-2xl font-medium text-ink">
-                    <span>{faq.question}</span>
-                    <span
-                      aria-hidden="true"
-                      className="text-brass-dark group-open:rotate-45 transition-transform duration-200 font-sans text-xl leading-none shrink-0"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-3 text-sm sm:text-[15px] text-ink-muted leading-relaxed pr-8">
-                    {faq.answer}
-                  </p>
-                </details>
-              ))}
-            </div>
+        <section className="bg-marble py-16 lg:py-20">
+          <div className="mx-auto max-w-4xl space-y-8 px-5 sm:px-8">
+            <SceneHeading kicker="Straight answers" title="Quick" italicTail="questions." />
+            <ThreadFaq id="service-faqs" items={faqs.map((f) => ({ q: f.question, a: f.answer }))} className="scroll-mt-28" />
           </div>
         </section>
       )}
+
+      <DawatnamaCTA />
     </div>
   );
 }

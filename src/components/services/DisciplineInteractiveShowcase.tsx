@@ -223,7 +223,7 @@ export function DisciplineInteractiveShowcase({
 
   return (
     <section className="space-y-8" aria-labelledby="discipline-studio-heading">
-      <div className="border-b border-stone-line pb-5 space-y-2">
+      <div className="border-b border-brass/30 pb-5 space-y-2">
         <span className="editorial-kicker block">{bundle.scriptTag}</span>
         <h2
           id="discipline-studio-heading"
@@ -251,8 +251,8 @@ export function DisciplineInteractiveShowcase({
               className={cn(
                 "px-4 py-2.5 rounded-[2px] text-xs font-semibold tracking-[0.06em] border transition-colors cursor-pointer",
                 isSelected
-                  ? "bg-obsidian text-alabaster border-obsidian"
-                  : "bg-alabaster text-ink-muted border-stone-line hover:border-obsidian hover:text-ink"
+                  ? "bg-ruby text-marble border-ruby"
+                  : "bg-marble text-ink-muted border-brass/40 hover:border-ruby hover:text-ruby"
               )}
             >
               {item.tab}
@@ -264,7 +264,7 @@ export function DisciplineInteractiveShowcase({
       {/* Active Blueprint Exhibition Frame */}
       <div
         aria-live="polite"
-        className="rounded-[2px] border border-stone-line bg-alabaster p-6 sm:p-8 lg:p-10"
+        className="border-[5px] border-white bg-white shadow-ruby outline outline-1 outline-offset-4 outline-brass/40 p-6 sm:p-8 lg:p-10"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
@@ -277,7 +277,7 @@ export function DisciplineInteractiveShowcase({
           >
             <div className="md:col-span-5">
               <div className="gallery-frame">
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-limestone">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-marble-warm">
                   <Image
                     src={current.image}
                     alt={current.alt}
@@ -303,7 +303,7 @@ export function DisciplineInteractiveShowcase({
                 {current.description}
               </p>
 
-              <ul className="space-y-2.5 pt-3 border-t border-stone-line tabular-nums">
+              <ul className="space-y-2.5 pt-3 border-t border-brass/30 tabular-nums">
                 {current.cues.map((cue) => (
                   <li
                     key={cue}
