@@ -1,16 +1,10 @@
 # Tehzaa Celebrations Architecture & Agent Memory
 
-## Brand & Design System (Deccani Editorial Luxury Aesthetic)
+## Brand & Design System (Falaknuma Marble, 2026-11 landing redesign)
 - **Brand Identity**: Warm, conversational Hyderabad wedding, catering & event studio rooted in *Tehzeeb* and joyful hospitality across Hindu, Muslim, Sikh, Christian, and corporate communities.
-- **Color Palette Tokens (`tailwind.config.ts` & `src/app/globals.css`)**:
-  - **Warm Alabaster (`alabaster`)**: `#F9F6F1` / `#F5F1EA` (`warm`) — primary editorial page ground.
-  - **Silk White (`silk`)**: `#FFFFFF` — architectural gallery mats, menus, sticky tasting cards, and dropdown surfaces.
-  - **Limestone (`limestone`)**: `#EFE9DF` / `#E2DAD0` (`dark` / `stone-line`) — warm tonal section bands and 1px structural hairlines.
-  - **Deep Obsidian (`obsidian`)**: `#12100E` (`DEFAULT`), `#1A1715` (`elevated`), `#26211D` (`muted`), `#2E2823` (`obsidian-line`) — dramatic dark cinematic chapters, Hero showcase, Culinary Theatre, Monument Atlas, and monumental Footer.
-  - **Burnished Deccani Brass (`brass`)**: `#A27B43` (`DEFAULT` borders/icons/rules), `#C7A36B` (`light` high-contrast gold text/italics on Deep Obsidian), `#7A5929` (`dark` AA gold text/italics/kickers on Alabaster & Silk), `#E8DCCB` (`pale`).
-  - **Royal Garnet (`garnet`)**: `#5C1F24` (`light: #7A2D34`, `dark: #421519`) — restrained ceremonial jewel accent.
-  - **Editorial Ink Hierarchy (`ink`)**: `#161412` (`DEFAULT`), `#4A453F` (`muted`), `#6E675F` (`subtle`) on light surfaces; `#F5F1EA` (`light`), `#BEB6AA` (`lightMuted`) on Deep Obsidian.
-  - Standard Tailwind `emerald-*` scale is preserved untouched for vegetarian dietary indicators.
+- **Spec & plan**: `docs/superpowers/specs/2026-11-25-landing-page-redesign-design.md`, `docs/superpowers/plans/2026-11-25-falaknuma-landing.md`.
+- **Falaknuma Marble palette (`tailwind.config.ts` & `src/app/globals.css`)**: marble ivory `marble` `#FBF8F2` → `marble-warm` `#F3ECE0`; gold leaf `brass` `#B08A4A` (rules, arch borders, jaali) with `brass-dark` `#7A5929` for AA gold text; ruby `ruby` / `garnet` `#7A1F2B` (accents, buttons) and `ruby-dark` `#5C1F24`; ink `#2A1A14` headings / `ink-muted` `#5A463A` body; `petal` `#E9B8B8` decorative only; `shadow-ruby` warm ruby-tinted shadow. `alabaster` now aliases marble. `obsidian` tokens remain for inner pages that still use them. Tailwind `emerald-*` stays reserved for vegetarian indicators.
+- **Anti-slop rules**: no gradient blobs, glassmorphism, sparkle icons, emoji, invented stats, star ratings, avatars, or invented people/quotes; slang at most once per heading/CTA cluster; only real photos from `public/images/`.
 - **2-Font Editorial Typography (`next/font/google` in `src/app/layout.tsx`, zero `Great_Vibes`)**:
   - **Display Serif**: `Cormorant_Garamond` (`400`, `500`, `600`, `700`; `normal` & `italic`; `--font-display`, `font-display` / `font-serif`) powering fluid `clamp()` utilities `.display-hero`, `.display-section`, `.display-card`, and `.editorial-italic`.
   - **Body & UI Sans**: `Manrope` (`400`, `500`, `600`, `700`; `--font-sans`, `font-sans`) powering legible `15px–17px` `.editorial-body`, tracked `11px–12px` `.editorial-kicker` / `.editorial-kicker-light`, sharp architectural CTAs, and `tabular-nums` numerals.
@@ -36,7 +30,10 @@
 
 ## Directory Structure & Implemented Modules
 - `src/components/deccani/DeccaniMotifs.tsx`: Architectural SVG & motif components (`DeccaniArchFrame` with `theme="alabaster" | "dark" | "obsidian"`, `JaaliPattern`, `TehzeebDivider`, `CharminarSkylineCrest`, `HeritageGreetingBanner`).
-- `src/components/layout/`: Transparent-to-frosted `Header.tsx` (`bg-alabaster/65` → `bg-alabaster/95`), Deep Obsidian architectural `Footer.tsx` featuring `CharminarSkylineCrest theme="dark"` and monumental `TEHZAA` wordmark, Deep Obsidian + Brass `WhatsAppButton.tsx`, and `MotionProvider.tsx` (`MotionConfig reducedMotion="user"`).
+- `src/components/layout/`: `Header.tsx` (transparent over the `/` hero, frosted marble with gold hairline after 40px scroll and on all other routes; ruby CTA; jaali-edged mobile drawer), marble `Footer.tsx` with a ruby TEHZAA wordmark band, ruby + gold-ring `WhatsAppButton.tsx`, `MotionProvider.tsx` and `SmoothScroll.tsx` (Lenis; both read `src/lib/landing/motionPreference.ts`).
 - `src/data/`: `monuments.ts` (`HYDERABAD_MONUMENTS`), `services.ts`, `gallery.ts`, `testimonials.ts`.
-- `src/components/home/`: `InteractiveHero.tsx` (Deep Obsidian hero framed by real Charminar & Chowmahalla photography), `BrandMarquee.tsx`, `PelliVsShaadiCurtain.tsx`, `GangaJamuniShowcase.tsx`, `InteractiveBrandStory.tsx`, `InteractiveDisciplines.tsx`, `HomeCulinaryStage.tsx` (Deep Obsidian culinary theatre), `ParallaxGalleryShowcase.tsx`, `AnimatedPlanningTimeline.tsx`, `InteractiveTestimonials.tsx`, `HyderabadPrecinctAtlas.tsx` (all 6 real monuments), and `MotionReveal.tsx`.
+- `src/components/landing/`: the seven homepage scenes, in order: `ArchPortalHero` (pinned arch that opens into Falaknuma → Charminar → Chowmahalla), `PelliShaadiScene` (+ `PelliVsShaadiCurtain` slider), `DarbarsGallery` (pinned horizontal services walk, `id="darbars"`), `DegReveal` (+ `DegIllustration`), `VenueMap`, `RasmeinThread`, `DawatnamaCTA`. Shared `primitives/`: `JaaliLattice`, `ArchFrame` (+ `ARCH_PATH`, `ArchClipDef`), `RevealTitle`, `SceneHeading`, `Petals`, `ParallaxLayer`, `useRange`, `useMediaQuery`.
+- `src/lib/landing/`: tested logic and data (`progress.ts` index/range maths, `motionPreference.ts`, `menus.ts`, `venues.ts`, `rasmein.ts`, `motion.ts` house easing). `src/lib/contact.ts` holds the single studio phone/WhatsApp constant (placeholder number).
+- **Motion notes**: scroll-linked values use `useRange` (function transforms) because Motion's accelerated opacity drifted from section offsets under Lenis. Reduced motion disables Lenis, pinning and scroll-linked motion; scenes fall back to static/stacked layouts. In development only, `?motion=full` overrides an OS reduced-motion setting for previewing.
+- **Tests**: `npm test` (Vitest, logic only, `src/**/*.test.ts`).
 - `src/components/services/`, `src/components/about/`, `src/components/contact/`, `src/components/seo/`: Luxury editorial interactive builders (`CateringPageExperience.tsx`, `CulinaryMenuExplorer.tsx`, `DecorTraditionStudio.tsx`, `DisciplineInteractiveShowcase.tsx`, `ServicesTraditionIndex.tsx`, `DeccaniCraftInteractive.tsx`, `ContactForm.tsx` with `<Suspense>` `?eventType=` + `?brief=` sync, and `JsonLd.tsx`).

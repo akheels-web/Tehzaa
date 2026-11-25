@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronDown, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { STUDIO_PHONE_DISPLAY, STUDIO_PHONE_TEL } from "@/lib/contact";
+import { JaaliLattice } from "@/components/landing/primitives/JaaliLattice";
 import { TehzaaLogo } from "@/components/brand/TehzaaLogo";
 
 interface NavItem {
@@ -67,7 +69,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 40);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -114,9 +116,9 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,padding,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-        isScrolled
-          ? "bg-alabaster/95 backdrop-blur-xl border-stone-line shadow-gallery py-3"
-          : "bg-alabaster/65 backdrop-blur-md border-transparent py-4"
+        isScrolled || pathname !== "/"
+          ? "bg-marble/90 backdrop-blur-xl border-brass/40 py-3"
+          : "bg-transparent border-transparent py-4"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,7 +260,7 @@ export function Header() {
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "absolute bottom-1 left-4 right-4 h-px bg-brass transition-transform origin-left duration-200",
+                      "absolute bottom-1 left-4 right-4 h-px bg-brass transition-transform origin-center duration-300",
                       isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     )}
                   />
@@ -270,16 +272,16 @@ export function Header() {
           {/* Right Actions */}
           <div className="hidden lg:flex items-center space-x-5">
             <a
-              href="tel:+919876543210"
+              href={`tel:${STUDIO_PHONE_TEL}`}
               className="flex items-center gap-2 text-xs font-medium text-ink-muted hover:text-ink transition-colors tabular-nums rounded-[2px] px-2 py-1.5"
             >
               <Phone aria-hidden="true" className="w-3.5 h-3.5 text-brass-dark stroke-[1.5]" />
-              <span>+91 98765 43210</span>
+              <span>{STUDIO_PHONE_DISPLAY}</span>
             </a>
 
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.15em] bg-obsidian hover:bg-brass-dark active:scale-[0.98] text-alabaster transition-[background-color,transform] duration-200"
+              className="inline-flex items-center justify-center px-5 py-2.5 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.15em] bg-ruby hover:bg-ruby-dark active:scale-[0.98] text-marble transition-[background-color,transform] duration-200"
             >
               Let&apos;s Plan
             </Link>
@@ -289,7 +291,7 @@ export function Header() {
           <div className="flex md:hidden items-center gap-2">
             <Link
               href="/contact"
-              className="px-4 py-2 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.14em] bg-obsidian text-alabaster"
+              className="px-4 py-2 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.14em] bg-ruby text-marble"
             >
               Let&apos;s Plan
             </Link>
@@ -316,9 +318,10 @@ export function Header() {
       {mobileMenuOpen && (
         <div
           id="mobile-navigation-drawer"
-          className="md:hidden bg-alabaster border-t border-stone-line px-5 pt-4 pb-8 shadow-gallery max-h-[calc(100vh-4.5rem)] overflow-y-auto"
+          className="relative md:hidden bg-marble border-t border-brass/40 px-5 pt-4 pb-8 shadow-ruby max-h-[calc(100vh-4.5rem)] overflow-y-auto"
         >
-          <nav aria-label="Mobile Navigation" className="flex flex-col space-y-2">
+          <JaaliLattice className="opacity-70" />
+          <nav aria-label="Mobile Navigation" className="relative flex flex-col space-y-2">
             {NAV_ITEMS.map((item) => {
               const isActive =
                 item.href === "/"
@@ -369,17 +372,17 @@ export function Header() {
 
             <div className="pt-4 flex flex-col gap-3">
               <a
-                href="tel:+919876543210"
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-[2px] border border-stone-line bg-silk text-xs font-medium text-ink hover:border-obsidian transition-colors tabular-nums"
+                href={`tel:${STUDIO_PHONE_TEL}`}
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-[2px] border border-stone-line bg-silk text-xs font-medium text-ink hover:border-ruby transition-colors tabular-nums"
               >
                 <Phone aria-hidden="true" className="w-4 h-4 text-brass-dark stroke-[1.5]" />
-                <span>Call +91 98765 43210</span>
+                <span>Call {STUDIO_PHONE_DISPLAY}</span>
               </a>
 
               <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center py-3.5 px-4 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.15em] bg-obsidian text-alabaster"
+                className="flex items-center justify-center py-3.5 px-4 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.15em] bg-ruby text-marble"
               >
                 Chai Pe Charcha — Let&apos;s Plan
               </Link>
