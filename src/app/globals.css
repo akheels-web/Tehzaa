@@ -177,3 +177,20 @@ body {
     @apply font-display italic font-normal text-brass-dark tracking-[-0.01em] leading-[1.15];
   }
 }
+
+/* Falaknuma Marble: drifting rose petals (Petals.tsx) */
+.petal {
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: var(--petal-state, running);
+  opacity: 0;
+}
+
+@keyframes petal-fall {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+  8% { opacity: 0.85; }
+  50% { transform: translate3d(var(--sway, 24px), 55vh, 0) rotate(160deg); }
+  92% { opacity: 0.6; }
+  100% { transform: translate3d(0, 110vh, 0) rotate(320deg); opacity: 0; }
+}
