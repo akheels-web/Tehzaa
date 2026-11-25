@@ -48,7 +48,7 @@ export function PelliVsShaadiCurtain({
   };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
-    const step = { ArrowLeft: -5, ArrowRight: 5 }[e.key as "ArrowLeft" | "ArrowRight"];
+    const step = { ArrowLeft: -5, ArrowDown: -5, ArrowRight: 5, ArrowUp: 5 }[e.key as "ArrowLeft" | "ArrowRight" | "ArrowUp" | "ArrowDown"];
     if (step) setPosition(position + step);
     else if (e.key === "Home") setPosition(MIN);
     else if (e.key === "End") setPosition(MAX);

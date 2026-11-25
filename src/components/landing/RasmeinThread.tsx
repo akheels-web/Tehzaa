@@ -155,6 +155,7 @@ function PinnedThread() {
                         tabRefs.current[i] = el;
                       }}
                       role="tab"
+                      id={`rasm-tab-${item.id}`}
                       aria-selected={isActive}
                       aria-controls="rasm-panel"
                       tabIndex={isActive ? 0 : -1}
@@ -201,7 +202,7 @@ function PinnedThread() {
           </div>
 
           {/* Text */}
-          <div id="rasm-panel" role="tabpanel" aria-live="polite" className="col-span-4">
+          <div id="rasm-panel" role="tabpanel" aria-labelledby={`rasm-tab-${r.id}`} aria-live="polite" className="col-span-4">
             <motion.div
               key={r.id}
               initial={{ opacity: 0, y: 18 }}

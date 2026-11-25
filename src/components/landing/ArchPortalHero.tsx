@@ -125,6 +125,9 @@ function PortalHero() {
 
   // Copy steps aside as the doorway opens.
   const copyOpacity = useRange(scrollYProgress, [0.06, 0.28], [1, 0]);
+  // Faded-out copy must not stay focusable (Shift+Tab back from scene 02 would land on invisible links).
+  const [copyHidden, setCopyHidden] = useState(false);
+  useMotionValueEvent(copyOpacity, "change", (o) => setCopyHidden(o < 0.05));
   const copyY = useRange(scrollYProgress, [0.06, 0.28], [0, -40]);
   const cueOpacity = useRange(scrollYProgress, [0, 0.05], [1, 0]);
 
@@ -242,6 +245,7 @@ function PortalHero() {
         <motion.div
           className="absolute inset-x-0 bottom-0 z-30 mx-auto flex max-w-7xl flex-col gap-8 px-5 pb-10 sm:px-8 md:flex-row md:items-end md:justify-between md:pb-14"
           style={{ opacity: copyOpacity, y: copyY }}
+          inert={copyHidden || undefined}
         >
           <HeroCopy className="max-w-[min(92vw,640px)] md:max-w-[46%]" />
           <HeroActions className="md:max-w-[30%] md:text-right [&>div]:md:justify-end [&>p]:md:ml-auto" />

@@ -77,6 +77,9 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <noscript>
+          <style>{"[data-reveal]{transform:none!important}"}</style>
+        </noscript>
         <JsonLd />
         <MotionProvider>
           <SmoothScroll>

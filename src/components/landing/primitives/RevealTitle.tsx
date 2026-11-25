@@ -18,6 +18,7 @@ function Words({ text, delayOffset = 0 }: { text: string; delayOffset?: number }
         <span key={`${w}-${i}`} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
           <motion.span
             className="inline-block"
+            data-reveal=""
             variants={word}
             transition={{ duration: 0.8, ease: HOUSE_EASE, delay: delayOffset + i * 0.06 }}
           >

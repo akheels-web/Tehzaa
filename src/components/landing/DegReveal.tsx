@@ -50,6 +50,7 @@ export function DegReveal() {
           <motion.button
             type="button"
             tabIndex={-1}
+            onMouseDown={(e) => e.preventDefault()}
             aria-hidden="true"
             onClick={() => setOpen((o) => !o)}
             onPanEnd={(_, info) => {
@@ -75,7 +76,7 @@ export function DegReveal() {
             </button>
           </div>
           {!open && (
-            <p className="mt-3 text-center font-sans text-xs text-ink-muted">Tap the deg, or lift its lid upward.</p>
+            <p className="mt-3 text-center font-sans text-xs text-ink-muted">Tap the deg to break the dum.</p>
           )}
           </div>
         </ParallaxLayer>

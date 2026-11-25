@@ -279,7 +279,7 @@ export function DecorTraditionStudio() {
                     aria-hidden="true"
                     className={cn(
                       "w-3.5 h-3.5 stroke-[1.5]",
-                      isSelected ? "text-brass-light" : "text-brass"
+                      isSelected ? "text-marble/85" : "text-brass"
                     )}
                   />
                   <span>{p.label}</span>
@@ -322,7 +322,7 @@ export function DecorTraditionStudio() {
               <span
                 className={cn(
                   "block text-[11px] font-semibold uppercase tracking-[0.14em] mb-1 truncate tabular-nums",
-                  isSelected ? "text-brass-light" : "text-brass-dark"
+                  isSelected ? "text-marble/85" : "text-brass-dark"
                 )}
               >
                 0{idx + 1} • Ceremony Style

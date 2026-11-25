@@ -8,10 +8,17 @@ import { DepthJaali } from "./primitives/DepthJaali";
 import { ParallaxLayer } from "./primitives/ParallaxLayer";
 import { SceneHeading } from "./primitives/SceneHeading";
 import { HOUSE_EASE } from "@/lib/landing/motion";
+import { useMotionAllowed } from "@/lib/landing/motionPreference";
 import { cn } from "@/lib/utils";
 
 const GOLD = "#B08A4A";
-const draw = {
+// Reduced motion: lines shown fully. The server render starts them hidden, so the final values
+// are set through `style` (applied during render, no animation frame needed).
+const STATIC_DRAW = {
+  initial: false as const,
+  style: { pathLength: 1, opacity: 1 },
+};
+const DRAW = {
   initial: { pathLength: 0, opacity: 0 },
   whileInView: { pathLength: 1, opacity: 1 },
   viewport: { once: true, amount: 0.3 },
@@ -19,6 +26,9 @@ const draw = {
 
 /** Gold-line schematic of the city: Musi river, Old City, Golconda's walls, routes west. */
 function CityLines() {
+  const motionAllowed = useMotionAllowed();
+  // Under reduced motion the lines are simply drawn (no pathLength animation).
+  const draw = motionAllowed ? DRAW : STATIC_DRAW;
   return (
     <svg viewBox="0 0 1000 700" className="absolute inset-0 h-full w-full" aria-hidden="true">
       {/* routes */}
@@ -88,6 +98,9 @@ function CityLines() {
 
 /** Scene 05. Hyderabad's palaces and halls as glowing lamps on a gold-line map. */
 export function VenueMap() {
+  // Remount the lines when the motion preference resolves after hydration: a fresh mount writes
+  // its values during render, so reduced-motion visitors get fully drawn lines immediately.
+  const motionAllowed = useMotionAllowed();
   const [activeId, setActiveId] = useState("chowmahalla-palace");
   const active = MAP_VENUES.find((v) => v.id === activeId) ?? MAP_VENUES[0];
 
@@ -105,7 +118,7 @@ export function VenueMap() {
         <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-center">
           {/* Map */}
           <div className="relative aspect-[10/7] w-full border border-brass/40 bg-white/40 lg:col-span-8">
-            <CityLines />
+            <CityLines key={motionAllowed ? "draw" : "static"} />
             <ul aria-label="Venues on the map">
               {MAP_VENUES.map((v) => {
                 const isActive = v.id === activeId;

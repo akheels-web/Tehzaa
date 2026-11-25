@@ -13,12 +13,27 @@ import { cn } from "@/lib/utils";
  */
 export function ThreadProgress({ groups, complete }: { groups: FieldGroup[]; complete: Record<string, boolean> }) {
   const motionAllowed = useMotionAllowed();
-  const done = groups.filter((g) => complete[g.id]).length;
+  // Leading run of tied knots: the thread is only gold between knots that are actually tied.
+  let leading = 0;
+  while (leading < groups.length && complete[groups[leading].id]) leading++;
   const [announce, setAnnounce] = useState("");
-  const prev = useRef<Record<string, boolean>>({});
+  const prev = useRef<Record<string, boolean> | null>(null);
+  // Only announce progress the visitor made themselves: changes before their first input
+  // (e.g. a prefilled ?brief= applied just after mount) are recorded silently.
+  const armed = useRef(false);
+  useEffect(() => {
+    const arm = () => (armed.current = true);
+    window.addEventListener("input", arm, { once: true, capture: true });
+    window.addEventListener("change", arm, { once: true, capture: true });
+    return () => {
+      window.removeEventListener("input", arm, { capture: true });
+      window.removeEventListener("change", arm, { capture: true });
+    };
+  }, []);
 
   useEffect(() => {
-    const newly = groups.find((g) => complete[g.id] && !prev.current[g.id]);
+    const before = prev.current;
+    const newly = before && armed.current ? groups.find((g) => complete[g.id] && !before[g.id]) : undefined;
     if (newly) setAnnounce(`${newly.label} complete`);
     prev.current = { ...complete };
   }, [complete, groups]);
@@ -32,7 +47,7 @@ export function ThreadProgress({ groups, complete }: { groups: FieldGroup[]; com
           className="absolute left-0 top-[9px] h-0.5 origin-left bg-brass"
           style={{ width: "100%" }}
           initial={false}
-          animate={{ scaleX: groups.length > 1 ? Math.min(1, done / (groups.length - 1)) : 0 }}
+          animate={{ scaleX: groups.length > 1 ? Math.max(0, leading - 1) / (groups.length - 1) : 0 }}
           transition={{ duration: motionAllowed ? 0.6 : 0, ease: HOUSE_EASE }}
         />
         <ol className="relative flex justify-between">

@@ -25,6 +25,7 @@ import {
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { creditForImage } from "@/lib/landing/credits";
+import { whatsappHref } from "@/lib/contact";
 import { useMotionAllowed } from "@/lib/landing/motionPreference";
 import { HOUSE_EASE } from "@/lib/landing/motion";
 import { PageHero } from "@/components/landing/primitives/PageHero";
@@ -413,7 +414,7 @@ export default function GalleryPage() {
           </div>
         ) : (
           <LayoutGroup>
-            <motion.ul layout={motionAllowed} className="grid grid-cols-1 items-start gap-7 md:grid-cols-2 lg:grid-cols-3">
+            <motion.ul layout={motionAllowed} className="relative grid grid-cols-1 items-start gap-7 md:grid-cols-2 lg:grid-cols-3">
               <AnimatePresence mode="popLayout" initial={false}>
                 {filteredItems.map((item, index) => {
                   const aspectClass = MASONRY_ASPECTS[index % MASONRY_ASPECTS.length];
@@ -611,9 +612,7 @@ export default function GalleryPage() {
                       Want Something Like This!
                     </Link>
                     <a
-                      href={`https://wa.me/919876543210?text=${encodeURIComponent(
-                        `Hi Tehzaa! Loved "${currentItem.title}" at ${currentItem.venue}. Can we chat?`
-                      )}`}
+                      href={whatsappHref(`Hi Tehzaa! Loved "${currentItem.title}" at ${currentItem.venue}. Can we chat?`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-editorial-outline"
