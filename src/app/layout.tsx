@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { MotionProvider } from "@/components/layout/MotionProvider";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -80,12 +82,14 @@ export default function RootLayout({
         </a>
         <JsonLd />
         <MotionProvider>
+          <SmoothScroll>
           <Header />
           <main id="main-content" tabIndex={-1} className="flex-1 bg-alabaster focus:outline-none">
             {children}
           </main>
           <Footer />
           <WhatsAppButton />
+          </SmoothScroll>
         </MotionProvider>
       </body>
     </html>

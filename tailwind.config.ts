@@ -11,9 +11,19 @@ const config: Config = {
     extend: {
       colors: {
         /* Deccani Editorial Luxury Palette */
+        /* Falaknuma Marble palette */
+        marble: {
+          DEFAULT: "#FBF8F2",
+          warm: "#F3ECE0",
+        },
+        ruby: {
+          DEFAULT: "#7A1F2B",
+          dark: "#5C1F24",
+        },
+        petal: "#E9B8B8",
         alabaster: {
-          DEFAULT: "#F9F6F1",
-          warm: "#F5F1EA",
+          DEFAULT: "#FBF8F2",
+          warm: "#F3ECE0",
         },
         silk: "#FFFFFF",
         limestone: {
@@ -27,19 +37,19 @@ const config: Config = {
           line: "#2E2823",
         },
         brass: {
-          DEFAULT: "#A27B43",
+          DEFAULT: "#B08A4A",
           light: "#C7A36B",
           dark: "#7A5929",
           pale: "#E8DCCB",
         },
         garnet: {
-          DEFAULT: "#5C1F24",
-          light: "#7A2D34",
-          dark: "#421519",
+          DEFAULT: "#7A1F2B",
+          light: "#8E2A37",
+          dark: "#5C1F24",
         },
         ink: {
-          DEFAULT: "#161412",
-          muted: "#4A453F",
+          DEFAULT: "#2A1A14",
+          muted: "#5A463A",
           subtle: "#6E675F",
           light: "#F5F1EA",
           lightMuted: "#BEB6AA",
@@ -110,6 +120,7 @@ const config: Config = {
         obsidian: "0 20px 48px -12px rgba(18, 16, 14, 0.45)",
         royale: "0 1px 2px rgba(18, 16, 14, 0.04), 0 12px 32px -8px rgba(18, 16, 14, 0.06)",
         luxury: "0 16px 40px -12px rgba(18, 16, 14, 0.12)",
+        ruby: "0 30px 60px -20px rgba(92, 31, 36, 0.25)",
       },
     },
   },
