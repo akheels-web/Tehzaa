@@ -97,7 +97,7 @@ export function CulinaryMenuExplorer({
           </p>
         </div>
 
-        <div className="flex items-center gap-3 text-xs font-medium text-ink-subtle tabular-nums border-l border-stone-line pl-4 self-start lg:self-end">
+        <div className="flex items-center gap-3 text-xs font-medium text-ink-subtle tabular-nums border-l border-brass/30 pl-4 self-start lg:self-end">
           <span className="font-display text-2xl font-medium text-brass-dark">
             0{activeIndex + 1}
           </span>
@@ -109,7 +109,7 @@ export function CulinaryMenuExplorer({
       <div
         role="tablist"
         aria-label="Hyderabadi wedding menu traditions"
-        className="flex flex-wrap gap-x-7 gap-y-2 border-b border-stone-line mb-10 lg:mb-12"
+        className="flex flex-wrap gap-x-7 gap-y-2 border-b border-brass/30 mb-10 lg:mb-12"
       >
         {collections.map((collection, idx) => {
           const isActive = idx === activeIndex;
@@ -130,7 +130,7 @@ export function CulinaryMenuExplorer({
               className={cn(
                 "pb-3.5 text-xs sm:text-[13px] font-sans uppercase tracking-[0.12em] border-b-2 transition-colors duration-200 -mb-px whitespace-nowrap cursor-pointer",
                 isActive
-                  ? "border-obsidian text-ink font-semibold"
+                  ? "border-ruby text-ruby font-semibold"
                   : "border-transparent text-ink-subtle hover:text-ink font-medium"
               )}
             >
@@ -156,8 +156,8 @@ export function CulinaryMenuExplorer({
           {/* Left Sticky Column: Sharp Gallery Plate + Compact Tasting Shortlist */}
           <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
             <div className="space-y-3">
-              <div className="gallery-frame bg-alabaster">
-                <div className="relative aspect-[4/3] overflow-hidden bg-limestone">
+              <div className="gallery-frame">
+                <div className="relative aspect-[4/3] overflow-hidden bg-marble-warm">
                   <Image
                     src={
                       activeCollection.image ??
@@ -172,7 +172,7 @@ export function CulinaryMenuExplorer({
               </div>
 
               {(activeCollection.dietaryNote || activeCollection.aromaNote) && (
-                <div className="space-y-1.5 pt-1 border-t border-stone-line">
+                <div className="space-y-1.5 pt-1 border-t border-brass/30">
                   {activeCollection.dietaryNote && (
                     <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brass-dark">
                       {activeCollection.dietaryNote}
@@ -188,8 +188,8 @@ export function CulinaryMenuExplorer({
             </div>
 
             {/* Crisp Architectural Tasting Shortlist Panel */}
-            <div className="p-6 sm:p-7 rounded-[2px] bg-alabaster border border-stone-line space-y-5">
-              <div className="flex items-start justify-between gap-3 border-b border-stone-line pb-4">
+            <div className="p-6 sm:p-7 bg-white border border-brass/40 shadow-ruby space-y-5">
+              <div className="flex items-start justify-between gap-3 border-b border-brass/30 pb-4">
                 <div>
                   <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brass-dark block">
                     Your Tasting Shortlist
@@ -217,7 +217,7 @@ export function CulinaryMenuExplorer({
                   beside any dish to save it for your studio food tasting.
                 </p>
               ) : (
-                <ul className="max-h-44 overflow-y-auto pr-1 divide-y divide-stone-line">
+                <ul className="max-h-44 overflow-y-auto pr-1 divide-y divide-brass/25">
                   {selectedDishes.map((dish) => (
                     <li
                       key={dish}
@@ -254,7 +254,7 @@ export function CulinaryMenuExplorer({
             </div>
 
             {activeCollection.dishes && activeCollection.dishes.length > 0 && (
-              <div className="divide-y divide-stone-line border-t border-b border-stone-line">
+              <div className="divide-y divide-brass/25 border-t border-b border-brass/30">
                 {activeCollection.dishes.map((dish) => {
                   const isAdded = selectedDishes.includes(dish.name);
                   return (
@@ -267,7 +267,7 @@ export function CulinaryMenuExplorer({
                           <span>{dish.course}</span>
                           {dish.vessel && (
                             <>
-                              <span aria-hidden="true" className="text-stone-line">
+                              <span aria-hidden="true" className="text-brass/50">
                                 •
                               </span>
                               <span className="text-ink-subtle font-medium normal-case tracking-normal text-xs">
@@ -304,8 +304,8 @@ export function CulinaryMenuExplorer({
                         className={cn(
                           "shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[2px] text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors mt-1 cursor-pointer",
                           isAdded
-                            ? "bg-obsidian text-alabaster border border-obsidian"
-                            : "bg-silk border border-stone-line text-ink hover:border-obsidian"
+                            ? "bg-ruby text-marble border border-ruby"
+                            : "bg-marble border border-brass/40 text-ink hover:border-ruby hover:text-ruby"
                         )}
                       >
                         {isAdded ? (
@@ -349,13 +349,13 @@ export function CulinaryMenuExplorer({
               </button>
 
               {showFullItems && (
-                <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-0 p-6 rounded-[2px] bg-alabaster border border-stone-line text-sm text-ink">
+                <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-0 p-6 bg-white border border-brass/40 shadow-ruby text-sm text-ink">
                   {activeCollection.items.map((item) => {
                     const isAdded = selectedDishes.includes(item);
                     return (
                       <li
                         key={item}
-                        className="flex items-center justify-between gap-3 py-2.5 border-b border-stone-line/80 last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0"
+                        className="flex items-center justify-between gap-3 py-2.5 border-b border-brass/25 last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0"
                       >
                         <span>{item}</span>
                         <button
@@ -393,7 +393,7 @@ export function CulinaryMenuExplorer({
     <section
       id="culinary-collections-heading"
       aria-labelledby="menu-explorer-title"
-      className="bg-silk border-b border-stone-line py-16 lg:py-24"
+      className="bg-marble border-b border-brass/30 py-16 lg:py-24"
     >
       {innerContent}
     </section>
