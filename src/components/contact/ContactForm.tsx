@@ -26,6 +26,12 @@ import {
   ArrowRight,
   X,
 } from "lucide-react";
+import { motion } from "motion/react";
+import type { ZodTypeAny } from "zod";
+import { CONTACT_GROUPS, groupProgress } from "@/lib/landing/formProgress";
+import { useMotionAllowed } from "@/lib/landing/motionPreference";
+import { STUDIO_PHONE_TEL, whatsappHref } from "@/lib/contact";
+import { ThreadProgress } from "@/components/inner/ThreadProgress";
 
 const FIELD_LABELS: Record<string, string> = {
   fullName: "Full Name",
@@ -119,6 +125,20 @@ export function ContactForm() {
 
   const additionalDetailsValue = watch("additionalDetails") || "";
 
+  // Gold-thread progress: a group ties when its fields are valid. Besides react-hook-form's
+  // (on-blur) errors, each filled field is checked live against its own schema rule, so a
+  // half-typed phone number doesn't tie "About you" early.
+  const motionAllowed = useMotionAllowed();
+  const formValues = watch() as Record<string, unknown>;
+  const fieldShape = contactFormSchema.shape as Record<string, ZodTypeAny>;
+  const liveErrors: Record<string, unknown> = { ...errors };
+  for (const g of CONTACT_GROUPS) {
+    for (const f of [...g.required, ...g.optional]) {
+      if (fieldShape[f] && !fieldShape[f].safeParse(formValues[f]).success) liveErrors[f] = liveErrors[f] ?? { message: "invalid" };
+    }
+  }
+  const progress = groupProgress(formValues, liveErrors, CONTACT_GROUPS);
+
   const errorEntries = Object.entries(errors).filter(
     ([key, val]) => key !== "honeypot" && val && typeof val.message === "string"
   );
@@ -178,21 +198,33 @@ export function ContactForm() {
 
   // SUCCESS STATE VIEW
   if (submissionSuccess) {
-    const whatsappText = encodeURIComponent(
+    const whatsappUrl = whatsappHref(
       `Hello Tehzaa Celebrations, I just submitted an enquiry on your website. My Reference ID is ${submissionSuccess}. Could we discuss our celebration details?`
     );
-    const whatsappUrl = `https://wa.me/919876543210?text=${whatsappText}`;
 
     return (
       <div
         role="status"
         aria-live="polite"
-        className="bg-silk border border-stone-line rounded-[2px] p-8 sm:p-10 md:p-12 shadow-gallery text-ink"
+        className="bg-white border border-brass/50 p-8 sm:p-10 md:p-12 shadow-ruby outline outline-1 outline-offset-4 outline-brass/30 text-ink"
       >
         <div className="flex flex-col items-center text-center">
-          <div className="w-14 h-14 rounded-[2px] border border-brass/50 bg-alabaster flex items-center justify-center text-ink mb-5">
-            <CheckCircle2 aria-hidden="true" className="w-7 h-7 stroke-[1.5] text-brass-dark" />
-          </div>
+          {/* Wax seal stamped onto the dawat */}
+          <motion.div
+            aria-hidden="true"
+            initial={motionAllowed ? { scale: 1.4, rotate: -8, opacity: 0 } : false}
+            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 16 }}
+            className="mb-6 flex h-24 w-24 flex-col items-center justify-center rounded-full border-2 border-[#D9B26A] text-center shadow-[0_8px_18px_rgba(40,10,10,0.35)]"
+            style={{ background: "radial-gradient(circle at 35% 35%, #E7C27D, #B08A4A 60%, #8A6A34)" }}
+          >
+            <CheckCircle2 className="h-6 w-6 stroke-[1.5] text-ruby-dark" />
+            <span className="mt-1 font-display text-sm italic leading-tight text-ruby-dark">
+              Dawat
+              <br />
+              received
+            </span>
+          </motion.div>
 
           <span className="editorial-kicker block mb-2">
             Shukriya — Got your note
@@ -208,7 +240,7 @@ export function ContactForm() {
           </p>
 
           {/* Reference ID Plinth */}
-          <div className="w-full max-w-md bg-limestone/60 border border-stone-line rounded-[2px] p-6 mb-8 flex flex-col items-center">
+          <div className="w-full max-w-md bg-marble border border-brass/40 p-6 mb-8 flex flex-col items-center">
             <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-subtle mb-2">
               Your Booking Reference
             </span>
@@ -220,7 +252,7 @@ export function ContactForm() {
                 type="button"
                 onClick={() => handleCopyReference(submissionSuccess)}
                 aria-label={hasCopiedRef ? "Reference code copied" : "Copy reference code"}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[2px] border border-stone-line bg-silk hover:bg-obsidian hover:text-alabaster hover:border-obsidian text-xs text-ink transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-brass/40 bg-white hover:bg-ruby hover:text-marble hover:border-ruby text-xs text-ink transition-colors cursor-pointer"
                 title="Copy reference code"
               >
                 {hasCopiedRef ? (
@@ -254,7 +286,7 @@ export function ContactForm() {
             </a>
 
             <a
-              href="tel:+919876543210"
+              href={`tel:${STUDIO_PHONE_TEL}`}
               className="btn-editorial-outline flex-1 w-full"
             >
               <PhoneCall aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-brass-dark" />
@@ -276,21 +308,21 @@ export function ContactForm() {
   }
 
   const inputBaseClass =
-    "w-full px-4 py-3 rounded-[2px] bg-alabaster/45 border text-ink text-sm placeholder:text-ink-subtle/60 focus:bg-silk focus:outline-none focus-visible:ring-2 focus-visible:ring-brass/40 transition-colors";
-  const inputNormalClass = "border-stone-line focus:border-obsidian";
+    "w-full px-4 py-3 bg-marble/60 border text-ink text-sm placeholder:text-ink-subtle/60 focus:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brass/40 transition-colors";
+  const inputNormalClass = "border-brass/40 focus:border-brass";
   const inputErrorClass = "border-garnet focus:border-garnet-dark focus-visible:ring-garnet/30";
   const labelBaseClass =
     "block text-xs font-semibold tracking-[0.04em] text-ink mb-2";
 
   // STANDARD SILK ARCHITECTURAL FORM VIEW
   return (
-    <div className="bg-silk border border-stone-line rounded-[2px] p-7 sm:p-10 md:p-12 shadow-gallery">
+    <div className="bg-white border border-brass/50 p-7 sm:p-10 md:p-12 shadow-ruby outline outline-1 outline-offset-4 outline-brass/30">
       <Suspense fallback={null}>
         <ContactParamsSync onPrefill={handlePrefill} />
       </Suspense>
 
       {/* Header inside Silk Frame */}
-      <div className="pb-7 mb-8 border-b border-stone-line">
+      <div className="pb-7 mb-8 border-b border-brass/30">
         <span className="editorial-kicker block mb-2">
           Chai pe charcha — tell us your story
         </span>
@@ -303,11 +335,13 @@ export function ContactForm() {
         </p>
       </div>
 
+      <ThreadProgress groups={CONTACT_GROUPS} complete={progress} />
+
       {/* Dismissible Pre-Filled Brief Notice */}
       {prefilledNotice && (
         <div
           role="status"
-          className="mb-7 p-4 rounded-[2px] bg-limestone/70 border border-stone-line border-l-2 border-l-brass text-ink text-xs flex items-center justify-between gap-3"
+          className="mb-7 p-4 bg-marble-warm border border-brass/30 border-l-2 border-l-ruby text-ink text-xs flex items-center justify-between gap-3"
         >
           <span>
             Awesome — your chosen dishes or decor look got pre-loaded below! Edit anything you want before hitting send.
@@ -316,7 +350,7 @@ export function ContactForm() {
             type="button"
             onClick={() => setPrefilledNotice(false)}
             aria-label="Dismiss notice"
-            className="p-1 rounded-[2px] hover:bg-stone-line/50 cursor-pointer shrink-0"
+            className="p-1 hover:bg-brass/20 cursor-pointer shrink-0"
           >
             <X aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
           </button>
@@ -330,7 +364,7 @@ export function ContactForm() {
           role="alert"
           tabIndex={-1}
           aria-labelledby="form-error-summary-title"
-          className="mb-7 p-4 sm:p-5 rounded-[2px] bg-garnet/5 border border-garnet/35 text-garnet-dark space-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-garnet"
+          className="mb-7 p-4 sm:p-5 bg-garnet/5 border border-garnet/35 text-garnet-dark space-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-garnet"
         >
           <div className="flex items-center gap-2">
             <AlertCircle aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-garnet shrink-0" />
@@ -357,7 +391,7 @@ export function ContactForm() {
       {errorMessage && (
         <div
           role="alert"
-          className="mb-7 p-4 rounded-[2px] bg-garnet/5 border border-garnet/35 text-garnet-dark text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+          className="mb-7 p-4 bg-garnet/5 border border-garnet/35 text-garnet-dark text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
         >
           <div className="flex items-start gap-2.5">
             <AlertCircle aria-hidden="true" className="w-4 h-4 stroke-[1.5] text-garnet shrink-0 mt-0.5" />
@@ -365,17 +399,17 @@ export function ContactForm() {
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <a
-              href="https://wa.me/919876543210"
+              href={whatsappHref("Hello Tehzaa Celebrations!")}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3.5 py-2 rounded-[2px] bg-obsidian text-alabaster text-xs font-medium flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-ruby text-marble text-xs font-medium flex items-center gap-1.5"
             >
               <MessageCircle aria-hidden="true" className="w-3.5 h-3.5 stroke-[1.5]" />
               WhatsApp
             </a>
             <a
-              href="tel:+919876543210"
-              className="px-3.5 py-2 rounded-[2px] border border-stone-line bg-silk text-ink text-xs font-medium"
+              href={`tel:${STUDIO_PHONE_TEL}`}
+              className="px-3.5 py-2 border border-brass/40 bg-marble text-ink text-xs font-medium"
             >
               Call Directly
             </a>
@@ -686,7 +720,7 @@ export function ContactForm() {
           )}
         </div>
 
-        <div className="flex items-center gap-3 text-xs text-ink-subtle pt-4 border-t border-stone-line">
+        <div className="flex items-center gap-3 text-xs text-ink-subtle pt-4 border-t border-brass/30">
           <ShieldCheck aria-hidden="true" className="w-4 h-4 text-brass-dark shrink-0 stroke-[1.5]" />
           <span>
             Zero spam, zero shared numbers — stays strictly between your family and our Jubilee Hills studio.

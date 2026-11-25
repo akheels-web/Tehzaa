@@ -1,19 +1,15 @@
 import React from "react";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
-import {
-  DeccaniArchFrame,
-  HeritageGreetingBanner,
-} from "@/components/deccani/DeccaniMotifs";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  MessageCircle,
-  ArrowUpRight,
-} from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle, ArrowUpRight } from "lucide-react";
+import { STUDIO_PHONE_DISPLAY, STUDIO_PHONE_TEL, whatsappHref } from "@/lib/contact";
+import { creditForImage } from "@/lib/landing/credits";
+import { PageHero } from "@/components/landing/primitives/PageHero";
+import { SceneHeading } from "@/components/landing/primitives/SceneHeading";
+import { ThreadFaq } from "@/components/landing/primitives/ThreadFaq";
+import { ArchFrame } from "@/components/landing/primitives/ArchFrame";
+import { DepthJaali } from "@/components/landing/primitives/DepthJaali";
+import { DawatFormEnvelope } from "@/components/inner/DawatFormEnvelope";
 
 export const metadata: Metadata = {
   title: "Contact Us | Tehzaa Celebrations — Jubilee Hills, Hyderabad",
@@ -30,253 +26,149 @@ export const metadata: Metadata = {
 
 const CONSULTATION_FAQS = [
   {
-    num: "01",
     question: "How early should we reach out for Muhurtham or winter wedding dates?",
     answer:
       "For peak October–March Muhurtham dates and heritage buyouts (Chowmahalla, Falaknuma, Taramati Baradari), 4–6 months ahead is sweet! For home functions, anniversaries, or corporate summits, 2–4 weeks usually works great.",
   },
   {
-    num: "02",
     question: "Can elders taste both Biryani AND Pure Veg Vindhu before booking?",
     answer:
       "Yes! Drop by Road No. 36 in Jubilee Hills — we host proper family tastings where you check spice levels on our Mutton Dum Biryani, Sufiyani Biryani, banana-leaf Vindhu, and inspect our separate Veg/Jain cookware.",
   },
   {
-    num: "03",
     question: "Do you only handle events in Hyderabad or outstation too?",
     answer:
       "Most of our work happens across Hyderabad & Secunderabad (Jubilee Hills to Old City to Gandipet), though our crew happily travels across Telangana, Vijayawada, Vizag, Udaipur, and Goa for family destination celebrations.",
   },
   {
-    num: "04",
     question: "How quickly do you reply after I submit the form?",
     answer:
       "You get a Reference Code immediately on screen, and one of our senior planners usually WhatsApps or calls back within two working hours to set up a coffee or venue walkthrough.",
   },
 ];
 
+const KICKER = "mb-1 block font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-brass-dark";
+
 export default function ContactPage() {
-  const whatsappUrl =
-    "https://wa.me/919876543210?text=" +
-    encodeURIComponent(
-      "Hi Tehzaa! Would love to chat about an upcoming event in Hyderabad."
-    );
+  const whatsappUrl = whatsappHref("Hi Tehzaa! Would love to chat about an upcoming event in Hyderabad.");
 
   return (
-    <div className="min-h-screen bg-alabaster text-ink">
-      {/* 1. Alabaster Studio Header */}
-      <section className="pt-28 pb-14 lg:pt-32 lg:pb-16 border-b border-stone-line bg-alabaster">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            <div className="lg:col-span-7 space-y-5">
-              <HeritageGreetingBanner theme="light" />
+    <div className="min-h-screen bg-marble text-ink">
+      <PageHero
+        compact
+        crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
+        kicker="Chai pe milenge?"
+        title="Tell us about"
+        italicTail="your celebration."
+        intro="Got a Telugu Pelli Muhurtham, Muslim Nikkah & Walima, house Seemantham, Sanchaq night, or HITEC City summit coming up? Drop by Road No. 36 or write your dawat right below."
+        image={{
+          src: "/images/real-chowmahalla-palace.webp",
+          alt: "Chowmahalla Palace Khilwat courtyard in Hyderabad",
+          credit: creditForImage("/images/real-chowmahalla-palace.webp"),
+        }}
+      />
 
-              <span className="editorial-kicker block pt-1">
-                Chai pe milenge?
-              </span>
+      {/* Studio directory + the dawat (form) */}
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <DepthJaali />
+        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-start gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16">
+          <div className="space-y-12 lg:col-span-5">
+            <ArchFrame
+              src="/images/irani-chai-mithai-parlor.webp"
+              alt="Irani Chai and Osmania biscuits at the Jubilee Hills tasting studio"
+              sizes="(max-width: 1024px) 80vw, 30vw"
+              className="mx-auto aspect-[3/3.4] w-full max-w-[340px]"
+            />
 
-              <h1 className="display-hero text-ink">
-                Tell Us About{" "}
-                <span className="editorial-italic">
-                  Your Celebration!
-                </span>
-              </h1>
-
-              <p className="editorial-body max-w-2xl">
-                Got a Telugu Pelli Muhurtham, Muslim Nikkah &amp; Walima, house Seemantham, Sanchaq night, or HITEC City summit coming up? Drop by Road No. 36 or ping us right below!
-              </p>
-            </div>
-
-            <div className="lg:col-span-5">
-              <DeccaniArchFrame variant="mehrab" theme="alabaster">
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-limestone">
-                  <Image
-                    src="/images/real-chowmahalla-palace.webp"
-                    alt="Original photograph of Chowmahalla Palace Khilwat courtyard in Hyderabad"
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover"
-                  />
-                </div>
-              </DeccaniArchFrame>
-              <p className="mt-2.5 text-[11px] font-medium uppercase tracking-[0.14em] text-ink-subtle text-center">
-                Chowmahalla Palace Inspiration • Jubilee Hills Tasting Studio
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Studio Details + Luxury Silk Concierge Form */}
-      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Hairline Studio Directory */}
-          <div className="lg:col-span-5 space-y-12">
             <div>
-              <h2 className="display-card text-ink pb-4 border-b border-stone-line">
-                Drop By{" "}
-                <span className="editorial-italic">Our Studios</span>
+              <h2 className="border-b border-brass/30 pb-4 font-display text-3xl font-medium text-ink">
+                Drop by <span className="italic text-ruby">our studios</span>
               </h2>
-
-              <div className="divide-y divide-stone-line">
-                <div className="py-6 flex items-start gap-4">
-                  <MapPin aria-hidden="true" className="w-4 h-4 text-brass shrink-0 mt-1 stroke-[1.5]" />
+              <div className="divide-y divide-brass/25">
+                <div className="flex items-start gap-4 py-6">
+                  <MapPin aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                   <div>
-                    <span className="editorial-kicker block mb-1">
-                      Design &amp; Food Tasting Studio
-                    </span>
-                    <h3 className="font-display text-2xl text-ink font-medium">
-                      Jubilee Hills Studio
-                    </h3>
-                    <p className="text-sm text-ink-muted leading-relaxed mt-1 tabular-nums">
-                      Road No. 36, Jubilee Hills, Hyderabad 500033
-                    </p>
-                    <p className="text-xs text-ink-subtle mt-1.5">
-                      Irani Chai &amp; Filter Kaapi always pouring — quick prior ping helps!
-                    </p>
+                    <span className={KICKER}>Design &amp; Food Tasting Studio</span>
+                    <h3 className="font-display text-2xl font-medium text-ink">Jubilee Hills Studio</h3>
+                    <p className="mt-1 font-sans text-sm leading-relaxed tabular-nums text-ink-muted">Road No. 36, Jubilee Hills, Hyderabad 500033</p>
+                    <p className="mt-1.5 font-sans text-xs text-ink-muted">Irani Chai &amp; Filter Kaapi always pouring — quick prior ping helps!</p>
                   </div>
                 </div>
-
-                <div className="py-6 flex items-start gap-4">
-                  <MapPin aria-hidden="true" className="w-4 h-4 text-brass shrink-0 mt-1 stroke-[1.5]" />
+                <div className="flex items-start gap-4 py-6">
+                  <MapPin aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                   <div>
-                    <span className="editorial-kicker block mb-1">
-                      Corporate Events Desk
-                    </span>
-                    <h3 className="font-display text-2xl text-ink font-medium">
-                      Financial District Hub
-                    </h3>
-                    <p className="text-sm text-ink-muted leading-relaxed mt-1 tabular-nums">
-                      Nanakramguda, Gachibowli, Hyderabad 500032
-                    </p>
-                    <p className="text-xs text-ink-subtle mt-1.5">
-                      Easy stops for HITEC City &amp; HICC summit meetings.
-                    </p>
+                    <span className={KICKER}>Corporate Events Desk</span>
+                    <h3 className="font-display text-2xl font-medium text-ink">Financial District Hub</h3>
+                    <p className="mt-1 font-sans text-sm leading-relaxed tabular-nums text-ink-muted">Nanakramguda, Gachibowli, Hyderabad 500032</p>
+                    <p className="mt-1.5 font-sans text-xs text-ink-muted">Easy stops for HITEC City &amp; HICC summit meetings.</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div>
-              <h2 className="display-card text-ink pb-4 border-b border-stone-line">
-                Quick{" "}
-                <span className="editorial-italic">Numbers</span>
+              <h2 className="border-b border-brass/30 pb-4 font-display text-3xl font-medium text-ink">
+                Quick <span className="italic text-ruby">numbers</span>
               </h2>
-
-              <div className="divide-y divide-stone-line text-sm">
-                <div className="py-5 flex items-start gap-4">
-                  <Phone aria-hidden="true" className="w-4 h-4 text-brass shrink-0 mt-1 stroke-[1.5]" />
+              <div className="divide-y divide-brass/25 font-sans text-sm">
+                <div className="flex items-start gap-4 py-5">
+                  <Phone aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-subtle block mb-1">
-                      Phone &amp; WhatsApp
-                    </span>
-                    <a
-                      href="tel:+919876543210"
-                      className="text-ink font-medium hover:text-brass-dark transition-colors block tabular-nums"
-                    >
-                      +91 98765 43210
+                    <span className={KICKER}>Phone &amp; WhatsApp</span>
+                    <a href={`tel:${STUDIO_PHONE_TEL}`} className="block font-medium tabular-nums text-ink transition-colors hover:text-ruby">
+                      {STUDIO_PHONE_DISPLAY}
                     </a>
-                    <a
-                      href="tel:+914023456789"
-                      className="text-ink-subtle text-xs hover:text-ink transition-colors block mt-1 tabular-nums"
-                    >
+                    <a href="tel:+914023456789" className="mt-1 block text-xs tabular-nums text-ink-muted transition-colors hover:text-ink">
                       +91 40 2345 6789 (Jubilee Hills Landline)
                     </a>
                   </div>
                 </div>
-
-                <div className="py-5 flex items-start gap-4">
-                  <Mail aria-hidden="true" className="w-4 h-4 text-brass shrink-0 mt-1 stroke-[1.5]" />
+                <div className="flex items-start gap-4 py-5">
+                  <Mail aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-subtle block mb-1">
-                      Email
-                    </span>
-                    <a
-                      href="mailto:celebrations@tehzaa.com"
-                      className="text-ink font-medium hover:text-brass-dark transition-colors"
-                    >
+                    <span className={KICKER}>Email</span>
+                    <a href="mailto:celebrations@tehzaa.com" className="font-medium text-ink transition-colors hover:text-ruby">
                       celebrations@tehzaa.com
                     </a>
                   </div>
                 </div>
-
-                <div className="py-5 flex items-start gap-4">
-                  <Clock aria-hidden="true" className="w-4 h-4 text-brass shrink-0 mt-1 stroke-[1.5]" />
+                <div className="flex items-start gap-4 py-5">
+                  <Clock aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 stroke-[1.5] text-ruby" />
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-subtle block mb-1">
-                      Studio Timings
-                    </span>
-                    <p className="text-ink tabular-nums">
-                      Monday – Sunday: 10:00 AM – 8:30 PM IST
-                    </p>
-                    <p className="text-xs text-ink-subtle mt-1">
-                      Happy to stay later for after-work family Zoom/studio chats!
-                    </p>
+                    <span className={KICKER}>Studio Timings</span>
+                    <p className="tabular-nums text-ink">Monday – Sunday: 10:00 AM – 8:30 PM IST</p>
+                    <p className="mt-1 text-xs text-ink-muted">Happy to stay later for after-work family Zoom/studio chats!</p>
                   </div>
                 </div>
               </div>
-
               <div className="pt-5">
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-editorial-dark w-full py-4"
-                >
-                  <MessageCircle aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-editorial-dark w-full py-4">
+                  <MessageCircle aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
                   <span>Ping Us Directly on WhatsApp</span>
-                  <ArrowUpRight aria-hidden="true" className="w-4 h-4 stroke-[1.5]" />
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Right Form */}
           <div className="lg:col-span-7">
-            <ContactForm />
+            <DawatFormEnvelope>
+              <ContactForm />
+            </DawatFormEnvelope>
           </div>
         </div>
       </section>
 
-      {/* 3. Architectural Limestone & Obsidian Consultation FAQs */}
-      <section className="py-20 lg:py-24 bg-limestone border-t border-stone-line">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[2px] bg-obsidian text-ink-light border border-obsidian-line p-8 sm:p-10 mb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-6 shadow-obsidian">
-            <div className="max-w-2xl space-y-2.5">
-              <span className="editorial-kicker-light block">
-                Quick answers before you visit
-              </span>
-              <h2 className="display-section text-ink-light">
-                Helpful Things to{" "}
-                <span className="editorial-italic text-brass-light">
-                  Know Upfront
-                </span>
-              </h2>
-            </div>
-            <p className="text-xs sm:text-sm text-ink-lightMuted max-w-sm leading-relaxed">
-              Clear timelines, live food tastings at Road No. 36, and transparent studio planning across Hyderabad &amp; Secunderabad.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {CONSULTATION_FAQS.map((faq) => (
-              <div
-                key={faq.question}
-                className="p-6 sm:p-8 rounded-[2px] bg-silk border border-stone-line space-y-3"
-              >
-                <span className="text-[11px] font-semibold tracking-[0.18em] text-brass-dark tabular-nums block">
-                  {faq.num}
-                </span>
-                <h3 className="font-display text-2xl text-ink font-medium leading-snug">
-                  {faq.question}
-                </h3>
-                <p className="text-sm text-ink-muted leading-relaxed">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
+      {/* FAQs */}
+      <section className="bg-marble-warm py-20 lg:py-24">
+        <div className="mx-auto max-w-4xl space-y-8 px-5 sm:px-8">
+          <SceneHeading
+            kicker="Quick answers before you visit"
+            title="Helpful things to"
+            italicTail="know upfront."
+            intro="Clear timelines, live food tastings at Road No. 36, and transparent studio planning across Hyderabad & Secunderabad."
+          />
+          <ThreadFaq items={CONSULTATION_FAQS.map((f) => ({ q: f.question, a: f.answer }))} />
         </div>
       </section>
     </div>
