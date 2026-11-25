@@ -7,7 +7,8 @@ import { ArrowRight, MessageCircle, Phone } from "lucide-react";
 import { STUDIO_PHONE_DISPLAY, STUDIO_PHONE_TEL, whatsappHref } from "@/lib/contact";
 import { HOUSE_EASE } from "@/lib/landing/motion";
 import { useMotionAllowed } from "@/lib/landing/motionPreference";
-import { JaaliLattice } from "./primitives/JaaliLattice";
+import { DepthJaali } from "./primitives/DepthJaali";
+import { ParallaxLayer } from "./primitives/ParallaxLayer";
 import { Petals } from "./primitives/Petals";
 
 const RUBY = "#7A1F2B";
@@ -46,9 +47,10 @@ export function DawatnamaCTA() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-marble to-marble-warm pb-24 pt-[clamp(16rem,48vw,22rem)] lg:pb-32">
-      <JaaliLattice />
+      <DepthJaali />
       <Petals count={5} />
 
+      <ParallaxLayer speed={0.12}>
       <div ref={ref} className="relative mx-auto w-[min(92vw,560px)] [perspective:1200px]">
         <div className="relative aspect-[1/1.25] w-full sm:aspect-[1/0.66]">
           {/* envelope back */}
@@ -132,6 +134,7 @@ export function DawatnamaCTA() {
           </button>
         </div>
       </div>
+      </ParallaxLayer>
     </section>
   );
 }

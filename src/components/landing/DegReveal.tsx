@@ -2,13 +2,15 @@
 
 import React, { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { DegIllustration } from "./DegIllustration";
-import { JaaliLattice } from "./primitives/JaaliLattice";
+import { DepthJaali } from "./primitives/DepthJaali";
 import { SceneHeading } from "./primitives/SceneHeading";
 import { getDegMenus, type DegMenuKey } from "@/lib/landing/menus";
 import { HOUSE_EASE } from "@/lib/landing/motion";
+import { useMotionAllowed } from "@/lib/landing/motionPreference";
+import { ParallaxLayer } from "./primitives/ParallaxLayer";
 import { cn } from "@/lib/utils";
 
 const KEYS: DegMenuKey[] = ["dawat", "vindhu", "veg"];
@@ -17,6 +19,9 @@ const KEYS: DegMenuKey[] = ["dawat", "vindhu", "veg"];
 export function DegReveal() {
   const menus = useMemo(() => getDegMenus(), []);
   const [open, setOpen] = useState(false);
+  const motionAllowed = useMotionAllowed();
+  const degRef = useRef<HTMLDivElement>(null);
+  const degInView = useInView(degRef, { amount: 0.2 });
   const [tab, setTab] = useState<DegMenuKey>("dawat");
   const tabRefs = useRef<Record<DegMenuKey, HTMLButtonElement | null>>({ dawat: null, vindhu: null, veg: null });
 
@@ -36,10 +41,11 @@ export function DegReveal() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-marble to-marble-warm py-24 lg:py-32">
-      <JaaliLattice />
+      <DepthJaali />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16">
-        {/* The deg */}
-        <div className="lg:col-span-5">
+        {/* The deg (mid depth plane) */}
+        <ParallaxLayer speed={0.18} className="lg:col-span-5">
+          <div ref={degRef}>
           {/* Pointer target (tap or lift the lid); the pill button below is the keyboard control. */}
           <motion.button
             type="button"
@@ -51,7 +57,7 @@ export function DegReveal() {
             }}
             className="group relative mx-auto block w-full max-w-[420px] cursor-pointer touch-pan-y"
           >
-            <DegIllustration open={open} />
+            <DegIllustration open={open} steaming={open && motionAllowed && degInView} />
           </motion.button>
           <div className="mt-2 flex justify-center">
             <button
@@ -71,7 +77,8 @@ export function DegReveal() {
           {!open && (
             <p className="mt-3 text-center font-sans text-xs text-ink-muted">Tap the deg, or lift its lid upward.</p>
           )}
-        </div>
+          </div>
+        </ParallaxLayer>
 
         {/* The menu */}
         <div className="lg:col-span-7">

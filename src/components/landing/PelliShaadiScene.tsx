@@ -5,7 +5,8 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, MoveHorizontal } from "lucide-react";
 import { PelliVsShaadiCurtain } from "./PelliVsShaadiCurtain";
-import { JaaliLattice } from "./primitives/JaaliLattice";
+import { DepthJaali } from "./primitives/DepthJaali";
+import { ParallaxLayer } from "./primitives/ParallaxLayer";
 import { SceneHeading } from "./primitives/SceneHeading";
 import { HOUSE_EASE } from "@/lib/landing/motion";
 import { cn } from "@/lib/utils";
@@ -45,7 +46,7 @@ export function PelliShaadiScene() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-marble-warm to-marble py-24 lg:py-32">
-      <JaaliLattice />
+      <DepthJaali />
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SceneHeading
@@ -60,7 +61,9 @@ export function PelliShaadiScene() {
           </span>
         </div>
 
-        <PelliVsShaadiCurtain onPositionChange={setPosition} />
+        <ParallaxLayer speed={0.12}>
+          <PelliVsShaadiCurtain onPositionChange={setPosition} />
+        </ParallaxLayer>
 
         <div className="mt-6 flex items-start gap-6">
           <Rites show={position > 60} text={PELLI_RITES} align="left" />

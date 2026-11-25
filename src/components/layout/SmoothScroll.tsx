@@ -26,7 +26,19 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     const lenis = new Lenis({ lerp: 0.1, anchors: true, autoRaf: true });
     activeLenis = lenis;
 
+    // Back/forward between same-page anchors (e.g. "#darbars" → "") changes only the hash;
+    // Lenis keeps its own target, so move it explicitly to the anchor (or the top).
+    const onHashChange = () => {
+      requestAnimationFrame(() => {
+        const id = decodeURIComponent(window.location.hash.slice(1));
+        const target = id ? document.getElementById(id) : null;
+        lenis.scrollTo(target instanceof HTMLElement ? target : 0, { immediate: true });
+      });
+    };
+    window.addEventListener("hashchange", onHashChange);
+
     return () => {
+      window.removeEventListener("hashchange", onHashChange);
       lenis.destroy();
       activeLenis = null;
     };

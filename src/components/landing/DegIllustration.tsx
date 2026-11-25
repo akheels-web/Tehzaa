@@ -12,9 +12,10 @@ const STEAM = [
 
 /**
  * A copper biryani deg sealed with a dough ring. When `open`, the dough cracks,
- * the lid lifts and tilts away, and steam rises.
+ * the lid lifts and tilts away, and (when `steaming`) steam rises. The steam is the
+ * only looping animation here, so callers stop it off-screen and under reduced motion.
  */
-export function DegIllustration({ open }: { open: boolean }) {
+export function DegIllustration({ open, steaming }: { open: boolean; steaming: boolean }) {
   return (
     <svg viewBox="0 -20 400 380" className="h-auto w-full" aria-hidden="true">
       <defs>
@@ -50,7 +51,7 @@ export function DegIllustration({ open }: { open: boolean }) {
       <ellipse cx="200" cy="122" rx="84" ry="14" fill="#5A3013" />
 
       {/* steam */}
-      {STEAM.map((d, i) => (
+      {steaming && STEAM.map((d, i) => (
         <motion.path
           key={d}
           d={d}

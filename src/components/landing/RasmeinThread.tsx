@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { RASMEIN, type Rasm } from "@/lib/landing/rasmein";
-import { indexFromProgress } from "@/lib/landing/progress";
+import { indexFromProgress, sliceScrollTarget } from "@/lib/landing/progress";
 import { useMotionAllowed } from "@/lib/landing/motionPreference";
 import { HOUSE_EASE } from "@/lib/landing/motion";
 import { getLenis } from "@/components/layout/SmoothScroll";
@@ -100,9 +100,14 @@ function PinnedThread() {
   const goTo = (i: number) => {
     const el = sectionRef.current;
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    const range = el.offsetHeight - window.innerHeight;
-    const target = top + range * (SCROLL_START + (SCROLL_SPAN * (i + 0.5)) / RASMEIN.length);
+    const target = sliceScrollTarget({
+      top: el.getBoundingClientRect().top + window.scrollY,
+      range: el.offsetHeight - window.innerHeight,
+      start: SCROLL_START,
+      span: SCROLL_SPAN,
+      index: i,
+      count: RASMEIN.length,
+    });
     const lenis = getLenis();
     if (lenis) lenis.scrollTo(target, { duration: 1.1 });
     else window.scrollTo({ top: target });
@@ -126,7 +131,7 @@ function PinnedThread() {
 
   return (
     <section ref={sectionRef} className="relative bg-marble-warm" style={{ height: `${RASMEIN.length * 60 + 60}vh` }}>
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
         <JaaliLattice />
         <div className="relative mx-auto grid w-full max-w-7xl grid-cols-12 items-center gap-10 px-8 pt-16">
           {/* Thread + rasm list */}

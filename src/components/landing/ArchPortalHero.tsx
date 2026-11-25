@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   motion,
+  useMotionTemplate,
   useMotionValue,
   useMotionValueEvent,
   useScroll,
@@ -89,17 +90,6 @@ function StaticHero() {
   );
 }
 
-function useViewport() {
-  const [vp, setVp] = useState({ w: 1280, h: 800 });
-  useEffect(() => {
-    const update = () => setVp({ w: window.innerWidth, h: window.innerHeight });
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-  return vp;
-}
-
 /**
  * Scene 01. A Deccani arch on ivory marble that, as you scroll, opens like a
  * palace doorway until the palace fills the screen: Falaknuma, then Charminar,
@@ -113,18 +103,16 @@ export function ArchPortalHero() {
 
 function PortalHero() {
   const ref = useRef<HTMLElement>(null);
-  const { w, h } = useViewport();
-  const isMobile = w < 768;
   const clipId = "hero-portal-arch";
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-  // Arch grows from a doorway to the full screen.
-  const startW = isMobile ? w * 0.56 : Math.min(w * 0.28, 330);
-  const startH = isMobile ? Math.min(startW * 1.42, h * 0.34) : Math.min(startW * 1.42, h * 0.6);
-  const archW = useRange(scrollYProgress, [0.08, 0.8], [startW, w * 1.02]);
-  const archH = useRange(scrollYProgress, [0.08, 0.8], [startH, h * 1.02]);
-  const archTop = useRange(scrollYProgress, [0.08, 0.8], [isMobile ? h * 0.32 : h * 0.54, h * 0.5]);
+  // Arch grows from a doorway to the full screen. Geometry is CSS (vw/svh + per-breakpoint
+  // start variables on the section), so the server HTML is already right on every device.
+  const grow = useRange(scrollYProgress, [0.08, 0.8], [0, 1]);
+  const archW = useMotionTemplate`calc(var(--arch-w0) + (102vw - var(--arch-w0)) * ${grow})`;
+  const archH = useMotionTemplate`calc(var(--arch-h0) + (102svh - var(--arch-h0)) * ${grow})`;
+  const archTop = useMotionTemplate`calc(var(--arch-top0) + (50svh - var(--arch-top0)) * ${grow})`;
 
   // Palace views cross-fade inside the arch; the last one dissolves to full-bleed.
   const charminarOpacity = useRange(scrollYProgress, [0.3, 0.42], [0, 1]);
@@ -137,9 +125,10 @@ function PortalHero() {
   const cueOpacity = useRange(scrollYProgress, [0, 0.05], [1, 0]);
 
   // Floating photos drift outward and away.
-  const leftX = useRange(scrollYProgress, [0, 0.5], [0, -w * 0.25]);
-  const rightX = useRange(scrollYProgress, [0, 0.5], [0, w * 0.25]);
-  const floatY = useRange(scrollYProgress, [0, 0.5], [0, -h * 0.2]);
+  const drift = useRange(scrollYProgress, [0, 0.5], [0, 1]);
+  const leftX = useMotionTemplate`calc(${drift} * -25vw)`;
+  const rightX = useMotionTemplate`calc(${drift} * 25vw)`;
+  const floatY = useMotionTemplate`calc(${drift} * -20svh)`;
   const floatOpacity = useRange(scrollYProgress, [0.25, 0.5], [1, 0]);
 
   // Cursor tilt on mouse devices.
@@ -170,9 +159,13 @@ function PortalHero() {
   const clip = { clipPath: `url(#${clipId})` };
 
   return (
-    <section ref={ref} id="top" className="relative h-[200vh] md:h-[250vh]">
+    <section
+      ref={ref}
+      id="top"
+      className="relative h-[200svh] [--arch-h0:min(calc(56vw*1.42),34svh)] [--arch-top0:32svh] [--arch-w0:56vw] md:h-[250svh] md:[--arch-h0:min(calc(min(28vw,330px)*1.42),60svh)] md:[--arch-top0:54svh] md:[--arch-w0:min(28vw,330px)]"
+    >
       <ArchClipDef id={clipId} />
-      <div className="sticky top-0 h-screen overflow-hidden bg-gradient-to-b from-marble to-marble-warm">
+      <div className="sticky top-0 h-[100svh] overflow-hidden bg-gradient-to-b from-marble to-marble-warm">
         <JaaliLattice />
         <Petals count={7} />
 

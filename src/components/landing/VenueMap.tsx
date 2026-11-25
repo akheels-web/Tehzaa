@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { MAP_VENUES } from "@/lib/landing/venues";
-import { JaaliLattice } from "./primitives/JaaliLattice";
+import { DepthJaali } from "./primitives/DepthJaali";
+import { ParallaxLayer } from "./primitives/ParallaxLayer";
 import { SceneHeading } from "./primitives/SceneHeading";
 import { HOUSE_EASE } from "@/lib/landing/motion";
 import { cn } from "@/lib/utils";
@@ -92,7 +93,7 @@ export function VenueMap() {
 
   return (
     <section className="relative overflow-hidden bg-marble py-24 lg:py-32">
-      <JaaliLattice />
+      <DepthJaali />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SceneHeading
           kicker="Shehar ki raunaq"
@@ -149,7 +150,8 @@ export function VenueMap() {
           </div>
 
           {/* Venue card */}
-          <div className="lg:col-span-4" aria-live="polite">
+          <ParallaxLayer speed={0.2} className="lg:col-span-4">
+          <div aria-live="polite">
             <AnimatePresence mode="wait" initial={false}>
               <motion.article
                 key={active.id}
@@ -170,6 +172,7 @@ export function VenueMap() {
               </motion.article>
             </AnimatePresence>
           </div>
+          </ParallaxLayer>
         </div>
       </div>
     </section>
