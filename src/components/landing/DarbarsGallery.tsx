@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
@@ -9,6 +9,7 @@ import { ArchFrame } from "./primitives/ArchFrame";
 import { JaaliLattice } from "./primitives/JaaliLattice";
 import { SceneHeading } from "./primitives/SceneHeading";
 import { useRange } from "./primitives/useRange";
+import { useMediaQuery } from "./primitives/useMediaQuery";
 import { useMotionAllowed } from "@/lib/landing/motionPreference";
 import { indexFromProgress } from "@/lib/landing/progress";
 import { HOUSE_EASE } from "@/lib/landing/motion";
@@ -23,23 +24,10 @@ const HEADING = {
 
 const count = (n: number) => `0${n + 1} / 0${SERVICES.length}`;
 
-/** True on wide screens with a mouse, where the pinned horizontal walk works best. */
-function useWideFinePointer() {
-  const [ok, setOk] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 768px) and (pointer: fine)");
-    const update = () => setOk(mql.matches);
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
-  }, []);
-  return ok;
-}
-
 /** Scene 03. The five services as arched doorways in a gallery you walk through. */
 export function DarbarsGallery() {
   const motionAllowed = useMotionAllowed();
-  const wide = useWideFinePointer();
+  const wide = useMediaQuery("(min-width: 768px) and (pointer: fine)");
   return motionAllowed && wide ? <PinnedGallery /> : <SnapGallery />;
 }
 

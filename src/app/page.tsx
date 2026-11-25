@@ -13,7 +13,7 @@ import { DarbarsGallery } from "@/components/landing/DarbarsGallery";
 import { DegReveal } from "@/components/landing/DegReveal";
 import { ParallaxGalleryShowcase } from "@/components/home/ParallaxGalleryShowcase";
 import { AnimatedPlanningTimeline } from "@/components/home/AnimatedPlanningTimeline";
-import { InteractiveTestimonials } from "@/components/home/InteractiveTestimonials";
+import { RasmeinThread } from "@/components/landing/RasmeinThread";
 import { VenueMap } from "@/components/landing/VenueMap";
 import { MotionReveal } from "@/components/home/MotionReveal";
 import { TehzeebDivider } from "@/components/deccani/DeccaniMotifs";
@@ -74,6 +74,8 @@ export default function HomePage() {
       <DegReveal />
 
       <VenueMap />
+
+      <RasmeinThread />
 
       {/* 4. Limestone Editorial Hyderabad Studio Story */}
       <InteractiveBrandStory />
@@ -142,7 +144,6 @@ export default function HomePage() {
       </section>
 
       {/* 9. Limestone Hand-Signed Wedding Guestbook */}
-      <InteractiveTestimonials testimonials={TESTIMONIALS} />
 
       {/* 10. Deep Obsidian Authentic Hyderabad Monuments Exhibition */}
 
