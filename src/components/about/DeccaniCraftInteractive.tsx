@@ -57,15 +57,15 @@ export function DeccaniCraftInteractive() {
   const current = HYDERABAD_LOVES[activeIdx] || HYDERABAD_LOVES[0];
 
   return (
-    <section className="py-20 lg:py-28 bg-obsidian text-ink-light border-y border-obsidian-line">
+    <section className="relative overflow-hidden py-20 lg:py-28 bg-marble-warm text-ink border-y border-brass/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mb-12 space-y-3">
-          <span className="editorial-kicker-light block">
+          <span className="editorial-kicker block">
             What inspires us every day
           </span>
-          <h2 className="display-section text-ink-light">
+          <h2 className="display-section text-ink">
             Four Things We{" "}
-            <span className="editorial-italic text-brass-light">
+            <span className="editorial-italic">
               Love About Hyderabad
             </span>
           </h2>
@@ -86,16 +86,16 @@ export function DeccaniCraftInteractive() {
                 aria-pressed={isSelected}
                 onClick={() => setActiveIdx(idx)}
                 className={cn(
-                  "text-left p-5 rounded-[2px] border transition-colors duration-200 cursor-pointer",
+                  "text-left p-5 border transition-colors duration-200 cursor-pointer",
                   isSelected
-                    ? "bg-obsidian-elevated text-ink-light border-brass-light"
-                    : "bg-obsidian/60 text-ink-lightMuted border-obsidian-line hover:border-brass/60 hover:text-ink-light"
+                    ? "bg-white text-ink border-ruby shadow-ruby"
+                    : "bg-marble text-ink-muted border-brass/40 hover:border-ruby hover:text-ink"
                 )}
               >
                 <span
                   className={cn(
                     "block text-[11px] font-semibold uppercase tracking-[0.18em] tabular-nums mb-1.5",
-                    isSelected ? "text-brass-light" : "text-brass"
+                    isSelected ? "text-ruby" : "text-brass-dark"
                   )}
                 >
                   {item.num}
@@ -111,7 +111,7 @@ export function DeccaniCraftInteractive() {
         {/* Exhibition Stage */}
         <div
           aria-live="polite"
-          className="rounded-[2px] border border-obsidian-line bg-obsidian-elevated p-6 sm:p-10 lg:p-12 shadow-obsidian"
+          className="border-[6px] border-white bg-white p-6 sm:p-10 lg:p-12 shadow-ruby outline outline-1 outline-offset-4 outline-brass/40"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -123,8 +123,8 @@ export function DeccaniCraftInteractive() {
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
             >
               <div className="lg:col-span-5">
-                <div className="gallery-frame-dark">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-obsidian">
+                <div className="gallery-frame">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-marble-warm">
                     <Image
                       src={current.image}
                       alt={current.alt}
@@ -137,20 +137,20 @@ export function DeccaniCraftInteractive() {
               </div>
 
               <div className="lg:col-span-7 space-y-5">
-                <span className="editorial-kicker-light block">
+                <span className="editorial-kicker block">
                   {current.subtitle}
                 </span>
-                <h3 className="display-section text-ink-light">
+                <h3 className="display-section text-ink">
                   {current.tab}
                 </h3>
-                <p className="text-[15px] sm:text-[17px] text-ink-lightMuted leading-[1.7]">
+                <p className="text-[15px] sm:text-[17px] text-ink-muted leading-[1.7]">
                   {current.story}
                 </p>
                 <div className="flex flex-wrap gap-2.5 pt-2">
                   {current.details.map((mat) => (
                     <span
                       key={mat}
-                      className="px-3.5 py-1.5 rounded-[2px] bg-obsidian border border-obsidian-line text-xs font-medium text-ink-light"
+                      className="px-3.5 py-1.5 bg-marble border border-brass/40 text-xs font-medium text-ink"
                     >
                       {mat}
                     </span>
