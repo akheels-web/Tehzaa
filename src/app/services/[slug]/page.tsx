@@ -13,6 +13,8 @@ import { ThreadFaq } from "@/components/landing/primitives/ThreadFaq";
 import { DepthJaali } from "@/components/landing/primitives/DepthJaali";
 import { DawatnamaCTA } from "@/components/landing/DawatnamaCTA";
 import { SetupsFilmstrip } from "@/components/inner/SetupsFilmstrip";
+import { ProcessionLane } from "@/components/inner/ProcessionLane";
+import { SHOWCASE_BY_SERVICE } from "@/data/showcase";
 import { CulinaryMenuExplorer } from "@/components/services/CulinaryMenuExplorer";
 import { CateringPageExperience } from "@/components/services/CateringPageExperience";
 import { DecorTraditionStudio } from "@/components/services/DecorTraditionStudio";
@@ -260,7 +262,7 @@ export default async function ServiceDetailPage({
 
               {/* Interactive world per service */}
               {service.id === "floral-decorations" && <DecorTraditionStudio />}
-              {(service.id === "baraat" || service.id === "corporate-events" || service.id === "family-celebrations") && (
+              {(service.id === "corporate-events" || service.id === "family-celebrations") && (
                 <DisciplineInteractiveShowcase serviceId={service.id} />
               )}
               {service.menuCollections && service.menuCollections.length > 0 && (
@@ -362,6 +364,9 @@ export default async function ServiceDetailPage({
           </div>
         </div>
       </section>
+
+      {/* Baraat signature: the procession (replaces the tabbed showcase on this page) */}
+      {service.id === "baraat" && <ProcessionLane items={SHOWCASE_BY_SERVICE.baraat.items} />}
 
       {/* Real setups filmstrip */}
       {relatedGallery.length > 0 && (

@@ -83,7 +83,8 @@ export function PageHero({
           <RevealTitle
             as="h1"
             italicTail={italicTail}
-            className={cn("leading-[0.95]", compact ? "text-[clamp(2.6rem,5.5vw,4.75rem)]" : "text-[clamp(2.8rem,6vw,5.5rem)]")}
+            // size first: tailwind-merge drops a leading-* that precedes a text-* size
+            className={cn(compact ? "text-[clamp(2.6rem,5.5vw,4.75rem)]" : "text-[clamp(2.8rem,6vw,5.5rem)]", "leading-[0.95]")}
           >
             {title}
           </RevealTitle>
